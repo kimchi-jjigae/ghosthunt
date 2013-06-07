@@ -6,6 +6,6 @@ void GameplayState::setup()
 
 std::string GameplayState::run()
 {
-    std::cout << renderer.hej << "\n";
+    renderer.render();
     return "";
 }
