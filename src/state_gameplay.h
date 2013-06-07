@@ -7,7 +7,6 @@
 #include <framework/application/gamestatemachine.h>
 #include <SFML/Graphics.hpp>
 #include "renderer.h"
-#include "tile.h"
 #include <iostream>
 
 class GameplayState : public windstorm::GameState

@@ -6,7 +6,7 @@ class Renderer
 {
     public:
         Renderer();
-        void render();
+        void render(sf::RenderWindow& window);
     private:
         int tileSize;
         sf::Texture dungeonTexture;

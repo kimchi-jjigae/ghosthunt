@@ -1,8 +1,8 @@
 enum GhostState { NONE, GOOD, BAD };
-enum PlayerState { NONE, ONE, TWO };
+enum PlayerState { NEITHER, ONE, TWO };
 
-struct Tile;
+struct Tile
 {
     GhostState ghostState;
     PlayerState playerState;
-}
+};

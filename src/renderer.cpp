@@ -2,19 +2,19 @@
 
 Renderer::Renderer()
 {
-    tileSize = 32;
-    dungeonTexture.loadFromFile("../data/dungeon.png");
-    dungeonSprite(dungeonTexture);
+    tileSize = 100;
+    dungeonTexture.loadFromFile("data/dungeon.png");
+    dungeonSprite.setTexture(dungeonTexture);
 }
 
-void Renderer::render()
+void Renderer::render(sf::RenderWindow& window)
 {
     window.clear();
     
     //draw dungeon grid
-    for (i = 0, i < 6, i++)
+    for (int i = 0; i < 6; i++)
     {
-        for (j = 0, j < 6, j++)
+        for (int j = 0; j < 6; j++)
         {
             dungeonSprite.setPosition(i * tileSize, j * tileSize);
             window.draw(dungeonSprite);
