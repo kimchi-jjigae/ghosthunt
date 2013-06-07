@@ -7,9 +7,8 @@
 #include <framework/application/gamestatemachine.h>
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include <cstring>
 
-class Particles : public windstorm::Application
+class Ghosthunt : public windstorm::Application
 {
     public:
         void setup() override;
@@ -26,4 +25,3 @@ class Particles : public windstorm::Application
         windbreeze::InputHandler inputHandler = sfmlInputBackend;
         windbreeze::ActionHandler<std::string> actionHandler;
 };
-

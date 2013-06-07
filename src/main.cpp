@@ -1,5 +1,5 @@
-#include <iostream>
-#include <framework/application/application.h>
+#include "ghosthunt.h"
+#include 
 
 int main()
 { 
@@ -8,7 +8,5 @@ int main()
     ghosthunt.setup();
     ghosthunt.run();
     ghosthunt.destroy();
-
-    std::cout << "hej\n";
 }
 

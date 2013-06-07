@@ -1,23 +1,21 @@
 #include "ghosthunt.h"
-#include "particlestate.h"
-#include "splashstate.h"
+#include "state_gameplay.h"
 
-void Particles::setup()
+void Ghosthunt::setup()
 {
-    window.create(windbreeze::VideoMode(1366, 768), "Particles");
+    window.create(windbreeze::VideoMode(640, 480), "GHOST HUNT");
     window.setFramerateLimit(60);
 
-    stateMachine.addGameState("splash", std::shared_ptr<SplashState>(new SplashState(sfWindow, inputHandler)));
-    stateMachine.addGameState("particles", std::shared_ptr<ParticleState>(new ParticleState(sfWindow, inputHandler, actionHandler)));
-    stateMachine.setCurrentState("splash");
+    stateMachine.addGameState("gameplay", std::shared_ptr<GameplayState>(new GameplayState(sfWindow, inputHandler, actionHandler)));
+    stateMachine.setCurrentState("gameplay");
 }
 
-void Particles::destroy()
+void Ghosthunt::destroy()
 {
     window.close();
 }
 
-void Particles::loop()
+void Ghosthunt::loop()
 {
     stateMachine.run();
 
