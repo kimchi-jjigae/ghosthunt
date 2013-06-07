@@ -1,9 +1,8 @@
 #include "ghosthunt.h"
-#include 
 
 int main()
 { 
-    ApplicationImplementation ghosthunt;
+    GhostHunt ghosthunt;
 
     ghosthunt.setup();
     ghosthunt.run();

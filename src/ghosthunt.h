@@ -8,7 +8,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-class Ghosthunt : public windstorm::Application
+class GhostHunt : public windstorm::Application
 {
     public:
         void setup() override;
