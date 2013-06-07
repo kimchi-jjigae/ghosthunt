@@ -6,6 +6,7 @@
 #include <framework/util/sfml/sfmlwindowbackend.h>
 #include <framework/application/gamestatemachine.h>
 #include <SFML/Graphics.hpp>
+#include "renderer.h"
 #include <iostream>
 
 class GameplayState : public windstorm::GameState
@@ -24,4 +25,5 @@ class GameplayState : public windstorm::GameState
         windbreeze::InputHandler& inputHandler;
         windbreeze::ActionHandler<std::string>& actionHandler;
         std::string BAJS;
+        Renderer renderer;
 };

@@ -2,11 +2,10 @@
 
 void GameplayState::setup()
 {
-    BAJS = "bajs";
 }
 
 std::string GameplayState::run()
 {
-    std::cout << BAJS << "\n";
+    std::cout << renderer.hej << "\n";
     return "";
 }
