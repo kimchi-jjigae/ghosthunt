@@ -24,6 +24,8 @@ class GameplayState : public windstorm::GameState
         sf::RenderWindow& sfWindow;
         windbreeze::InputHandler& inputHandler;
         windbreeze::ActionHandler<std::string>& actionHandler;
-        std::string BAJS;
         Renderer renderer;
+
+        std::string BAJS;
+        
 };
