@@ -1,7 +1,7 @@
 #include "ghosthunt.h"
 #include "state_gameplay.h"
 
-void Ghosthunt::setup()
+void GhostHunt::setup()
 {
     window.create(windbreeze::VideoMode(640, 480), "GHOST HUNT");
     window.setFramerateLimit(60);
@@ -10,12 +10,12 @@ void Ghosthunt::setup()
     stateMachine.setCurrentState("gameplay");
 }
 
-void Ghosthunt::destroy()
+void GhostHunt::destroy()
 {
     window.close();
 }
 
-void Ghosthunt::loop()
+void GhostHunt::loop()
 {
     stateMachine.run();
 
