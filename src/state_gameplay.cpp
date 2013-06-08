@@ -27,10 +27,16 @@ std::string GameplayState::run()
         {
             if (event.mouseButton.button == windbreeze::Mouse::LEFT)
             {
-                int xPos = event.mouseButton.x;
-                int yPos = event.mouseButton.y;
-                std::cout << "int x: " << xPos << "\n";
-                std::cout << "int y: " << yPos << "\n";
+                int tileSize = renderer.getTileSize();
+                int xTile = event.mouseButton.x/tileSize;
+                int yTile = event.mouseButton.y/tileSize;
+
+                std::cout << "tile x: " << xTile << ", ";
+                std::cout << "tile y: " << yTile << "\n";
+
+                Tile& selectedTile = tileGrid[yTile][xTile];
+                selectedTile.ghostState = NONE;
+                selectedTile.playerState = NEITHER;
             }
         }
     }

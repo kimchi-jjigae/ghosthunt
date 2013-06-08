@@ -9,6 +9,7 @@ class Renderer
         Renderer();
         void render(sf::RenderWindow& window, std::vector<std::vector<Tile> >& grid);
         void renderText(sf::RenderWindow& window, std::string& string);
+        int getTileSize();
     private:
         int tileSize;
         sf::Texture dungeonTexture;

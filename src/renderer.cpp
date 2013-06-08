@@ -18,6 +18,11 @@ Renderer::Renderer()
     text.setColor(sf::Color(255,0,0));
 }
 
+int Renderer::getTileSize()
+{
+    return tileSize;
+}
+
 void Renderer::render(sf::RenderWindow& window, std::vector<std::vector<Tile> >& grid)
 {
     window.clear();
@@ -27,9 +32,9 @@ void Renderer::render(sf::RenderWindow& window, std::vector<std::vector<Tile> >&
     {
         for (int j = 0; j < 6; j++)
         {
-            Tile currentTile = grid[i][j];
-            int x = j * tileSize;
-            int y = i * tileSize;
+            Tile currentTile = grid[j][i];
+            int x = i * tileSize;
+            int y = j * tileSize;
 
             //draw dungeon grid
             dungeonSprite.setPosition(x, y);
