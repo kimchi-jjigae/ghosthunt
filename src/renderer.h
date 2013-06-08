@@ -6,7 +6,7 @@ class Renderer
 {
     public:
         Renderer();
-        void render(sf::RenderWindow& window, std::vector<std::vector<Tile> > tileArray);
+        void render(sf::RenderWindow& window, std::vector<std::vector<Tile> >& array);
     private:
         int tileSize;
         sf::Texture dungeonTexture;
