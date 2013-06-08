@@ -1,5 +1,6 @@
 #include "ghosthunt.h"
 #include "state_gameplay.h"
+#include "state_exit.h"
 
 void GhostHunt::setup()
 {
@@ -7,6 +8,7 @@ void GhostHunt::setup()
     window.setFramerateLimit(60);
 
     stateMachine.addGameState("gameplay", std::shared_ptr<GameplayState>(new GameplayState(sfWindow, inputHandler, actionHandler)));
+    stateMachine.addGameState("exit", std::shared_ptr<ExitState>(new ExitState(sfWindow, inputHandler)));
     stateMachine.setCurrentState("gameplay");
 }
 

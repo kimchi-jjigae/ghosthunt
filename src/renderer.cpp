@@ -62,15 +62,17 @@ void Renderer::render(sf::RenderWindow& window, std::vector<std::vector<Tile> >&
 
 void Renderer::renderText(sf::RenderWindow& window, std::string& string)
 {
+    window.clear();
     text.setString(string);
 
     for (int i = 0; i < 6; i++)
     {
         for (int j = 0; j < 6; j++)
         {
-            int x = j * tileSize;
+            int x = j * 5 * tileSize;
             int y = i * tileSize;
 
+            text.setPosition(x,y);
             window.draw(text);
         }
     }
