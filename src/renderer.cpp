@@ -11,38 +11,48 @@ Renderer::Renderer()
     ghostSpriteGood.setTexture(ghostTexture);
     ghostSpriteBad.setTexture(ghostTexture);
     ghostSpriteUnknown.setTextureRect(sf::IntRect(0, 0, 100, 100));
-    ghostSpriteGood.setTextureRect(sf::IntRect(0, 100, 200, 100));
-    ghostSpriteBad.setTextureRect(sf::IntRect(0, 200, 300, 100));
+    ghostSpriteGood.setTextureRect(sf::IntRect(100, 0, 100, 100));
+    ghostSpriteBad.setTextureRect(sf::IntRect(200, 0, 100, 100));
 }
 
 void Renderer::render(sf::RenderWindow& window, std::vector<std::vector<Tile> >& grid)
 {
     window.clear();
     
-    //draw dungeon grid
+    //iterate through the grid
     for (int i = 0; i < 6; i++)
     {
         for (int j = 0; j < 6; j++)
         {
             Tile currentTile = grid[i][j];
-            dungeonSprite.setPosition(i * tileSize, j * tileSize);
+            int x = i * tileSize;
+            int y = j * tileSize;
+
+            //draw dungeon grid
+            dungeonSprite.setPosition(x, y);
             window.draw(dungeonSprite);
+
+            //draw ghosts
             if (currentTile.playerState == ONE)
             {
+                std::cout << "one bajs\n";
                 if (currentTile.ghostState == GOOD)
                 {
-                    ghostSpriteGood.setPosition(i * tileSize, j * tileSize);
+                std::cout << "good bajs\n";
+                    ghostSpriteGood.setPosition(x, y);
                     window.draw(ghostSpriteGood);
                 }
                 else if (currentTile.ghostState == BAD)
                 {
-                    ghostSpriteBad.setPosition(i * tileSize, j * tileSize);
+                std::cout << "bad bajs\n";
+                    ghostSpriteBad.setPosition(x, y);
                     window.draw(ghostSpriteBad);
                 }
             }
             else if (currentTile.playerState == TWO)
             {
-                ghostSpriteUnknown.setPosition(i * tileSize, j * tileSize);
+                std::cout << "two bajs\n";
+                ghostSpriteUnknown.setPosition(x, y);
                 window.draw(ghostSpriteUnknown);
             }
         }
