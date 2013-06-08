@@ -13,6 +13,9 @@ Renderer::Renderer()
     ghostSpriteUnknown.setTextureRect(sf::IntRect(0, 0, 100, 100));
     ghostSpriteGood.setTextureRect(sf::IntRect(100, 0, 100, 100));
     ghostSpriteBad.setTextureRect(sf::IntRect(200, 0, 100, 100));
+    font.loadFromFile("data/acmesa.TTF");
+    text.setFont(font);
+    text.setColor(sf::Color(255,0,0));
 }
 
 void Renderer::render(sf::RenderWindow& window, std::vector<std::vector<Tile> >& grid)
@@ -51,6 +54,24 @@ void Renderer::render(sf::RenderWindow& window, std::vector<std::vector<Tile> >&
                 ghostSpriteUnknown.setPosition(x, y);
                 window.draw(ghostSpriteUnknown);
             }
+        }
+    }
+
+    window.display();
+}
+
+void Renderer::renderText(sf::RenderWindow& window, std::string& string)
+{
+    text.setString(string);
+
+    for (int i = 0; i < 6; i++)
+    {
+        for (int j = 0; j < 6; j++)
+        {
+            int x = j * tileSize;
+            int y = i * tileSize;
+
+            window.draw(text);
         }
     }
 

@@ -7,6 +7,7 @@ class Renderer
     public:
         Renderer();
         void render(sf::RenderWindow& window, std::vector<std::vector<Tile> >& grid);
+        void renderText(sf::RenderWindow& window, std::string& string);
     private:
         int tileSize;
         sf::Texture dungeonTexture;
@@ -15,4 +16,7 @@ class Renderer
         sf::Sprite ghostSpriteUnknown;
         sf::Sprite ghostSpriteGood;
         sf::Sprite ghostSpriteBad;
+
+        sf::Font font;
+        sf::Text text;
 };
