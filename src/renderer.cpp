@@ -15,7 +15,7 @@ Renderer::Renderer()
     ghostSpriteBad.setTextureRect(sf::IntRect(0, 200, 300, 100));
 }
 
-void Renderer::render(sf::RenderWindow& window, std::vector<std::vector<Tile> >& array)
+void Renderer::render(sf::RenderWindow& window, std::vector<std::vector<Tile> >& grid)
 {
     window.clear();
     
@@ -24,22 +24,23 @@ void Renderer::render(sf::RenderWindow& window, std::vector<std::vector<Tile> >&
     {
         for (int j = 0; j < 6; j++)
         {
+            Tile currentTile = grid[i][j];
             dungeonSprite.setPosition(i * tileSize, j * tileSize);
             window.draw(dungeonSprite);
-            if (array[i][j].playerState == ONE)
+            if (currentTile.playerState == ONE)
             {
-                if (array.ghostState == GOOD)
+                if (currentTile.ghostState == GOOD)
                 {
                     ghostSpriteGood.setPosition(i * tileSize, j * tileSize);
                     window.draw(ghostSpriteGood);
                 }
-                else if (array.ghostState == BAD)
+                else if (currentTile.ghostState == BAD)
                 {
                     ghostSpriteBad.setPosition(i * tileSize, j * tileSize);
                     window.draw(ghostSpriteBad);
                 }
             }
-            else if (array.playerState == TWO)
+            else if (currentTile.playerState == TWO)
             {
                 ghostSpriteUnknown.setPosition(i * tileSize, j * tileSize);
                 window.draw(ghostSpriteUnknown);

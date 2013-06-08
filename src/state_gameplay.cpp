@@ -6,6 +6,6 @@ void GameplayState::setup()
 
 std::string GameplayState::run()
 {
-    renderer.render(sfWindow, tileArray);
+    renderer.render(sfWindow, tileGrid);
     return "";
 }
