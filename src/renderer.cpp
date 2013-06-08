@@ -25,8 +25,8 @@ void Renderer::render(sf::RenderWindow& window, std::vector<std::vector<Tile> >&
         for (int j = 0; j < 6; j++)
         {
             Tile currentTile = grid[i][j];
-            int x = i * tileSize;
-            int y = j * tileSize;
+            int x = j * tileSize;
+            int y = i * tileSize;
 
             //draw dungeon grid
             dungeonSprite.setPosition(x, y);
@@ -35,23 +35,19 @@ void Renderer::render(sf::RenderWindow& window, std::vector<std::vector<Tile> >&
             //draw ghosts
             if (currentTile.playerState == ONE)
             {
-                std::cout << "one bajs\n";
                 if (currentTile.ghostState == GOOD)
                 {
-                std::cout << "good bajs\n";
                     ghostSpriteGood.setPosition(x, y);
                     window.draw(ghostSpriteGood);
                 }
                 else if (currentTile.ghostState == BAD)
                 {
-                std::cout << "bad bajs\n";
                     ghostSpriteBad.setPosition(x, y);
                     window.draw(ghostSpriteBad);
                 }
             }
             else if (currentTile.playerState == TWO)
             {
-                std::cout << "two bajs\n";
                 ghostSpriteUnknown.setPosition(x, y);
                 window.draw(ghostSpriteUnknown);
             }
