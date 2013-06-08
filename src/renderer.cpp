@@ -5,6 +5,8 @@ Renderer::Renderer()
     tileSize = 100;
     dungeonTexture.loadFromFile("data/dungeon.png");
     dungeonSprite.setTexture(dungeonTexture);
+    dungeonSelectedSprite.setTexture(dungeonTexture);
+    ghostSpriteUnknown.setTextureRect(sf::IntRect(100, 0, 100, 100));
     
     ghostTexture.loadFromFile("data/ghost.png");
     ghostSpriteUnknown.setTexture(ghostTexture);
@@ -23,6 +25,18 @@ int Renderer::getTileSize()
     return tileSize;
 }
 
+void Renderer::setSelectedTile(int x, int y)
+{
+    selected = true;
+    selectedX = x;
+    selectedY = y;
+}
+
+void Renderer::setSelected(bool select)
+{
+    selected = select;
+}
+
 void Renderer::render(sf::RenderWindow& window, std::vector<std::vector<Tile> >& grid)
 {
     window.clear();
@@ -37,8 +51,16 @@ void Renderer::render(sf::RenderWindow& window, std::vector<std::vector<Tile> >&
             int y = j * tileSize;
 
             //draw dungeon grid
-            dungeonSprite.setPosition(x, y);
-            window.draw(dungeonSprite);
+            if (selected)
+            {
+                dungeonSelectedSprite.setPosition(selectedX, selectedY);
+                window.draw(dungeonSelectedSprite);
+            }
+            else
+            {
+                dungeonSprite.setPosition(x, y);
+                window.draw(dungeonSprite);
+            }
 
             //draw ghosts
             if (currentTile.playerState == ONE)
