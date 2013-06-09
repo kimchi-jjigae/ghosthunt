@@ -6,6 +6,15 @@ void GameplayState::setup()
     loseString = "NEEEEEJ YOU LOST";
 }
 
+void GameplayState::setTileAsSelected(int x, int y)
+{
+    selected = true;
+    selectedX = x;
+    selectedY = y;
+    selectedTile = tileGrid[y][x];
+    renderer.setSelectedTile(x, y);
+}
+
 std::string GameplayState::run()
 {
     windbreeze::Event event;
@@ -33,36 +42,27 @@ std::string GameplayState::run()
                 int xTile = event.mouseButton.x/tileSize;
                 int yTile = event.mouseButton.y/tileSize;
 
-                //std::cout << "tile x: " << xTile << ", ";
-                //std::cout << "tile y: " << yTile << "\n";
-
-                //make sure it is within bounds
                 if ((xTile <= 5 && xTile >= 0) && (yTile <= 5 && yTile >= 0))
                 {
                     Tile& clickedTile = tileGrid[yTile][xTile];
                     if (selected)
                     {
-                        std::cout << "hej\n";
+                        // reselect another tile
                         if (clickedTile.playerState == ONE)
                         {
-                            renderer.setSelectedTile(xTile, yTile);
-                            selected = true;
-                            selectedX = xTile;
-                            selectedY = yTile;
-                            selectedTile = tileGrid[selectedY][selectedX];
+                            setTileAsSelected(xTile, yTile);
                         }
+                        // check if selecting a surrounding tile
                         else if (((xTile == selectedX + 1 || xTile == selectedX - 1) && yTile == selectedY)
                               || ((yTile == selectedY + 1 || yTile == selectedY - 1) && xTile == selectedX))
                         {
-                            std::cout << "YEAH\n";
-                            // have an if for winning (check if good ghost and select exit) - later
-                            // if empty tile
-                            // if ghost of others
+                            // if clicked tile is a good enemy
                             if (clickedTile.ghostState == GOOD)
                             {
                                 enemyGoodCaptured++;
                                 std::cout << "yay you captured a good enemy! good antal: " << enemyGoodCaptured << "\n";
                             }
+                            // if clicked tile is a bad enemy
                             else if (clickedTile.ghostState == BAD)
                             {
                                 enemyBadCaptured++;
@@ -72,17 +72,14 @@ std::string GameplayState::run()
                             tileGrid[selectedY][selectedX].playerState = NEITHER;
                             tileGrid[selectedY][selectedX].ghostState = NONE;
                             renderer.setSelectedTile(-1, -1);
+                            selected = false;
                         }
                     }
                     else
                     {
                         if (clickedTile.playerState == ONE)
                         {
-                            renderer.setSelectedTile(xTile, yTile);
-                            selected = true;
-                            selectedX = xTile;
-                            selectedY = yTile;
-                            selectedTile = tileGrid[selectedY][selectedX];
+                            setTileAsSelected(xTile, yTile);
                         }
                     }
                 }

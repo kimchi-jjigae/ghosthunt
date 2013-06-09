@@ -20,6 +20,7 @@ class GameplayState : public windstorm::GameState
         std::string run() override;
         //virtual void destroy() {}
         //virtual ~GameState() {}
+
     private:
         sf::RenderWindow& sfWindow;
         windbreeze::InputHandler& inputHandler;
@@ -42,4 +43,5 @@ class GameplayState : public windstorm::GameState
         Tile selectedTile;
         std::string winString;
         std::string loseString;
+        void setTileAsSelected(int x, int y);
 };
