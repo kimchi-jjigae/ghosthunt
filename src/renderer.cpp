@@ -9,7 +9,8 @@ Renderer::Renderer()
     dungeonTexture.loadFromFile("data/dungeon.png");
     dungeonSprite.setTexture(dungeonTexture);
     dungeonSelectedSprite.setTexture(dungeonTexture);
-    ghostSpriteUnknown.setTextureRect(sf::IntRect(100, 0, 100, 100));
+    dungeonSprite.setTextureRect(sf::IntRect(0, 0, 100, 100));
+    dungeonSelectedSprite.setTextureRect(sf::IntRect(100, 0, 100, 100));
     
     ghostTexture.loadFromFile("data/ghost.png");
     ghostSpriteUnknown.setTexture(ghostTexture);
@@ -49,12 +50,14 @@ void Renderer::render(sf::RenderWindow& window, std::vector<std::vector<Tile> >&
             int y = j * tileSize;
 
             //draw dungeon grid
+            
             if (i == selectedX && j == selectedY)
             {
                 std::cout << "yo\n";
-                dungeonSelectedSprite.setPosition(selectedX, selectedY);
+                dungeonSelectedSprite.setPosition(selectedX * tileSize, selectedY * tileSize);
                 window.draw(dungeonSelectedSprite);
             }
+           
             else
             {
                 dungeonSprite.setPosition(x, y);
