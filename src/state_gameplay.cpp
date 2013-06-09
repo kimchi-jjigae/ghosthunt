@@ -8,7 +8,10 @@ std::string GameplayState::run()
 {
     windbreeze::Event event;
     std::string nextState;
-    bool selected;
+    bool selected = false;
+    int selectedX = -1;
+    int selectedY = -1;
+    Tile selectedTile;
 
     inputHandler.processEvents();
     while (inputHandler.pollEvent(event))
@@ -31,14 +34,12 @@ std::string GameplayState::run()
                 int tileSize = renderer.getTileSize();
                 int xTile = event.mouseButton.x/tileSize;
                 int yTile = event.mouseButton.y/tileSize;
-                int selectedX;
-                int selectedY;
 
                 std::cout << "tile x: " << xTile << ", ";
                 std::cout << "tile y: " << yTile << "\n";
 
-//make sure it is within bounds
-                if (xTile < 6 && yTile < 6)
+                //make sure it is within bounds
+                if ((xTile <= 5 && xTile >= 0) && (yTile <= 5 && yTile >= 0))
                 {
                     Tile& clickedTile = tileGrid[yTile][xTile];
                     if (selected)
@@ -49,15 +50,21 @@ std::string GameplayState::run()
                             selected = true;
                             selectedX = xTile;
                             selectedY = yTile;
-                            int bajs = selectedY + selectedX;
+                            selectedTile = tileGrid[selectedY][selectedX];
                         }
-                        /*
                         else if ((xTile == selectedX + 1 || xTile == selectedX - 1)
-                              && (yTile == selectedY + 1 || yTile == selectedY -1))
+                              && (yTile == selectedY + 1 || yTile == selectedY - 1))
                         {
-                            if (
+                            // have an if for winning (check if good ghost and select exit)
+                            // if for checking boundary - but already checked for? :O
+                            // if empty tile
+                            // if ghost of others
+                            // if ghost of self
+                            int bajs = selectedY + selectedX;
+                            tileGrid[selectedY][selectedX] = selectedTile;
+                            tileGrid[yTile][xTile].playerState = NEITHER;
+                            tileGrid[yTile][xTile].ghostState = NONE;
                         }
-                        */
                     }
                     else
                     {
@@ -67,6 +74,7 @@ std::string GameplayState::run()
                             selected = true;
                             selectedX = xTile;
                             selectedY = yTile;
+                            selectedTile = tileGrid[selectedY][selectedX];
                         }
                     }
                 }
