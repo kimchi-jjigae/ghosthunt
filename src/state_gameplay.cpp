@@ -2,6 +2,8 @@
 
 void GameplayState::setup()
 {
+    winString = "YOU WIN!!! :D";
+    loseString = "NEEEEEJ YOU LOST";
 }
 
 std::string GameplayState::run()
@@ -52,14 +54,21 @@ std::string GameplayState::run()
                         else if (((xTile == selectedX + 1 || xTile == selectedX - 1) && yTile == selectedY)
                               || ((yTile == selectedY + 1 || yTile == selectedY - 1) && xTile == selectedX))
                         {
-
                             std::cout << "YEAH\n";
-                            // have an if for winning (check if good ghost and select exit)
-                            // if for checking boundary - but already checked for? :O
+                            // have an if for winning (check if good ghost and select exit) - later
                             // if empty tile
                             // if ghost of others
-                            // if ghost of self
-                            tileGrid[yTile][xTile] = selectedTile;
+                            if (clickedTile.ghostState == GOOD)
+                            {
+                                enemyGoodCaptured++;
+                                std::cout << "yay you captured a good enemy! good antal: " << enemyGoodCaptured << "\n";
+                            }
+                            else if (clickedTile.ghostState == BAD)
+                            {
+                                enemyBadCaptured++;
+                                std::cout << "NEEEEEEEEJ you captured a bad enemy! bad antal: " << enemyBadCaptured << "\n";
+                            }
+                            clickedTile = selectedTile;
                             tileGrid[selectedY][selectedX].playerState = NEITHER;
                             tileGrid[selectedY][selectedX].ghostState = NONE;
                             renderer.setSelectedTile(-1, -1);
@@ -81,6 +90,18 @@ std::string GameplayState::run()
             }
         }
     }
-    renderer.render(sfWindow, tileGrid);
+
+    if (enemyGoodCaptured == 4)
+    {
+        renderer.renderText(sfWindow, winString);
+    }
+    else if (enemyBadCaptured == 4)
+    {
+        renderer.renderText(sfWindow, loseString);
+    }
+    else
+    {
+        renderer.render(sfWindow, tileGrid);
+    }
     return nextState;
 }
