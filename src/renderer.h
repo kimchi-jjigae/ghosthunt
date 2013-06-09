@@ -14,7 +14,6 @@ class Renderer
     private:
         int tileSize;
         
-        bool selected;
         int selectedX;
         int selectedY;
 

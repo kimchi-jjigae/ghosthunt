@@ -2,7 +2,6 @@
 
 Renderer::Renderer()
 {
-    selected = false;
     selectedX = -1;
     selectedY = -1;
     tileSize = 100;
@@ -33,7 +32,6 @@ void Renderer::setSelectedTile(int x, int y)
 {
     selectedX = x;
     selectedY = y;
-    std::cout << "selected: " << selectedX << " och " << selectedY << "\n";
 }
 
 void Renderer::render(sf::RenderWindow& window, std::vector<std::vector<Tile> >& grid)

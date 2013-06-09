@@ -62,6 +62,7 @@ std::string GameplayState::run()
                             tileGrid[yTile][xTile] = selectedTile;
                             tileGrid[selectedY][selectedX].playerState = NEITHER;
                             tileGrid[selectedY][selectedX].ghostState = NONE;
+                            renderer.setSelectedTile(-1, -1);
                         }
                     }
                     else
