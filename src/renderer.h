@@ -11,7 +11,6 @@ class Renderer
         void renderText(sf::RenderWindow& window, std::string& string);
         int getTileSize();
         void setSelectedTile(int x, int y);
-        void setSelected(bool select);
     private:
         int tileSize;
         

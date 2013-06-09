@@ -2,6 +2,9 @@
 
 Renderer::Renderer()
 {
+    selected = false;
+    selectedX = -1;
+    selectedY = -1;
     tileSize = 100;
     dungeonTexture.loadFromFile("data/dungeon.png");
     dungeonSprite.setTexture(dungeonTexture);
@@ -27,14 +30,9 @@ int Renderer::getTileSize()
 
 void Renderer::setSelectedTile(int x, int y)
 {
-    selected = true;
     selectedX = x;
     selectedY = y;
-}
-
-void Renderer::setSelected(bool select)
-{
-    selected = select;
+    std::cout << "selected: " << selectedX << " och " << selectedY << "\n";
 }
 
 void Renderer::render(sf::RenderWindow& window, std::vector<std::vector<Tile> >& grid)
@@ -51,8 +49,9 @@ void Renderer::render(sf::RenderWindow& window, std::vector<std::vector<Tile> >&
             int y = j * tileSize;
 
             //draw dungeon grid
-            if (selected)
+            if (i == selectedX && j == selectedY)
             {
+                std::cout << "yo\n";
                 dungeonSelectedSprite.setPosition(selectedX, selectedY);
                 window.draw(dungeonSelectedSprite);
             }
