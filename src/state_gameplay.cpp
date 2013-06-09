@@ -15,6 +15,71 @@ void GameplayState::setTileAsSelected(int x, int y)
     renderer.setSelectedTile(x, y);
 }
 
+void GameplayState::deselectTile()
+{
+    selected = false;
+    renderer.setSelectedTile(-1, -1);
+}
+
+bool GameplayState::surroundingSelectedTile(int x, int y)
+{
+    return (((x == selectedX + 1 || x == selectedX - 1) && y == selectedY)
+        || ((y == selectedY + 1 || y == selectedY - 1) && x == selectedX));
+}
+
+void GameplayState::moveGhostTo(Tile& tile)
+{
+    if (tile.ghostState == GOOD)
+    {
+        enemyGoodCaptured++;
+        std::cout << "yay you captured a good enemy! good antal: " << enemyGoodCaptured << "\n";
+    }
+    else if (tile.ghostState == BAD)
+    {
+        enemyBadCaptured++;
+        std::cout << "NEEEEEEEEJ you captured a bad enemy! bad antal: " << enemyBadCaptured << "\n";
+    }
+    tile = selectedTile;
+    tileGrid[selectedY][selectedX].playerState = NEITHER;
+    tileGrid[selectedY][selectedX].ghostState = NONE;
+}
+
+bool GameplayState::withinGrid(int x, int y)
+{
+    return ((x <= 5 && x >= 0) && (y <= 5 && y >= 0));
+}
+
+void GameplayState::mouseClickLeft(int xPos, int yPos)
+{
+    int tileSize = renderer.getTileSize();
+    int xTile = xPos/tileSize;
+    int yTile = yPos/tileSize;
+
+    if (withinGrid(xTile, yTile))
+    {
+        Tile& clickedTile = tileGrid[yTile][xTile];
+        if (selected)
+        {
+            if (clickedTile.playerState == ONE)
+            {
+                setTileAsSelected(xTile, yTile);
+            }
+            else if (surroundingSelectedTile(xTile, yTile))
+            {
+                moveGhostTo(clickedTile);
+                deselectTile();
+            }
+        }
+        else
+        {
+            if (clickedTile.playerState == ONE)
+            {
+                setTileAsSelected(xTile, yTile);
+            }
+        }
+    }
+}
+
 std::string GameplayState::run()
 {
     windbreeze::Event event;
@@ -38,52 +103,7 @@ std::string GameplayState::run()
         {
             if (event.mouseButton.button == windbreeze::Mouse::LEFT)
             {
-                int tileSize = renderer.getTileSize();
-                int xTile = event.mouseButton.x/tileSize;
-                int yTile = event.mouseButton.y/tileSize;
-
-                if ((xTile <= 5 && xTile >= 0) && (yTile <= 5 && yTile >= 0))
-                {
-                    Tile& clickedTile = tileGrid[yTile][xTile];
-                    if (selected)
-                    {
-                        // reselect another tile
-                        if (clickedTile.playerState == ONE)
-                        {
-                            setTileAsSelected(xTile, yTile);
-                        }
-                        // check if selecting a surrounding tile
-                        else if (((xTile == selectedX + 1 || xTile == selectedX - 1) && yTile == selectedY)
-                              || ((yTile == selectedY + 1 || yTile == selectedY - 1) && xTile == selectedX))
-                        {
-                            // if clicked tile is a good enemy
-                            if (clickedTile.ghostState == GOOD)
-                            {
-                                enemyGoodCaptured++;
-                                std::cout << "yay you captured a good enemy! good antal: " << enemyGoodCaptured << "\n";
-                            }
-                            // if clicked tile is a bad enemy
-                            else if (clickedTile.ghostState == BAD)
-                            {
-                                enemyBadCaptured++;
-                                std::cout << "NEEEEEEEEJ you captured a bad enemy! bad antal: " << enemyBadCaptured << "\n";
-                            }
-                            clickedTile = selectedTile;
-                            tileGrid[selectedY][selectedX].playerState = NEITHER;
-                            tileGrid[selectedY][selectedX].ghostState = NONE;
-                            renderer.setSelectedTile(-1, -1);
-                            selected = false;
-                        }
-                    }
-                    else
-                    {
-                        if (clickedTile.playerState == ONE)
-                        {
-                            setTileAsSelected(xTile, yTile);
-                        }
-                    }
-                }
-                
+                mouseClickLeft(event.mouseButton.x, event.mouseButton.y);
             }
         }
     }

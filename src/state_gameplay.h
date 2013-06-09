@@ -44,4 +44,9 @@ class GameplayState : public windstorm::GameState
         std::string winString;
         std::string loseString;
         void setTileAsSelected(int x, int y);
+        void deselectTile();
+        bool surroundingSelectedTile(int x, int y);
+        void moveGhostTo(Tile& tile);
+        bool withinGrid(int x, int y);
+        void mouseClickLeft(int xPos, int yPos);
 };
