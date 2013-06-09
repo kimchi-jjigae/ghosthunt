@@ -41,17 +41,25 @@ std::string GameplayState::run()
                 
                 if (selected)
                 {
-                    if (selectedTile.playerState == ONE)
+                    if (clickedTile.playerState == ONE)
                     {
                         renderer.setSelectedTile(xTile, yTile);
                         selected = true;
                         selectedX = xTile;
                         selectedY = yTile;
+                        int bajs = selectedY + selectedX;
                     }
+                    /*
+                    else if ((xTile == selectedX + 1 || xTile == selectedX - 1)
+                          && (yTile == selectedY + 1 || yTile == selectedY -1))
+                    {
+                        if (
+                    }
+                    */
                 }
                 else
                 {
-                    if (selectedTile.playerState == ONE)
+                    if (clickedTile.playerState == ONE)
                     {
                         renderer.setSelectedTile(xTile, yTile);
                         selected = true;
