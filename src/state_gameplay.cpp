@@ -37,34 +37,37 @@ std::string GameplayState::run()
                 std::cout << "tile x: " << xTile << ", ";
                 std::cout << "tile y: " << yTile << "\n";
 
-                Tile& clickedTile = tileGrid[yTile][xTile];
-                
-                if (selected)
+//make sure it is within bounds
+                if (xTile < 6 && yTile < 6)
                 {
-                    if (clickedTile.playerState == ONE)
+                    Tile& clickedTile = tileGrid[yTile][xTile];
+                    if (selected)
                     {
-                        renderer.setSelectedTile(xTile, yTile);
-                        selected = true;
-                        selectedX = xTile;
-                        selectedY = yTile;
-                        int bajs = selectedY + selectedX;
+                        if (clickedTile.playerState == ONE)
+                        {
+                            renderer.setSelectedTile(xTile, yTile);
+                            selected = true;
+                            selectedX = xTile;
+                            selectedY = yTile;
+                            int bajs = selectedY + selectedX;
+                        }
+                        /*
+                        else if ((xTile == selectedX + 1 || xTile == selectedX - 1)
+                              && (yTile == selectedY + 1 || yTile == selectedY -1))
+                        {
+                            if (
+                        }
+                        */
                     }
-                    /*
-                    else if ((xTile == selectedX + 1 || xTile == selectedX - 1)
-                          && (yTile == selectedY + 1 || yTile == selectedY -1))
+                    else
                     {
-                        if (
-                    }
-                    */
-                }
-                else
-                {
-                    if (clickedTile.playerState == ONE)
-                    {
-                        renderer.setSelectedTile(xTile, yTile);
-                        selected = true;
-                        selectedX = xTile;
-                        selectedY = yTile;
+                        if (clickedTile.playerState == ONE)
+                        {
+                            renderer.setSelectedTile(xTile, yTile);
+                            selected = true;
+                            selectedX = xTile;
+                            selectedY = yTile;
+                        }
                     }
                 }
                 
