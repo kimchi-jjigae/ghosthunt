@@ -8,6 +8,7 @@ std::string GameplayState::run()
 {
     windbreeze::Event event;
     std::string nextState;
+    bool selected;
 
     inputHandler.processEvents();
     while (inputHandler.pollEvent(event))
@@ -30,12 +31,35 @@ std::string GameplayState::run()
                 int tileSize = renderer.getTileSize();
                 int xTile = event.mouseButton.x/tileSize;
                 int yTile = event.mouseButton.y/tileSize;
+                int selectedX;
+                int selectedY;
 
                 std::cout << "tile x: " << xTile << ", ";
                 std::cout << "tile y: " << yTile << "\n";
 
-                Tile& selectedTile = tileGrid[yTile][xTile];
-                renderer.setSelectedTile(xTile, yTile);
+                Tile& clickedTile = tileGrid[yTile][xTile];
+                
+                if (selected)
+                {
+                    if (selectedTile.playerState == ONE)
+                    {
+                        renderer.setSelectedTile(xTile, yTile);
+                        selected = true;
+                        selectedX = xTile;
+                        selectedY = yTile;
+                    }
+                }
+                else
+                {
+                    if (selectedTile.playerState == ONE)
+                    {
+                        renderer.setSelectedTile(xTile, yTile);
+                        selected = true;
+                        selectedX = xTile;
+                        selectedY = yTile;
+                    }
+                }
+                
             }
         }
     }

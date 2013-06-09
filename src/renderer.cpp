@@ -53,7 +53,6 @@ void Renderer::render(sf::RenderWindow& window, std::vector<std::vector<Tile> >&
             
             if (i == selectedX && j == selectedY)
             {
-                std::cout << "yo\n";
                 dungeonSelectedSprite.setPosition(selectedX * tileSize, selectedY * tileSize);
                 window.draw(dungeonSelectedSprite);
             }
