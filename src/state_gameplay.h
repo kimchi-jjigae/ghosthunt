@@ -27,6 +27,7 @@ class GameplayState : public windstorm::GameState
         windbreeze::InputHandler& inputHandler;
         windbreeze::ActionHandler<std::string>& actionHandler;
         Renderer renderer;
+        std::string nextState;
 
         std::vector<std::vector<Tile> > tileGrid = 
             {{{NONE, NEITHER}, {GOOD, TWO}, {GOOD, TWO}, {GOOD, TWO}, {GOOD, TWO}, {NONE, NEITHER}},
@@ -59,12 +60,13 @@ class GameplayState : public windstorm::GameState
         void setTileAsSelected(int x, int y);
         void setTileAsSuggested(int x, int y);
         void deselectTile();
-        void desuggestTile()
+        void desuggestTile();
         bool surroundingSelectedTile(int x, int y);
-        void processMoveInfo(Tile& tile)
+        bool checkIfValidMove();
+        void processMoveInfo();
         bool withinGrid(int x, int y);
         void mouseClickLeft(int xPos, int yPos);
-        void checkForGameOver()
+        void checkForGameOver();
 
         //temporary
         std::string winString;

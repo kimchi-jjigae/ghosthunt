@@ -19,6 +19,7 @@ void GameplayState::takeMove()
     //display: "Your turn. Move a ghost."
 
     //event loop :O
+    windbreeze::Event event;
     inputHandler.processEvents();
     while (inputHandler.pollEvent(event))
     {
@@ -34,7 +35,16 @@ void GameplayState::takeMove()
             }
             if (event.key.code == windbreeze::Keyboard::M)
             {
-                checkIfValidMove();
+                if (checkIfValidMove())
+                {
+                    //send.MOVEinfo();
+                    processMoveInfo();
+                    checkForGameOver();
+                }
+                else
+                {
+                    std::cout << "Invalid move.\n";
+                }
             }
         }
         else if (event.type == windbreeze::Event::MOUSEBUTTONPRESSED)
@@ -93,25 +103,21 @@ bool GameplayState::surroundingSelectedTile(int x, int y)
         || ((y == selectedY + 1 || y == selectedY - 1) && x == selectedX));
 }
 
-void GameplayState::suggestMovement()
+void GameplayState::processMoveInfo()
 {
-}
-
-void GameplayState::processMoveInfo(Tile& tile)
-{
-    if (tile.ghostState == GOOD)
+    if (suggestedTile.ghostState == GOOD)
     {
         enemyGoodCaptured++;
         std::cout << "yay you captured a good enemy! good antal: " << enemyGoodCaptured << "\n";
     }
-    else if (tile.ghostState == BAD)
+    else if (suggestedTile.ghostState == BAD)
     {
         enemyBadCaptured++;
         std::cout << "NEEEEEEEEJ you captured a bad enemy! bad antal: " << enemyBadCaptured << "\n";
     }
-    tile = selectedTile;
-    tileGrid[selectedY][selectedX].playerState = NEITHER;
-    tileGrid[selectedY][selectedX].ghostState = NONE;
+    suggestedTile = selectedTile; //may result in questionable behaviour? :O
+    selectedTile.playerState = NEITHER;
+    selectedTile.ghostState = NONE;
 }
 
 void GameplayState::checkForGameOver()
@@ -153,8 +159,8 @@ void GameplayState::mouseClickLeft(int xPos, int yPos)
             }
             else if (surroundingSelectedTile(xTile, yTile))
             {
-                suggestMovement(clickedTile);
-                processMoveInfo(clickedTile);
+                setTileAsSuggested(xTile, yTile);
+                processMoveInfo();
                 deselectTile();
             }
         }
@@ -171,9 +177,6 @@ void GameplayState::mouseClickLeft(int xPos, int yPos)
 
 std::string GameplayState::run()
 {
-    windbreeze::Event event;
-    std::string nextState;
-
     if (host)
     {
         turn = randomiseFirstMove();
