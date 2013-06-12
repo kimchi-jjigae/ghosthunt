@@ -42,9 +42,9 @@ class GameplayState : public windstorm::GameState
         bool host = true;
         bool turn;
 
-        bool randomiseFirstTurn();
-        void takeTurn(); // or return MOVE information
-        void waitForTurn(); // or return MOVE information
+        bool randomiseFirstMove();
+        void takeMove(); // or return MOVE information
+        void waitForMove(); // or return MOVE information
 
         bool selected = false;
         int selectedX = -1;
@@ -57,9 +57,11 @@ class GameplayState : public windstorm::GameState
         Tile suggestedTile;
 
         void setTileAsSelected(int x, int y);
+        void setTileAsSuggested(int x, int y);
         void deselectTile();
+        void desuggestTile()
         bool surroundingSelectedTile(int x, int y);
-        void processTurnInfo(Tile& tile)
+        void processMoveInfo(Tile& tile)
         bool withinGrid(int x, int y);
         void mouseClickLeft(int xPos, int yPos);
         void checkForGameOver()

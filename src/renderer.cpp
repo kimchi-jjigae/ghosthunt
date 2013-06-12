@@ -34,6 +34,12 @@ void Renderer::setSelectedTile(int x, int y)
     selectedY = y;
 }
 
+void Renderer::setSuggestedTile(int x, int y)
+{
+    suggestedX = x;
+    suggestedY = y;
+}
+
 void Renderer::render(sf::RenderWindow& window, std::vector<std::vector<Tile> >& grid)
 {
     window.clear();
@@ -48,13 +54,16 @@ void Renderer::render(sf::RenderWindow& window, std::vector<std::vector<Tile> >&
             int y = j * tileSize;
 
             //draw dungeon grid
-            
             if (i == selectedX && j == selectedY)
             {
                 dungeonSelectedSprite.setPosition(selectedX * tileSize, selectedY * tileSize);
                 window.draw(dungeonSelectedSprite);
             }
-           
+            else if (i == suggestedX && j == suggestedY)
+            {
+                dungeonSelectedSprite.setPosition(suggestedX * tileSize, suggestedY * tileSize);
+                window.draw(dungeonSelectedSprite);
+            }
             else
             {
                 dungeonSprite.setPosition(x, y);

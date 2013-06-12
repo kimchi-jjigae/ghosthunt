@@ -6,7 +6,7 @@ void GameplayState::setup()
     loseString = "NEEEEEJ YOU LOST";
 }
 
-bool GameplayState::randomiseFirstTurn()
+bool GameplayState::randomiseFirstMove()
 {
     if ((rand() % 100) < 50)
         return true;
@@ -14,7 +14,7 @@ bool GameplayState::randomiseFirstTurn()
         return false;
 }
 
-void GameplayState::takeTurn()
+void GameplayState::takeMove()
 {
     //display: "Your turn. Move a ghost."
 
@@ -48,7 +48,12 @@ void GameplayState::takeTurn()
 
 }
 
-void GameplayState::waitForTurn()
+bool GameplayState::checkIfValidMove()
+{
+    return suggested;
+}
+
+void GameplayState::waitForMove()
 {
 }
 
@@ -61,10 +66,25 @@ void GameplayState::setTileAsSelected(int x, int y)
     renderer.setSelectedTile(x, y);
 }
 
+void GameplayState::setTileAsSuggested(int x, int y)
+{
+    suggested = true;
+    suggestedX = x;
+    suggestedY = y;
+    suggestedTile = tileGrid[y][x];
+    renderer.setSuggestedTile(x, y);
+}
+
 void GameplayState::deselectTile()
 {
     selected = false;
     renderer.setSelectedTile(-1, -1);
+}
+
+void GameplayState::desuggestTile()
+{
+    suggested = false;
+    renderer.setSuggestedTile(-1, -1);
 }
 
 bool GameplayState::surroundingSelectedTile(int x, int y)
@@ -73,7 +93,11 @@ bool GameplayState::surroundingSelectedTile(int x, int y)
         || ((y == selectedY + 1 || y == selectedY - 1) && x == selectedX));
 }
 
-void GameplayState::processTurnInfo(Tile& tile)
+void GameplayState::suggestMovement()
+{
+}
+
+void GameplayState::processMoveInfo(Tile& tile)
 {
     if (tile.ghostState == GOOD)
     {
@@ -125,11 +149,12 @@ void GameplayState::mouseClickLeft(int xPos, int yPos)
             if (clickedTile.playerState == ONE)
             {
                 setTileAsSelected(xTile, yTile);
+                desuggestTile();
             }
             else if (surroundingSelectedTile(xTile, yTile))
             {
                 suggestMovement(clickedTile);
-                processTurnInfo(clickedTile);
+                processMoveInfo(clickedTile);
                 deselectTile();
             }
         }
@@ -138,6 +163,7 @@ void GameplayState::mouseClickLeft(int xPos, int yPos)
             if (clickedTile.playerState == ONE)
             {
                 setTileAsSelected(xTile, yTile);
+                desuggestTile();
             }
         }
     }
@@ -150,16 +176,16 @@ std::string GameplayState::run()
 
     if (host)
     {
-        turn = randomiseFirstTurn();
+        turn = randomiseFirstMove();
         //send.TURNinfo();
     }
     //else
-        //waitForFirstTurnSignal();
+        //waitForFirstMoveSignal();
     
     if (turn)
-        takeTurn();
+        takeMove();
     else
-        waitForTurn();
+        waitForMove();
 
     checkForGameOver();
     return nextState;
