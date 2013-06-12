@@ -6,6 +6,52 @@ void GameplayState::setup()
     loseString = "NEEEEEJ YOU LOST";
 }
 
+bool GameplayState::randomiseFirstTurn()
+{
+    if ((rand() % 100) < 50)
+        return true;
+    else
+        return false;
+}
+
+void GameplayState::takeTurn()
+{
+    //display: "Your turn. Move a ghost."
+
+    //event loop :O
+    inputHandler.processEvents();
+    while (inputHandler.pollEvent(event))
+    {
+        if (event.type == windbreeze::Event::CLOSED)
+        {
+            nextState = "exit";
+        }
+        else if (event.type == windbreeze::Event::KEYPRESSED)
+        {
+            if (event.key.code == windbreeze::Keyboard::Q || event.key.code == windbreeze::Keyboard::ESCAPE)
+            {
+                nextState = "exit";
+            }
+            if (event.key.code == windbreeze::Keyboard::M)
+            {
+                checkIfValidMove();
+            }
+        }
+        else if (event.type == windbreeze::Event::MOUSEBUTTONPRESSED)
+        {
+            if (event.mouseButton.button == windbreeze::Mouse::LEFT)
+            {
+                mouseClickLeft(event.mouseButton.x, event.mouseButton.y);
+            }
+        }
+    }
+
+}
+
+void GameplayState::waitForTurn()
+{
+}
+
 void GameplayState::setTileAsSelected(int x, int y)
 {
     selected = true;
@@ -27,7 +73,7 @@ bool GameplayState::surroundingSelectedTile(int x, int y)
         || ((y == selectedY + 1 || y == selectedY - 1) && x == selectedX));
 }
 
-void GameplayState::moveGhostTo(Tile& tile)
+void GameplayState::processTurnInfo(Tile& tile)
 {
     if (tile.ghostState == GOOD)
     {
@@ -42,6 +88,22 @@ void GameplayState::moveGhostTo(Tile& tile)
     tile = selectedTile;
     tileGrid[selectedY][selectedX].playerState = NEITHER;
     tileGrid[selectedY][selectedX].ghostState = NONE;
+}
+
+void GameplayState::checkForGameOver()
+{
+    if (enemyGoodCaptured == 4)
+    {
+        renderer.renderText(sfWindow, winString);
+    }
+    else if (enemyBadCaptured == 4)
+    {
+        renderer.renderText(sfWindow, loseString);
+    }
+    else
+    {
+        renderer.render(sfWindow, tileGrid);
+    }
 }
 
 bool GameplayState::withinGrid(int x, int y)
@@ -66,7 +128,8 @@ void GameplayState::mouseClickLeft(int xPos, int yPos)
             }
             else if (surroundingSelectedTile(xTile, yTile))
             {
-                moveGhostTo(clickedTile);
+                suggestMovement(clickedTile);
+                processTurnInfo(clickedTile);
                 deselectTile();
             }
         }
@@ -85,40 +148,19 @@ std::string GameplayState::run()
     windbreeze::Event event;
     std::string nextState;
 
-    inputHandler.processEvents();
-    while (inputHandler.pollEvent(event))
+    if (host)
     {
-        if (event.type == windbreeze::Event::CLOSED)
-        {
-            nextState = "exit";
-        }
-        else if (event.type == windbreeze::Event::KEYPRESSED)
-        {
-            if (event.key.code == windbreeze::Keyboard::Q || event.key.code == windbreeze::Keyboard::ESCAPE)
-            {
-                nextState = "exit";
-            }
-        }
-        else if (event.type == windbreeze::Event::MOUSEBUTTONPRESSED)
-        {
-            if (event.mouseButton.button == windbreeze::Mouse::LEFT)
-            {
-                mouseClickLeft(event.mouseButton.x, event.mouseButton.y);
-            }
-        }
+        turn = randomiseFirstTurn();
+        //send.TURNinfo();
     }
-
-    if (enemyGoodCaptured == 4)
-    {
-        renderer.renderText(sfWindow, winString);
-    }
-    else if (enemyBadCaptured == 4)
-    {
-        renderer.renderText(sfWindow, loseString);
-    }
+    //else
+        //waitForFirstTurnSignal();
+    
+    if (turn)
+        takeTurn();
     else
-    {
-        renderer.render(sfWindow, tileGrid);
-    }
+        waitForTurn();
+
+    checkForGameOver();
     return nextState;
 }

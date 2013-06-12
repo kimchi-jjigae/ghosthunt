@@ -8,6 +8,7 @@
 #include <SFML/Graphics.hpp>
 #include "renderer.h"
 #include <iostream>
+#include <stdlib.h>
 
 class GameplayState : public windstorm::GameState
 {
@@ -37,16 +38,33 @@ class GameplayState : public windstorm::GameState
 
         int enemyGoodCaptured = 0;
         int enemyBadCaptured = 0;
+
+        bool host = true;
+        bool turn;
+
+        bool randomiseFirstTurn();
+        void takeTurn(); // or return MOVE information
+        void waitForTurn(); // or return MOVE information
+
         bool selected = false;
         int selectedX = -1;
         int selectedY = -1;
         Tile selectedTile;
-        std::string winString;
-        std::string loseString;
+
+        bool suggested = false;
+        int suggestedX = -1;
+        int suggestedY = -1;
+        Tile suggestedTile;
+
         void setTileAsSelected(int x, int y);
         void deselectTile();
         bool surroundingSelectedTile(int x, int y);
-        void moveGhostTo(Tile& tile);
+        void processTurnInfo(Tile& tile)
         bool withinGrid(int x, int y);
         void mouseClickLeft(int xPos, int yPos);
+        void checkForGameOver()
+
+        //temporary
+        std::string winString;
+        std::string loseString;
 };
