@@ -112,17 +112,24 @@ void GameplayState::processMoveInfo()
         std::cout << "NEEEEEEEEJ you captured a bad enemy! bad antal: " << enemyBadCaptured << "\n";
     }
 
-    std::cout << "A suggested ghost at: " << suggestedX << " and " << suggestedY;
+    std::cout << "Asug suggested ghost at: " << suggestedX << " and " << suggestedY;
     std::cout << " and suggestedTile.ghostState: " << tileGrid[suggestedY][suggestedX].ghostState << " and suggestedTile.playerState: " << tileGrid[suggestedY][suggestedX].playerState << "\n";
+    std::cout << "Asel selected ghost at: " << selectedX << " and " << selectedY;
+    std::cout << " and selectedTile.ghostState: " << tileGrid[selectedY][selectedX].ghostState << " and selectedTile.playerState: " << tileGrid[selectedY][selectedX].playerState << "\n";
     tileGrid[suggestedY][suggestedX] = tileGrid[selectedY][selectedX];
-    std::cout << "B suggested ghost at: " << suggestedX << " and " << suggestedY;
-    std::cout << " and suggestedTile.ghostState: " << tileGrid[suggestedY][suggestedX].ghostState << " and suggestedTile.playerState: " << tileGrid[suggestedY][suggestedX].playerState << "\n";
     tileGrid[selectedY][selectedX].playerState = NEITHER;
     tileGrid[selectedY][selectedX].ghostState = NONE;
+    std::cout << "Bsug suggested ghost at: " << suggestedX << " and " << suggestedY;
+    std::cout << " and suggestedTile.ghostState: " << tileGrid[suggestedY][suggestedX].ghostState << " and suggestedTile.playerState: " << tileGrid[suggestedY][suggestedX].playerState << "\n";
+    std::cout << "Bsel selected ghost at: " << selectedX << " and " << selectedY;
+    std::cout << " and selectedTile.ghostState: " << tileGrid[selectedY][selectedX].ghostState << " and selectedTile.playerState: " << tileGrid[selectedY][selectedX].playerState << "\n";
+    std::cout << "HEJBAJS\n";
     desuggestTile();
     deselectTile();
-    std::cout << "C suggested ghost at: " << suggestedX << " and " << suggestedY;
+    std::cout << "Csug suggested ghost at: " << suggestedX << " and " << suggestedY;
     std::cout << " and suggestedTile.ghostState: " << tileGrid[suggestedY][suggestedX].ghostState << " and suggestedTile.playerState: " << tileGrid[suggestedY][suggestedX].playerState << "\n";
+    std::cout << "Csel selected ghost at: " << selectedX << " and " << selectedY;
+    std::cout << " and selectedTile.ghostState: " << tileGrid[selectedY][selectedX].ghostState << " and selectedTile.playerState: " << tileGrid[selectedY][selectedX].playerState << "\n";
     std::cout << "D suggested ghost at: 3 and 1";
     std::cout << " and suggestedTile.ghostState: " << tileGrid[3][1].ghostState << " and suggestedTile.playerState: " << tileGrid[3][1].playerState << "\n";
 }
