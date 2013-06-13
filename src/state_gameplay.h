@@ -50,12 +50,10 @@ class GameplayState : public windstorm::GameState
         bool selected = false;
         int selectedX = -1;
         int selectedY = -1;
-        Tile selectedTile;
 
         bool suggested = false;
         int suggestedX = -1;
         int suggestedY = -1;
-        Tile suggestedTile;
 
         void setTileAsSelected(int x, int y);
         void setTileAsSuggested(int x, int y);

@@ -66,7 +66,6 @@ void GameplayState::setTileAsSelected(int x, int y)
     selected = true;
     selectedX = x;
     selectedY = y;
-    selectedTile = tileGrid[y][x];
     renderer.setSelectedTile(x, y);
 }
 
@@ -75,7 +74,6 @@ void GameplayState::setTileAsSuggested(int x, int y)
     suggested = true;
     suggestedX = x;
     suggestedY = y;
-    suggestedTile = tileGrid[y][x];
     renderer.setSuggestedTile(x, y);
 }
 
@@ -84,8 +82,6 @@ void GameplayState::deselectTile()
     selected = false;
     selectedX = -1;
     selectedY = -1;
-    selectedTile.ghostState = NONE;
-    selectedTile.playerState = NEITHER;
     renderer.setSelectedTile(-1, -1);
 }
 
@@ -94,8 +90,6 @@ void GameplayState::desuggestTile()
     suggested = false;
     suggestedX = -1;
     suggestedY = -1;
-    suggestedTile.ghostState = NONE;
-    suggestedTile.playerState = NEITHER;
     renderer.setSuggestedTile(-1, -1);
 }
 
@@ -116,16 +110,21 @@ void GameplayState::processMoveInfo()
     {
         enemyBadCaptured++;
         std::cout << "NEEEEEEEEJ you captured a bad enemy! bad antal: " << enemyBadCaptured << "\n";
-        std::cout << "BLARGH suggested ghost at: " << suggestedX << " and " << suggestedY << "\n";
-        std::cout << "and suggestedTile.ghostState: " << suggestedTile.ghostState << " and suggestedTile.playerState: " << suggestedTile.playerState << "\n";
     }
-    std::cout << "HEJ\n";
+
+    std::cout << "A suggested ghost at: " << suggestedX << " and " << suggestedY;
+    std::cout << " and suggestedTile.ghostState: " << suggestedTile.ghostState << " and suggestedTile.playerState: " << suggestedTile.playerState << "\n";
     suggestedTile = selectedTile; //may result in questionable behaviour? :O - shouldn't
+    std::cout << "B suggested ghost at: " << suggestedX << " and " << suggestedY;
+    std::cout << " and suggestedTile.ghostState: " << suggestedTile.ghostState << " and suggestedTile.playerState: " << suggestedTile.playerState << "\n";
     selectedTile.playerState = NEITHER;
-    std::cout << "HEJ\n";
     selectedTile.ghostState = NONE;
     desuggestTile();
     deselectTile();
+    std::cout << "C suggested ghost at: " << suggestedX << " and " << suggestedY;
+    std::cout << " and suggestedTile.ghostState: " << suggestedTile.ghostState << " and suggestedTile.playerState: " << suggestedTile.playerState << "\n";
+    std::cout << "D suggested ghost at: 3 and 1";
+    std::cout << " and suggestedTile.ghostState: " << tileGrid[3][1].ghostState << " and suggestedTile.playerState: " << tileGrid[3][1].playerState << "\n";
 }
 
 void GameplayState::checkForGameOver()
