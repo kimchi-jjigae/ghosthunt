@@ -8,7 +8,7 @@ void GameplayState::setup()
 
 bool GameplayState::randomiseFirstMove()
 {
-    if ((rand() % 100) < 50)
+    if ((rand() % 100) < 1)
         return true;
     else
         return false;
@@ -161,10 +161,23 @@ void GameplayState::mouseClickLeft(int xPos, int yPos)
 std::string GameplayState::run()
 {
     nextState = "";
-    if (host)
+
+    /*
+    sf::TcpSocket socket;
+    sf::Socket::Status status = socket.connect("pallkars.net", 21212);
+    if (status != sf::Socket::Done)
+    {
+            std::cout << "Could not connect :(\n";
+    }
+    else
+        std::cout << "YEA CONNECTED MAYBE\n";
+    */
+
+    if (host && bajs == 0)
     {
         turn = randomiseFirstMove();
         //send.TURNinfo();
+        bajs++;
     }
     //else
         //waitForFirstMoveSignal();
