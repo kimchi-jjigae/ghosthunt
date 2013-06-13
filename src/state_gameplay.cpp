@@ -4,11 +4,31 @@ void GameplayState::setup()
 {
     winString = "YOU WIN!!! :D";
     loseString = "NEEEEEJ YOU LOST";
+
+    sf::TcpSocket socket;
+    sf::Socket::Status status = socket.connect("127.0.0.1", 21212);
+    if (status != sf::Socket::Done)
+    {
+        std::cout << "Could not connect :(\n";
+    }
+    else
+        std::cout << "YEA CONNECTED MAYBE\n";
+
+    char kalle[32] = {'j', 'a', 'g', ' ', 'g', 'i', 'l', 'l', 'a', 'r', ' ', 'd', 'i', 'g', ' ', 'm', 'i', 'n', ' ', 'd', 'i', 'n', 'o', 's', 'a', 'u', 'r', 'i', 'e'}; 
+
+    // TCP socket:
+    if (socket.send(&kalle, 32) != sf::Socket::Done)
+    {
+        std::cout << "coulnt send\n";
+    }
+    else
+        std::cout << "mebbe sent\n";
+
 }
 
 bool GameplayState::randomiseFirstMove()
 {
-    if ((rand() % 100) < 50)
+    if ((rand() % 100) < 99)
         return true;
     else
         return false;
@@ -161,28 +181,6 @@ void GameplayState::mouseClickLeft(int xPos, int yPos)
 std::string GameplayState::run()
 {
     nextState = "";
-
-    sf::TcpSocket socket;
-    sf::Socket::Status status = socket.connect("127.0.0.1", 21212);
-    if (status != sf::Socket::Done)
-    {
-        std::cout << "Could not connect :(\n";
-    }
-    else
-        std::cout << "YEA CONNECTED MAYBE\n";
-
-    int32_t kalle = 1337;
-    int32_t* hej = &kalle;
-
-    // TCP socket:
-    if (socket.send(hej, 4) != sf::Socket::Done)
-    {
-        std::cout << "coulnt send\n";
-    }
-    else
-        std::cout << "mebbe sent\n";
-
-
     if (host && bajs == 0)
     {
         turn = randomiseFirstMove();
