@@ -17,8 +17,6 @@ bool GameplayState::randomiseFirstMove()
 void GameplayState::takeMove()
 {
     //display: "Your turn. Move a ghost."
-
-    //event loop :O
     windbreeze::Event event;
     inputHandler.processEvents();
     while (inputHandler.pollEvent(event))
@@ -113,34 +111,14 @@ void GameplayState::processMoveInfo()
             enemyBadCaptured++;
             std::cout << "NEEEEEEEEJ you captured a bad enemy! bad antal: " << enemyBadCaptured << "\n";
         }
-
-        std::cout << "Asug suggested ghost at: " << suggestedX << " and " << suggestedY;
-        //std::cout << " and suggestedTile.ghostState: " << tileGrid[suggestedY][suggestedX].ghostState << " and suggestedTile.playerState: " << tileGrid[suggestedY][suggestedX].playerState << "\n";
-        std::cout << "Asel selected ghost at: " << selectedX << " and " << selectedY;
-        //std::cout << " and selectedTile.ghostState: " << tileGrid[selectedY][selectedX].ghostState << " and selectedTile.playerState: " << tileGrid[selectedY][selectedX].playerState << "\n";
         tileGrid[suggestedY][suggestedX] = tileGrid[selectedY][selectedX];
         tileGrid[selectedY][selectedX].playerState = NEITHER;
         tileGrid[selectedY][selectedX].ghostState = NONE;
-        std::cout << "Bsug suggested ghost at: " << suggestedX << " and " << suggestedY;
-        //std::cout << " and suggestedTile.ghostState: " << tileGrid[suggestedY][suggestedX].ghostState << " and suggestedTile.playerState: " << tileGrid[suggestedY][suggestedX].playerState << "\n";
-        std::cout << "Bsel selected ghost at: " << selectedX << " and " << selectedY;
-        //std::cout << " and selectedTile.ghostState: " << tileGrid[selectedY][selectedX].ghostState << " and selectedTile.playerState: " << tileGrid[selectedY][selectedX].playerState << "\n";
-        std::cout << "HEJBAJS\n";
         desuggestTile();
         deselectTile();
-        std::cout << "Csug suggested ghost at: " << suggestedX << " and " << suggestedY;
-        //std::cout << " and suggestedTile.ghostState: " << tileGrid[suggestedY][suggestedX].ghostState << " and suggestedTile.playerState: " << tileGrid[suggestedY][suggestedX].playerState << "\n";
-        std::cout << "Csel selected ghost at: " << selectedX << " and " << selectedY;
-        //std::cout << " and selectedTile.ghostState: " << tileGrid[selectedY][selectedX].ghostState << " and selectedTile.playerState: " << tileGrid[selectedY][selectedX].playerState << "\n";
-        std::cout << "D suggested ghost at: 3 and 1";
-        std::cout << " and suggestedTile.ghostState: " << tileGrid[3][1].ghostState << " and suggestedTile.playerState: " << tileGrid[3][1].playerState << "\n";
     }
     else
         std::cout << "No move suggested.\n";
-}
-
-void GameplayState::checkForGameOver()
-{
 }
 
 bool GameplayState::withinGrid(int x, int y)
@@ -167,7 +145,6 @@ void GameplayState::mouseClickLeft(int xPos, int yPos)
             else if (surroundingSelectedTile(xTile, yTile))
             {
                 setTileAsSuggested(xTile, yTile);
-                //deselectTile();
             }
         }
         else
@@ -183,6 +160,7 @@ void GameplayState::mouseClickLeft(int xPos, int yPos)
 
 std::string GameplayState::run()
 {
+    nextState = "";
     /*
     if (host)
     {
