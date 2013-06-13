@@ -35,6 +35,9 @@ void GameplayState::takeMove()
             }
             if (event.key.code == windbreeze::Keyboard::M)
             {
+                processMoveInfo();
+                //checkForGameOver();
+                /* I shouldn't need this check
                 if (checkIfValidMove())
                 {
                     //send.MOVEinfo();
@@ -45,6 +48,7 @@ void GameplayState::takeMove()
                 {
                     std::cout << "Invalid move.\n";
                 }
+                */
             }
         }
         else if (event.type == windbreeze::Event::MOUSEBUTTONPRESSED)
@@ -115,7 +119,8 @@ void GameplayState::processMoveInfo()
         enemyBadCaptured++;
         std::cout << "NEEEEEEEEJ you captured a bad enemy! bad antal: " << enemyBadCaptured << "\n";
     }
-    suggestedTile = selectedTile; //may result in questionable behaviour? :O
+    std::cout << "HEJ\n";
+    suggestedTile = selectedTile; //may result in questionable behaviour? :O - shouldn't
     selectedTile.playerState = NEITHER;
     selectedTile.ghostState = NONE;
 }
@@ -160,7 +165,6 @@ void GameplayState::mouseClickLeft(int xPos, int yPos)
             else if (surroundingSelectedTile(xTile, yTile))
             {
                 setTileAsSuggested(xTile, yTile);
-                processMoveInfo();
                 deselectTile();
             }
         }
@@ -177,6 +181,7 @@ void GameplayState::mouseClickLeft(int xPos, int yPos)
 
 std::string GameplayState::run()
 {
+    /*
     if (host)
     {
         turn = randomiseFirstMove();
@@ -189,7 +194,9 @@ std::string GameplayState::run()
         takeMove();
     else
         waitForMove();
+    */
 
+    takeMove();
     checkForGameOver();
     return nextState;
 }
