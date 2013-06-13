@@ -37,19 +37,6 @@ void GameplayState::takeMove()
             {
                 std::cout << "YEAH\n";
                 processMoveInfo();
-                //checkForGameOver();
-                /* I shouldn't need this check
-                if (checkIfValidMove())
-                {
-                    //send.MOVEinfo();
-                    processMoveInfo();
-                    checkForGameOver();
-                }
-                else
-                {
-                    std::cout << "Invalid move.\n";
-                }
-                */
             }
         }
         else if (event.type == windbreeze::Event::MOUSEBUTTONPRESSED)
@@ -97,6 +84,8 @@ void GameplayState::deselectTile()
     selected = false;
     selectedX = -1;
     selectedY = -1;
+    selectedTile.ghostState = NONE;
+    selectedTile.playerState = NEITHER;
     renderer.setSelectedTile(-1, -1);
 }
 
@@ -105,6 +94,8 @@ void GameplayState::desuggestTile()
     suggested = false;
     suggestedX = -1;
     suggestedY = -1;
+    suggestedTile.ghostState = NONE;
+    suggestedTile.playerState = NEITHER;
     renderer.setSuggestedTile(-1, -1);
 }
 
@@ -125,30 +116,20 @@ void GameplayState::processMoveInfo()
     {
         enemyBadCaptured++;
         std::cout << "NEEEEEEEEJ you captured a bad enemy! bad antal: " << enemyBadCaptured << "\n";
+        std::cout << "BLARGH suggested ghost at: " << suggestedX << " and " << suggestedY << "\n";
+        std::cout << "and suggestedTile.ghostState: " << suggestedTile.ghostState << " and suggestedTile.playerState: " << suggestedTile.playerState << "\n";
     }
     std::cout << "HEJ\n";
     suggestedTile = selectedTile; //may result in questionable behaviour? :O - shouldn't
     selectedTile.playerState = NEITHER;
     std::cout << "HEJ\n";
-    eelectedTile.ghostState = NONE;
+    selectedTile.ghostState = NONE;
     desuggestTile();
     deselectTile();
 }
 
 void GameplayState::checkForGameOver()
 {
-    if (enemyGoodCaptured == 4)
-    {
-        renderer.renderText(sfWindow, winString);
-    }
-    else if (enemyBadCaptured == 4)
-    {
-        renderer.renderText(sfWindow, loseString);
-    }
-    else
-    {
-        renderer.render(sfWindow, tileGrid);
-    }
 }
 
 bool GameplayState::withinGrid(int x, int y)
@@ -207,6 +188,17 @@ std::string GameplayState::run()
     */
 
     takeMove();
-    checkForGameOver();
+    if (enemyGoodCaptured == 4)
+    {
+        renderer.renderText(sfWindow, winString);
+    }
+    else if (enemyBadCaptured == 4)
+    {
+        renderer.renderText(sfWindow, loseString);
+    }
+    else
+    {
+        renderer.render(sfWindow, tileGrid);
+    }
     return nextState;
 }
