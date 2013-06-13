@@ -4,6 +4,8 @@ Renderer::Renderer()
 {
     selectedX = -1;
     selectedY = -1;
+    suggestedX = -1;
+    suggestedY = -1;
     tileSize = 100;
     dungeonTexture.loadFromFile("data/dungeon.png");
     dungeonSprite.setTexture(dungeonTexture);

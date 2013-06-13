@@ -35,6 +35,7 @@ void GameplayState::takeMove()
             }
             if (event.key.code == windbreeze::Keyboard::M)
             {
+                std::cout << "YEAH\n";
                 processMoveInfo();
                 //checkForGameOver();
                 /* I shouldn't need this check
@@ -56,6 +57,8 @@ void GameplayState::takeMove()
             if (event.mouseButton.button == windbreeze::Mouse::LEFT)
             {
                 mouseClickLeft(event.mouseButton.x, event.mouseButton.y);
+                std::cout << "selected ghost at " << selectedX << " and " << selectedY << "\n";
+                std::cout << "suggested ghost at " << suggestedX << " and " << suggestedY << "\n";
             }
         }
     }
@@ -92,12 +95,16 @@ void GameplayState::setTileAsSuggested(int x, int y)
 void GameplayState::deselectTile()
 {
     selected = false;
+    selectedX = -1;
+    selectedY = -1;
     renderer.setSelectedTile(-1, -1);
 }
 
 void GameplayState::desuggestTile()
 {
     suggested = false;
+    suggestedX = -1;
+    suggestedY = -1;
     renderer.setSuggestedTile(-1, -1);
 }
 
@@ -122,7 +129,10 @@ void GameplayState::processMoveInfo()
     std::cout << "HEJ\n";
     suggestedTile = selectedTile; //may result in questionable behaviour? :O - shouldn't
     selectedTile.playerState = NEITHER;
-    selectedTile.ghostState = NONE;
+    std::cout << "HEJ\n";
+    eelectedTile.ghostState = NONE;
+    desuggestTile();
+    deselectTile();
 }
 
 void GameplayState::checkForGameOver()
@@ -165,7 +175,7 @@ void GameplayState::mouseClickLeft(int xPos, int yPos)
             else if (surroundingSelectedTile(xTile, yTile))
             {
                 setTileAsSuggested(xTile, yTile);
-                deselectTile();
+                //deselectTile();
             }
         }
         else
