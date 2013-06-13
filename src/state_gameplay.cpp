@@ -8,7 +8,7 @@ void GameplayState::setup()
 
 bool GameplayState::randomiseFirstMove()
 {
-    if ((rand() % 100) < 1)
+    if ((rand() % 100) < 50)
         return true;
     else
         return false;
@@ -162,16 +162,26 @@ std::string GameplayState::run()
 {
     nextState = "";
 
-    /*
     sf::TcpSocket socket;
-    sf::Socket::Status status = socket.connect("pallkars.net", 21212);
+    sf::Socket::Status status = socket.connect("127.0.0.1", 21212);
     if (status != sf::Socket::Done)
     {
-            std::cout << "Could not connect :(\n";
+        std::cout << "Could not connect :(\n";
     }
     else
         std::cout << "YEA CONNECTED MAYBE\n";
-    */
+
+    int32_t kalle = 1337;
+    int32_t* hej = &kalle;
+
+    // TCP socket:
+    if (socket.send(hej, 4) != sf::Socket::Done)
+    {
+        std::cout << "coulnt send\n";
+    }
+    else
+        std::cout << "mebbe sent\n";
+
 
     if (host && bajs == 0)
     {
