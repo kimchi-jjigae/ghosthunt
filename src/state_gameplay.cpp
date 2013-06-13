@@ -47,7 +47,7 @@ void GameplayState::takeMove()
             }
         }
     }
-
+    //turn = false;
 }
 
 bool GameplayState::checkIfValidMove()
@@ -161,7 +161,6 @@ void GameplayState::mouseClickLeft(int xPos, int yPos)
 std::string GameplayState::run()
 {
     nextState = "";
-    /*
     if (host)
     {
         turn = randomiseFirstMove();
@@ -173,10 +172,9 @@ std::string GameplayState::run()
     if (turn)
         takeMove();
     else
-        waitForMove();
-    */
+        //waitForMove();
+        std::cout << "HAHA YOU CAN'T DO ANYTHING\n";
 
-    takeMove();
     if (enemyGoodCaptured == 4)
     {
         renderer.renderText(sfWindow, winString);
