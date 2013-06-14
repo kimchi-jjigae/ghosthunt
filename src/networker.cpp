@@ -15,6 +15,7 @@ bool Networker::acceptConnection()
     else
         std::cout << "it  listn :O\n";
 
+    /*
     // accept a new connection
     if (listener.accept(client) != sf::Socket::Done)
     {
@@ -24,6 +25,8 @@ bool Networker::acceptConnection()
     else
         std::cout << "accepted!\n";
         return true;
+    */
+    return true;
 }
 
 bool Networker::connectToHost()

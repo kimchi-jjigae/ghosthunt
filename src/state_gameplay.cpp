@@ -111,19 +111,19 @@ void GameplayState::processMoveInfo()
 {
     if (suggested)
     {
-        if (tileGrid[suggestedY][suggestedX].ghostState == GOOD)
+        if (tileGrid.at(suggestedY).at(suggestedX).ghostState == GOOD)
         {
             enemyGoodCaptured++;
             std::cout << "yay you captured a good enemy! good antal: " << enemyGoodCaptured << "\n";
         }
-        else if (tileGrid[suggestedY][suggestedX].ghostState == BAD)
+        else if (tileGrid.at(suggestedY).at(suggestedX).ghostState == BAD)
         {
             enemyBadCaptured++;
             std::cout << "NEEEEEEEEJ you captured a bad enemy! bad antal: " << enemyBadCaptured << "\n";
         }
-        tileGrid[suggestedY][suggestedX] = tileGrid[selectedY][selectedX];
-        tileGrid[selectedY][selectedX].playerState = NEITHER;
-        tileGrid[selectedY][selectedX].ghostState = NONE;
+        tileGrid.at(suggestedY).at(suggestedX) = tileGrid.at(selectedY).at(selectedX);
+        tileGrid.at(selectedY).at(selectedX).playerState = NEITHER;
+        tileGrid.at(selectedY).at(selectedX).ghostState = NONE;
         desuggestTile();
         deselectTile();
     }
@@ -144,7 +144,7 @@ void GameplayState::mouseClickLeft(int xPos, int yPos)
 
     if (withinGrid(xTile, yTile))
     {
-        Tile& clickedTile = tileGrid[yTile][xTile];
+        Tile& clickedTile = tileGrid.at(yTile).at(xTile);
         if (selected)
         {
             if (clickedTile.playerState == ONE)
