@@ -32,7 +32,7 @@ bool Networker::acceptConnection()
 
 bool Networker::connectToHost()
 {
-    std::cout << "YEA CONNECTED MAYBE\n";
+    std::cout << "YEAH CONNECTED MAYBE\n";
     return true;
     /*
     sf::Socket::Status status = socket.connect("192.168.1.60", 21212);
