@@ -198,15 +198,15 @@ std::string GameplayState::run()
 
     if (enemyGoodCaptured == 4)
     {
-        //renderer.renderText(sfWindow, winString);
+        renderer.renderText(sfWindow, winString);
     }
     else if (enemyBadCaptured == 4)
     {
-        //renderer.renderText(sfWindow, loseString);
+        renderer.renderText(sfWindow, loseString);
     }
     else
     {
-        //renderer.render(sfWindow, tileGrid);
+        renderer.render(sfWindow, tileGrid);
     }
     return nextState;
 }
