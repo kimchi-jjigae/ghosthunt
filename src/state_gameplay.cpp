@@ -5,24 +5,14 @@ void GameplayState::setup()
     winString = "YOU WIN!!! :D";
     loseString = "NEEEEEJ YOU LOST";
 
-    sf::TcpSocket socket;
-    sf::Socket::Status status = socket.connect("127.0.0.1", 21212);
-    if (status != sf::Socket::Done)
+    if (host)
     {
-        std::cout << "Could not connect :(\n";
+        networker.acceptConnection();
     }
     else
-        std::cout << "YEA CONNECTED MAYBE\n";
-
-    char kalle[32] = {'j', 'a', 'g', ' ', 'g', 'i', 'l', 'l', 'a', 'r', ' ', 'd', 'i', 'g', ' ', 'm', 'i', 'n', ' ', 'd', 'i', 'n', 'o', 's', 'a', 'u', 'r', 'i', 'e'}; 
-
-    // TCP socket:
-    if (socket.send(&kalle, 32) != sf::Socket::Done)
     {
-        std::cout << "coulnt send\n";
+        networker.connectToHost();
     }
-    else
-        std::cout << "mebbe sent\n";
 
 }
 
@@ -189,6 +179,14 @@ std::string GameplayState::run()
     }
     //else
         //waitForFirstMoveSignal();
+    if (host)
+    {
+        networker.receiveData();
+    }
+    else
+    {
+        networker.sendData();
+    }
     
     if (turn)
         takeMove();

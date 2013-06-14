@@ -8,6 +8,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Network.hpp>
 #include "renderer.h"
+#include "networker.h"
 #include <iostream>
 #include <stdlib.h>
 
@@ -29,6 +30,7 @@ class GameplayState : public windstorm::GameState
         windbreeze::ActionHandler<std::string>& actionHandler;
         Renderer renderer;
         std::string nextState;
+        Networker networker;
 
         std::vector<std::vector<Tile> > tileGrid = 
             {{{NONE, NEITHER}, {GOOD, TWO}, {GOOD, TWO}, {GOOD, TWO}, {GOOD, TWO}, {NONE, NEITHER}},

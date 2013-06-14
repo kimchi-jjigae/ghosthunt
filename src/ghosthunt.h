@@ -6,6 +6,7 @@
 #include <framework/util/sfml/sfmlwindowbackend.h>
 #include <framework/application/gamestatemachine.h>
 #include <SFML/Graphics.hpp>
+#include "networker.h"
 #include <iostream>
 
 class GhostHunt : public windstorm::Application
@@ -16,6 +17,7 @@ class GhostHunt : public windstorm::Application
         void loop() override;
     private:
         windstorm::GameStateMachine stateMachine;
+        Networker networker;
 
         sf::RenderWindow sfWindow;
         windbreeze::SFMLWindowBackend sfmlWindowBackend = sfWindow;
