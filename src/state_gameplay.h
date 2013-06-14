@@ -18,7 +18,7 @@ class GameplayState : public windstorm::GameState
         //virtual void activate(std::string previousState) {}
         //virtual void deactivate(std::string nextState) {}
         //virtual void handOver(std::weak_ptr<GameState> previousState, std::string previousStateName) {}
-        GameplayState(sf::RenderWindow& sfw, windbreeze::InputHandler& ih, windbreeze::ActionHandler<std::string>& ah) : sfWindow(sfw), inputHandler(ih), actionHandler(ah) {}
+        GameplayState(sf::RenderWindow& sfw, windbreeze::InputHandler& ih, windbreeze::ActionHandler<std::string>& ah, Networker& nw) : sfWindow(sfw), inputHandler(ih), actionHandler(ah), networker(nw) {}
         void setup() override;
         std::string run() override;
         //virtual void destroy() {}
@@ -30,7 +30,7 @@ class GameplayState : public windstorm::GameState
         windbreeze::ActionHandler<std::string>& actionHandler;
         Renderer renderer;
         std::string nextState;
-        Networker networker;
+        Networker& networker;
 
         std::vector<std::vector<Tile> > tileGrid = 
             {{{NONE, NEITHER}, {GOOD, TWO}, {GOOD, TWO}, {GOOD, TWO}, {GOOD, TWO}, {NONE, NEITHER}},

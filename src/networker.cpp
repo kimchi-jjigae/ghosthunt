@@ -1,5 +1,9 @@
 #include "networker.h"
 
+Networker::Networker()
+{
+    }
+
 bool Networker::acceptConnection()
 {
     // bind the listener to a port

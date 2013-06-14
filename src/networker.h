@@ -5,6 +5,7 @@
 class Networker
 {
     public:
+        Networker();
         bool acceptConnection();
         bool connectToHost();
         bool receiveData();

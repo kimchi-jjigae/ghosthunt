@@ -7,7 +7,7 @@ void GhostHunt::setup()
     window.create(windbreeze::VideoMode(600, 600), "GHOST HUNT");
     window.setFramerateLimit(60);
 
-    stateMachine.addGameState("gameplay", std::shared_ptr<GameplayState>(new GameplayState(sfWindow, inputHandler, actionHandler)));
+    stateMachine.addGameState("gameplay", std::shared_ptr<GameplayState>(new GameplayState(sfWindow, inputHandler, actionHandler, networker)));
     stateMachine.addGameState("exit", std::shared_ptr<ExitState>(new ExitState(sfWindow, inputHandler)));
     stateMachine.setCurrentState("gameplay");
 }
