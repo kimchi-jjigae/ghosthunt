@@ -17,7 +17,6 @@ class GhostHunt : public windstorm::Application
         void loop() override;
     private:
         windstorm::GameStateMachine stateMachine;
-        Networker networker;
 
         sf::RenderWindow sfWindow;
         windbreeze::SFMLWindowBackend sfmlWindowBackend = sfWindow;
@@ -26,4 +25,5 @@ class GhostHunt : public windstorm::Application
         windbreeze::SFMLInputBackend sfmlInputBackend = sfWindow;
         windbreeze::InputHandler inputHandler = sfmlInputBackend;
         windbreeze::ActionHandler<std::string> actionHandler;
+        Networker networker;
 };

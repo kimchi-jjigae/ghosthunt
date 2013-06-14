@@ -181,11 +181,13 @@ std::string GameplayState::run()
         //waitForFirstMoveSignal();
     if (host)
     {
-        networker.receiveData();
+        //networker.receiveData();
+        std::cout << "hi\n";
     }
     else
     {
-        networker.sendData();
+        //networker.sendData();
+        std::cout << "hi\n";
     }
     
     if (turn)
