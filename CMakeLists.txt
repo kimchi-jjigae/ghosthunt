@@ -56,4 +56,4 @@ file(GLOB_RECURSE ghosthunt_source_files "src/*.cpp")
 file(GLOB_RECURSE ghosthunt_header_files "src/*.h")
 
 add_executable(${project_name} ${ghosthunt_header_files} ${ghosthunt_source_files})
-target_link_libraries(${project_name} windlab-entity windlab-ui windlab-app libsfml-graphics.so libsfml-window.so libsfml-network.so)
+target_link_libraries(${project_name} windlab-entity windlab-ui windlab-app libsfml-graphics.so libsfml-window.so libsfml-network.so libsfml-system.so)
