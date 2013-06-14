@@ -6,9 +6,6 @@ Networker::Networker()
 
 bool Networker::acceptConnection()
 {
-        std::cout << "it  listn :O\n";
-        return true;
-        /*
     // bind the listener to a port
     if (listener.listen(21212) != sf::Socket::Done)
     {
@@ -27,14 +24,10 @@ bool Networker::acceptConnection()
     else
         std::cout << "accepted!\n";
         return true;
-        */
 }
 
 bool Networker::connectToHost()
 {
-    std::cout << "YEAH CONNECTED MAYBE\n";
-    return true;
-    /*
     sf::Socket::Status status = socket.connect("192.168.1.60", 21212);
     if (status != sf::Socket::Done)
     {
@@ -44,10 +37,8 @@ bool Networker::connectToHost()
     else
         std::cout << "YEA CONNECTED MAYBE\n";
         return true;
-        */
 }
 
-/*
 bool Networker::receiveData()
 {
     if (client.receive(data, 32, received) != sf::Socket::Done)
@@ -74,4 +65,3 @@ bool Networker::sendData()
         std::cout << "mebbe sent\n";
         return true;
 }
-*/
