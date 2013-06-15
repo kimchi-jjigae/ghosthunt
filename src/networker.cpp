@@ -72,3 +72,8 @@ int Networker::getPortNumber()
 {
     return portNumber;
 }
+
+bool Networker::isHost()
+{
+    return host;
+}

@@ -2,25 +2,24 @@
 
 void MenuState::setup()
 {
-    if (host)
+    if (networker.isHost())
     {
-        networker.acceptConnection();
-        turn = randomiseFirstMove();
+        connected = networker.acceptConnection();
     }
     else
     {
-        networker.connectToHost();
+        connected = networker.connectToHost();
     }
     //and then send more info here
 
 }
 
-void MenuState::setup()
-{
-}
-
 std::string MenuState::run()
 {
-    nextState = "gameplay";
+    std::cout << "MENU YEYE\n";
+    if (connected)
+        nextState = "setup";
+    else
+        nextState = "";
     return nextState;
 }

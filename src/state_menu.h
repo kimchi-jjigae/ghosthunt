@@ -9,7 +9,6 @@
 #include "renderer.h"
 #include "networker.h"
 #include <iostream>
-#include <stdlib.h>
 
 class MenuState : public windstorm::GameState
 {
@@ -31,4 +30,5 @@ class MenuState : public windstorm::GameState
         Renderer& renderer;
 
         std::string nextState;
+        bool connected;
 };

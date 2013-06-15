@@ -1,5 +1,6 @@
 #include "ghosthunt.h"
 #include "state_menu.h"
+#include "state_setup.h"
 #include "state_gameplay.h"
 #include "state_exit.h"
 
@@ -9,6 +10,7 @@ void GhostHunt::setup()
     window.setFramerateLimit(60);
 
     stateMachine.addGameState("menu", std::shared_ptr<MenuState>(new MenuState(sfWindow, inputHandler, actionHandler, networker, renderer)));
+    stateMachine.addGameState("setup", std::shared_ptr<SetupState>(new SetupState(sfWindow, inputHandler, actionHandler, networker, renderer)));
     stateMachine.addGameState("gameplay", std::shared_ptr<GameplayState>(new GameplayState(sfWindow, inputHandler, actionHandler, networker, renderer)));
     stateMachine.addGameState("exit", std::shared_ptr<ExitState>(new ExitState(sfWindow, inputHandler, renderer)));
     stateMachine.setCurrentState("menu");

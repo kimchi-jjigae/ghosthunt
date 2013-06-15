@@ -1,4 +1,14 @@
 #include "state_gameplay.h"
+#include "state_setup.h"
+
+void GameplayState::handOver(std::weak_ptr<GameState> previousState, std::string previousStateName)
+{
+    if (previousStateName == "setup")
+    {
+        std::weak_ptr<SetupState> setupState = std::static_pointer_cast<SetupState, GameState> (previousState.lock());
+        turn = setupState.lock()->isTurn();
+    }
+}
 
 void GameplayState::setup()
 {
@@ -6,12 +16,45 @@ void GameplayState::setup()
     loseString = "NEEEEEJ YOU LOST";
 }
 
-bool GameplayState::randomiseFirstMove()
+std::string GameplayState::run()
 {
-    if ((rand() % 100) < 99)
-        return true;
-    else
-        return false;
+    nextState = "";
+
+    if (turn)
+    {
+        turn = takeMove();
+
+        if (enemyGoodCaptured == 4)
+        {
+            renderer.renderText(sfWindow, winString);
+        }
+        else if (enemyBadCaptured == 4)
+        {
+            renderer.renderText(sfWindow, loseString);
+        }
+        else
+        {
+            renderer.render(sfWindow, tileGrid);
+        }
+    }
+    else if (!turn)
+    {
+        turn = waitForMove();
+
+        if (enemyGoodCaptured == 4)
+        {
+            renderer.renderText(sfWindow, winString);
+        }
+        else if (enemyBadCaptured == 4)
+        {
+            renderer.renderText(sfWindow, loseString);
+        }
+        else
+        {
+            renderer.render(sfWindow, tileGrid);
+        }
+    }
+    return nextState;
 }
 
 bool GameplayState::takeMove()
@@ -160,45 +203,4 @@ void GameplayState::mouseClickLeft(int xPos, int yPos)
             }
         }
     }
-}
-
-std::string GameplayState::run()
-{
-    nextState = "";
-
-    if (turn)
-    {
-        turn = takeMove();
-
-        if (enemyGoodCaptured == 4)
-        {
-            renderer.renderText(sfWindow, winString);
-        }
-        else if (enemyBadCaptured == 4)
-        {
-            renderer.renderText(sfWindow, loseString);
-        }
-        else
-        {
-            renderer.render(sfWindow, tileGrid);
-        }
-    }
-    else if (!turn)
-    {
-        turn = waitForMove();
-
-        if (enemyGoodCaptured == 4)
-        {
-            renderer.renderText(sfWindow, winString);
-        }
-        else if (enemyBadCaptured == 4)
-        {
-            renderer.renderText(sfWindow, loseString);
-        }
-        else
-        {
-            renderer.render(sfWindow, tileGrid);
-        }
-    }
-    return nextState;
 }

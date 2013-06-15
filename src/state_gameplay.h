@@ -17,7 +17,7 @@ class GameplayState : public windstorm::GameState
     public:
         //virtual void activate(std::string previousState) {}
         //virtual void deactivate(std::string nextState) {}
-        //virtual void handOver(std::weak_ptr<GameState> previousState, std::string previousStateName) {}
+        void handOver(std::weak_ptr<GameState> previousState, std::string previousStateName) override;
         GameplayState(sf::RenderWindow& sfw, windbreeze::InputHandler& ih, windbreeze::ActionHandler<std::string>& ah, Networker& nw, Renderer& r) : sfWindow(sfw), inputHandler(ih), actionHandler(ah), networker(nw), renderer(r){}
         void setup() override;
         std::string run() override;
@@ -44,11 +44,8 @@ class GameplayState : public windstorm::GameState
         int enemyGoodCaptured = 0;
         int enemyBadCaptured = 0;
 
-        int bajs = 0;
-        bool host = false;
         bool turn;
 
-        bool randomiseFirstMove();
         bool takeMove(); // or return MOVE information
         bool waitForMove(); // or return MOVE information
 
