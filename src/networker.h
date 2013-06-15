@@ -14,7 +14,7 @@ class Networker
         int getPortNumber();
 
     private:
-        std::string hostAddress = "pallkars.net";
+        std::string hostAddress = "127.0.0.1";
         int portNumber = 21212;
         sf::TcpListener listener; 
         sf::TcpSocket client;

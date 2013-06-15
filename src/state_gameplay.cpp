@@ -4,17 +4,6 @@ void GameplayState::setup()
 {
     winString = "YOU WIN!!! :D";
     loseString = "NEEEEEJ YOU LOST";
-
-    if (host)
-    {
-        networker.acceptConnection();
-        turn = randomiseFirstMove();
-    }
-    else
-    {
-        networker.connectToHost();
-    }
-
 }
 
 bool GameplayState::randomiseFirstMove()

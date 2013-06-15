@@ -6,7 +6,6 @@
 #include <framework/util/sfml/sfmlwindowbackend.h>
 #include <framework/application/gamestatemachine.h>
 #include <SFML/Graphics.hpp>
-#include <SFML/Network.hpp>
 #include "renderer.h"
 #include "networker.h"
 #include <iostream>
@@ -46,7 +45,7 @@ class GameplayState : public windstorm::GameState
         int enemyBadCaptured = 0;
 
         int bajs = 0;
-        bool host = true;
+        bool host = false;
         bool turn;
 
         bool randomiseFirstMove();
