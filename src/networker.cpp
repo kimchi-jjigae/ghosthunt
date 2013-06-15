@@ -41,31 +41,34 @@ bool Networker::connectToHost()
         return true;
 }
 
-bool Networker::receiveData()
+bool Networker::receiveData(sf::Packet& packet)
 {
-    if (client.receive(data, 32, received) != sf::Socket::Done)
+    std::cout << "Waiting to receive data... ";
+    if (client.receive(packet) != sf::Socket::Done)
     {
         std::cout << "Received nothin\n";
         return false;
     }
     else
     {
-        std::cout << "Received " << received << " bytes\n";
-        std::cout << "it says: " << data << "\n";
+        std::cout << "Possibly received somethin\n";
         return true;
     }
 }
 
-bool Networker::sendData()
+bool Networker::sendData(sf::Packet& packet)
 {
-    if (socket.send(&kalle, 32) != sf::Socket::Done)
+    std::cout << "Sending data... ";
+    if (socket.send(packet) != sf::Socket::Done)
     {
         std::cout << "coulnt send\n";
         return false;
     }
     else
+    {
         std::cout << "mebbe sent\n";
         return true;
+    }
 }
 
 int Networker::getPortNumber()
