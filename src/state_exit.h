@@ -11,7 +11,7 @@
 class ExitState : public windstorm::GameState
 {
     public:
-        ExitState(sf::RenderWindow& sfw, windbreeze::InputHandler& ih) : sfWindow(sfw), inputHandler(ih) {}
+        ExitState(sf::RenderWindow& sfw, windbreeze::InputHandler& ih, Renderer& r) : sfWindow(sfw), inputHandler(ih), renderer(r) {}
         void setup() override;
         std::string run() override;
     private:
