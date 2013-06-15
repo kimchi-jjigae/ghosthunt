@@ -17,14 +17,14 @@ bool Networker::acceptConnection()
 
     // accept a new connection
     std::cout << "Waiting for the other player to connect... " << std::flush;
-    if (listener.accept(client) != sf::Socket::Done)
+    if (listener.accept(socket) != sf::Socket::Done)
     {
         std::cout << "it dint accept client\n";
         return false;
     }
     else
         std::cout << "accepted!\n";
-        return true;
+    return true;
 }
 
 bool Networker::connectToHost()
@@ -44,7 +44,7 @@ bool Networker::connectToHost()
 bool Networker::receiveData(sf::Packet& packet)
 {
     std::cout << "Waiting to receive data... " << std::flush;
-    if (client.receive(packet) != sf::Socket::Done)
+    if (socket.receive(packet) != sf::Socket::Done)
     {
         std::cout << "Received nothin\n";
         return false;

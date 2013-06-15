@@ -19,7 +19,6 @@ class Networker
         int portNumber = 21212;
 
         sf::TcpListener listener; 
-        sf::TcpSocket client;
         sf::TcpSocket socket;
 
         bool host = true;
