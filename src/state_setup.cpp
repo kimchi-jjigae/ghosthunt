@@ -6,6 +6,7 @@ void SetupState::setup()
     {
         turn = randomiseFirstMove();
     }
+    std::cout << "Turn should be: " << turn << "\n";
 
 }
 
@@ -18,7 +19,7 @@ std::string SetupState::run()
 
 bool SetupState::randomiseFirstMove()
 {
-    if ((rand() % 100) < 99)
+    if ((rand() % 100) < 50)
         return true;
     else
         return false;

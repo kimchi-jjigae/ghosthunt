@@ -17,7 +17,7 @@ void MenuState::setup()
 std::string MenuState::run()
 {
     std::cout << "MENU YEYE\n";
-    if (connected)
+    if (!connected)
         nextState = "setup";
     else
         nextState = "";

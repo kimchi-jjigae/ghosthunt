@@ -7,6 +7,7 @@ void GameplayState::handOver(std::weak_ptr<GameState> previousState, std::string
     {
         std::weak_ptr<SetupState> setupState = std::static_pointer_cast<SetupState, GameState> (previousState.lock());
         turn = setupState.lock()->isTurn();
+        std::cout << "Turn in handover is: " << turn << "\n";
     }
 }
 
@@ -19,6 +20,7 @@ void GameplayState::setup()
 std::string GameplayState::run()
 {
     nextState = "";
+    std::cout << "Turn is: " << turn << "\n";
 
     if (turn)
     {
