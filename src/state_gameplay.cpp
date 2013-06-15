@@ -67,8 +67,11 @@ bool GameplayState::checkIfValidMove()
     return suggested;
 }
 
-void GameplayState::waitForMove()
+bool GameplayState::waitForMove()
 {
+    std::cout << "HAHA YOU CAN'T DO ANYTHING\n";
+    sleep(2);
+    return !turn;
 }
 
 void GameplayState::setTileAsSelected(int x, int y)
@@ -176,8 +179,8 @@ std::string GameplayState::run()
 
     if (turn)
     {
-        std::cout << "your turn :)\n";
         turn = takeMove();
+
         if (enemyGoodCaptured == 4)
         {
             renderer.renderText(sfWindow, winString);
@@ -193,10 +196,8 @@ std::string GameplayState::run()
     }
     else if (!turn)
     {
-        //waitForMove();
-        std::cout << "HAHA YOU CAN'T DO ANYTHING\n";
-        turn = !turn;
-        sleep(2);
+        turn = waitForMove();
+
         if (enemyGoodCaptured == 4)
         {
             renderer.renderText(sfWindow, winString);

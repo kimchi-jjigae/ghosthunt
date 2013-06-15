@@ -46,12 +46,12 @@ class GameplayState : public windstorm::GameState
         int enemyBadCaptured = 0;
 
         int bajs = 0;
-        bool host = false;
+        bool host = true;
         bool turn;
 
         bool randomiseFirstMove();
         bool takeMove(); // or return MOVE information
-        void waitForMove(); // or return MOVE information
+        bool waitForMove(); // or return MOVE information
 
         bool selected = false;
         int selectedX = -1;
@@ -70,7 +70,6 @@ class GameplayState : public windstorm::GameState
         void processMoveInfo();
         bool withinGrid(int x, int y);
         void mouseClickLeft(int xPos, int yPos);
-        void checkForGameOver();
 
         //temporary
         std::string winString;
