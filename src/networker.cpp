@@ -6,7 +6,7 @@ Networker::Networker()
 bool Networker::acceptConnection()
 {
     // bind the listener to a port
-    std::cout << "Listening on port " << portNumber << "... ";
+    std::cout << "Listening on port " << portNumber << "... " << std::flush;
     if (listener.listen(portNumber) != sf::Socket::Done)
     {
         std::cout << "it dint listn\n";
@@ -16,7 +16,7 @@ bool Networker::acceptConnection()
         std::cout << "it  listn :O\n";
 
     // accept a new connection
-    std::cout << "Waiting for the other player to connect... ";
+    std::cout << "Waiting for the other player to connect... " << std::flush;
     if (listener.accept(client) != sf::Socket::Done)
     {
         std::cout << "it dint accept client\n";
@@ -30,7 +30,7 @@ bool Networker::acceptConnection()
 bool Networker::connectToHost()
 {
     sf::Socket::Status status = socket.connect(hostAddress, portNumber);
-    std::cout << "Connecting to port " << portNumber << " on " << hostAddress << "... ";
+    std::cout << "Connecting to port " << portNumber << " on " << hostAddress << "... " << std::flush;
     if (status != sf::Socket::Done)
     {
         std::cout << "Could not connect :(\n";
@@ -43,7 +43,7 @@ bool Networker::connectToHost()
 
 bool Networker::receiveData(sf::Packet& packet)
 {
-    std::cout << "Waiting to receive data... ";
+    std::cout << "Waiting to receive data... " << std::flush;
     if (client.receive(packet) != sf::Socket::Done)
     {
         std::cout << "Received nothin\n";
@@ -58,7 +58,7 @@ bool Networker::receiveData(sf::Packet& packet)
 
 bool Networker::sendData(sf::Packet& packet)
 {
-    std::cout << "Sending data... ";
+    std::cout << "Sending data... " << std::flush;
     if (socket.send(packet) != sf::Socket::Done)
     {
         std::cout << "coulnt send\n";
