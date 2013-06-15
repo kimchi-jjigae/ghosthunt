@@ -11,6 +11,7 @@
 #include "networker.h"
 #include <iostream>
 #include <stdlib.h>
+#include <unistd.h>
 
 class GameplayState : public windstorm::GameState
 {
@@ -45,11 +46,11 @@ class GameplayState : public windstorm::GameState
         int enemyBadCaptured = 0;
 
         int bajs = 0;
-        bool host = true;
+        bool host = false;
         bool turn;
 
         bool randomiseFirstMove();
-        void takeMove(); // or return MOVE information
+        bool takeMove(); // or return MOVE information
         void waitForMove(); // or return MOVE information
 
         bool selected = false;

@@ -1,13 +1,13 @@
 #include "networker.h"
 
 Networker::Networker()
-{
-    }
+{}
 
 bool Networker::acceptConnection()
 {
     // bind the listener to a port
-    if (listener.listen(21212) != sf::Socket::Done)
+    std::cout << "Listening on port " << portNumber << "... ";
+    if (listener.listen(portNumber) != sf::Socket::Done)
     {
         std::cout << "it dint listn\n";
         return false;
@@ -15,8 +15,8 @@ bool Networker::acceptConnection()
     else
         std::cout << "it  listn :O\n";
 
-    /*
     // accept a new connection
+    std::cout << "Waiting for the other player to connect... ";
     if (listener.accept(client) != sf::Socket::Done)
     {
         std::cout << "it dint accept client\n";
@@ -25,13 +25,12 @@ bool Networker::acceptConnection()
     else
         std::cout << "accepted!\n";
         return true;
-    */
-    return true;
 }
 
 bool Networker::connectToHost()
 {
-    sf::Socket::Status status = socket.connect("192.168.1.60", 21212);
+    sf::Socket::Status status = socket.connect(hostAddress, portNumber);
+    std::cout << "Connecting to port " << portNumber << " on " << hostAddress << "... ";
     if (status != sf::Socket::Done)
     {
         std::cout << "Could not connect :(\n";
@@ -67,4 +66,9 @@ bool Networker::sendData()
     else
         std::cout << "mebbe sent\n";
         return true;
+}
+
+int Networker::getPortNumber()
+{
+    return portNumber;
 }

@@ -28,7 +28,6 @@ class Renderer
         sf::Sprite ghostSpriteGood;
         sf::Sprite ghostSpriteBad;
 
-        //move this later or something, unless i put the renderer in the main applicatoin as opposed to thes tates
         sf::Font font;
         sf::Text text;
 };

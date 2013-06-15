@@ -8,6 +8,7 @@ void GameplayState::setup()
     if (host)
     {
         networker.acceptConnection();
+        turn = randomiseFirstMove();
     }
     else
     {
@@ -24,7 +25,7 @@ bool GameplayState::randomiseFirstMove()
         return false;
 }
 
-void GameplayState::takeMove()
+bool GameplayState::takeMove()
 {
     //display: "Your turn. Move a ghost."
     windbreeze::Event event;
@@ -45,6 +46,7 @@ void GameplayState::takeMove()
             {
                 std::cout << "YEAH\n";
                 processMoveInfo();
+                return false;
             }
         }
         else if (event.type == windbreeze::Event::MOUSEBUTTONPRESSED)
@@ -57,7 +59,7 @@ void GameplayState::takeMove()
             }
         }
     }
-    //turn = false;
+    return true;
 }
 
 bool GameplayState::checkIfValidMove()
@@ -171,42 +173,42 @@ void GameplayState::mouseClickLeft(int xPos, int yPos)
 std::string GameplayState::run()
 {
     nextState = "";
-    if (host && bajs == 0)
-    {
-        turn = randomiseFirstMove();
-        //send.TURNinfo();
-        bajs++;
-    }
-    //else
-        //waitForFirstMoveSignal();
-        /*
-    if (host)
-    {
-        //networker.receiveData();
-    }
-    else
-    {
-        //networker.sendData();
-    }
-    */
-    
+
     if (turn)
-        takeMove();
-    else
+    {
+        std::cout << "your turn :)\n";
+        turn = takeMove();
+        if (enemyGoodCaptured == 4)
+        {
+            renderer.renderText(sfWindow, winString);
+        }
+        else if (enemyBadCaptured == 4)
+        {
+            renderer.renderText(sfWindow, loseString);
+        }
+        else
+        {
+            renderer.render(sfWindow, tileGrid);
+        }
+    }
+    else if (!turn)
+    {
         //waitForMove();
         std::cout << "HAHA YOU CAN'T DO ANYTHING\n";
-
-    if (enemyGoodCaptured == 4)
-    {
-        renderer.renderText(sfWindow, winString);
-    }
-    else if (enemyBadCaptured == 4)
-    {
-        renderer.renderText(sfWindow, loseString);
-    }
-    else
-    {
-        renderer.render(sfWindow, tileGrid);
+        turn = !turn;
+        sleep(2);
+        if (enemyGoodCaptured == 4)
+        {
+            renderer.renderText(sfWindow, winString);
+        }
+        else if (enemyBadCaptured == 4)
+        {
+            renderer.renderText(sfWindow, loseString);
+        }
+        else
+        {
+            renderer.render(sfWindow, tileGrid);
+        }
     }
     return nextState;
 }

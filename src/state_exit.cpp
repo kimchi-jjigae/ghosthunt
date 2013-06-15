@@ -2,7 +2,6 @@
 
 void ExitState::setup()
 {
-    
     textString = "Are you sure? Y or N";
 }
 

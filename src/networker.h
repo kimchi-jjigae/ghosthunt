@@ -11,7 +11,11 @@ class Networker
         bool receiveData();
         bool sendData();
 
+        int getPortNumber();
+
     private:
+        std::string hostAddress = "pallkars.net";
+        int portNumber = 21212;
         sf::TcpListener listener; 
         sf::TcpSocket client;
         sf::TcpSocket socket;
