@@ -34,7 +34,7 @@ std::string GameplayState::run()
         }
         else
         {
-            renderer.render(sfWindow, tileGrid);
+            renderer.render(sfWindow, grid);
         }
     }
     else if (!turn)
@@ -51,7 +51,7 @@ std::string GameplayState::run()
         }
         else
         {
-            renderer.render(sfWindow, tileGrid);
+            renderer.render(sfWindow, grid);
         }
     }
     return nextState;
@@ -132,20 +132,20 @@ void GameplayState::mouseClickLeft(int xPos, int yPos)
 
     if (grid.withinGrid(xTile, yTile))
     {
-        Tile& clickedTile = grid.getTileAt(xTile, yTile);
-        if (grid.isSelected)
+        Tile clickedTile = grid.getTileAt(xTile, yTile);
+        if (grid.isSelected())
         {
             if (clickedTile.playerState == ONE)
             {
                 grid.setSelectedTile(xTile, yTile);
-                renderer.setSelectedTile(x, y);
+                renderer.setSelectedTile(xTile, yTile);
                 grid.desuggestTile();
                 renderer.setSuggestedTile(-1, -1);
             }
             else if (grid.surroundingSelectedTile(xTile, yTile))
             {
                 grid.setSuggestedTile(xTile, yTile);
-                renderer.setSuggestedTile(x, y);
+                renderer.setSuggestedTile(xTile, yTile);
             }
         }
         else
@@ -153,7 +153,7 @@ void GameplayState::mouseClickLeft(int xPos, int yPos)
             if (clickedTile.playerState == ONE)
             {
                 grid.setSelectedTile(xTile, yTile);
-                renderer.setSelectedTile(x, y);
+                renderer.setSelectedTile(xTile, yTile);
                 grid.desuggestTile();
                 renderer.setSuggestedTile(-1, -1);
             }

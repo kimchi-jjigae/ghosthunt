@@ -7,14 +7,17 @@ class Renderer
 {
     public:
         Renderer();
-        void render(sf::RenderWindow& window, const std::vector<std::vector<Tile> >& grid);
+        void render(sf::RenderWindow& window, const TileGrid& grid);
         void renderText(sf::RenderWindow& window, std::string& string);
         int getTileSize();
+
+        // just get these from the tileGrid?:
         void setSelectedTile(int x, int y);
         void setSuggestedTile(int x, int y);
     private:
         int tileSize;
         
+        // just get these from the tileGrid?:
         int selectedX;
         int selectedY;
         int suggestedX;

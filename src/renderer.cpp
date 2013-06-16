@@ -42,7 +42,7 @@ void Renderer::setSuggestedTile(int x, int y)
     suggestedY = y;
 }
 
-void Renderer::render(sf::RenderWindow& window, const std::vector<std::vector<Tile> >& grid)
+void Renderer::render(sf::RenderWindow& window, const TileGrid& grid)
 {
     window.clear();
     
@@ -51,7 +51,7 @@ void Renderer::render(sf::RenderWindow& window, const std::vector<std::vector<Ti
     {
         for (int j = 0; j < 6; j++)
         {
-            Tile currentTile = grid.at(j).at(i);
+            Tile currentTile = grid.getTileAt(i, j);
             int x = i * tileSize;
             int y = j * tileSize;
 

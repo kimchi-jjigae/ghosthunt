@@ -19,10 +19,12 @@ class TileGrid
 {
     public:
         Tile getTileAt(int x, int y);
+        void moveSelectToSuggest();
+
         void setSelectedTile(int x, int y);
         void setSuggestedTile(int x, int y);
-        Tile getSelectedTile()
-        Tile getSuggestedTile()
+        Tile getSelectedTile();
+        Tile getSuggestedTile();
         TileCoords getSelectedCoords();
         TileCoords getSuggestedCoords();
         void deselectTile();
