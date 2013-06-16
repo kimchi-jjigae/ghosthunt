@@ -9,8 +9,8 @@ Tile TileGrid::getTileAt(int x, int y) const
 void TileGrid::moveSelectToSuggest()
 {
     grid.at(suggestedCoords.y).at(suggestedCoords.x) = grid.at(selectedCoords.y).at(selectedCoords.x);
-    grid.at(selectedCoords.y).at(selectedCoords.y).playerState = NEITHER;
-    grid.at(selectedCoords.y).at(selectedCoords.y).ghostState = NONE;
+    grid.at(selectedCoords.y).at(selectedCoords.x).playerState = NEITHER;
+    grid.at(selectedCoords.y).at(selectedCoords.x).ghostState = NONE;
     desuggestTile();
     deselectTile();
 }
