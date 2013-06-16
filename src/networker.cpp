@@ -23,8 +23,10 @@ bool Networker::acceptConnection()
         return false;
     }
     else
+    {
         std::cout << "accepted!\n";
-    return true;
+        return true;
+    }
 }
 
 bool Networker::connectToHost()
@@ -37,8 +39,10 @@ bool Networker::connectToHost()
         return false;
     }
     else
+    {
         std::cout << "YEA CONNECTED MAYBE\n";
         return true;
+    }
 }
 
 bool Networker::receiveData(sf::Packet& packet)

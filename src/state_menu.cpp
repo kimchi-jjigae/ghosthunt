@@ -10,42 +10,13 @@ void MenuState::setup()
     {
         connected = networker.connectToHost();
     }
-    //and then send more info here
 
-    if (connected)
-    {
-        std::cout << "IT DEFO IS CONNECTED\n";
-        sf::Packet packet;
-        if (networker.isHost())
-        {
-            sleep(3);
-
-            // on sending side
-            uint16_t x = 10;
-            std::string s = "hello";
-            double d = 0.6;
-
-            packet << x << s << d;
-            networker.sendData(packet);
-        }
-        else
-        {
-            networker.receiveData(packet);
-            // on receiving side
-            uint16_t y;
-            std::string t;
-            double e;
-            packet >> y >> t >> e;
-            std::cout << "it is " << y << " and " << t << " and " << e << "\n";
-        }
-    }
-    else
-        std::cout << "not connected :/\n";
 
 }
 
 std::string MenuState::run()
 {
+    //std::cout << "again connected is: " << connected << "\n";
     if (connected)
     {
         std::cout << "Switching from menu to setup\n";
@@ -53,7 +24,7 @@ std::string MenuState::run()
     }
     else
     {
-        nextState = "";
+        nextState = "setup"; // change this to ""
     }
     return nextState;
 }

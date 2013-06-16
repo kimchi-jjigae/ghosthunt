@@ -9,7 +9,6 @@
 #include "renderer.h"
 #include "networker.h"
 #include <iostream>
-#include <unistd.h>
 
 class MenuState : public windstorm::GameState
 {

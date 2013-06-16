@@ -8,9 +8,10 @@
 #include <SFML/Graphics.hpp>
 #include "renderer.h"
 #include "networker.h"
+#include "tile.h"
 #include <iostream>
-#include <stdlib.h>
-#include <unistd.h>
+#include <stdlib.h> // for rand
+#include <unistd.h> // for sleep
 
 class GameplayState : public windstorm::GameState
 {
@@ -33,13 +34,7 @@ class GameplayState : public windstorm::GameState
 
         std::string nextState;
 
-        std::vector<std::vector<Tile> > tileGrid = 
-            {{{NONE, NEITHER}, {GOOD, TWO}, {GOOD, TWO}, {GOOD, TWO}, {GOOD, TWO}, {NONE, NEITHER}},
-            {{NONE, NEITHER}, {BAD, TWO}, {BAD, TWO}, {BAD, TWO}, {BAD, TWO}, {NONE, NEITHER}},
-            {{NONE, NEITHER}, {NONE, NEITHER}, {NONE, NEITHER}, {NONE, NEITHER}, {NONE, NEITHER}, {NONE, NEITHER}},
-            {{NONE, NEITHER}, {NONE, NEITHER}, {NONE, NEITHER}, {NONE, NEITHER}, {NONE, NEITHER}, {NONE, NEITHER}},
-            {{NONE, NEITHER}, {BAD, ONE}, {BAD, ONE}, {BAD, ONE}, {BAD, ONE}, {NONE, NEITHER}},
-            {{NONE, NEITHER}, {GOOD, ONE}, {GOOD, ONE}, {GOOD, ONE}, {GOOD, ONE}, {NONE, NEITHER}}};
+        TileGrid grid;
 
         int enemyGoodCaptured = 0;
         int enemyBadCaptured = 0;

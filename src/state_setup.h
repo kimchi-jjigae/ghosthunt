@@ -9,15 +9,16 @@
 #include "renderer.h"
 #include "networker.h"
 #include <iostream>
+#include <thread>
 
 class SetupState : public windstorm::GameState
 {
     public:
-        //virtual void activate(std::string previousState) {}
+        void activate(std::string previousState) override;
         //virtual void deactivate(std::string nextState) {}
         //virtual void handOver(std::weak_ptr<GameState> previousState, std::string previousStateName) {}
         SetupState(sf::RenderWindow& sfw, windbreeze::InputHandler& ih, windbreeze::ActionHandler<std::string>& ah, Networker& nw, Renderer& r) : sfWindow(sfw), inputHandler(ih), actionHandler(ah), networker(nw), renderer(r){}
-        void setup() override;
+        //void setup() override;
         std::string run() override;
         //virtual void destroy() {}
         //virtual ~GameState() {}
@@ -32,6 +33,8 @@ class SetupState : public windstorm::GameState
         Renderer& renderer;
 
         bool randomiseFirstMove();
+        void listenForSignal();
+        void setupGhosts();
 
         std::string nextState;
         bool turn;
