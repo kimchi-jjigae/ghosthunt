@@ -9,17 +9,29 @@ struct Tile
     PlayerState playerState;
 };
 
+struct TileCoords
+{
+    int x;
+    int y;
+};
+
 class TileGrid
 {
     public:
-        void setTileAsSelected(int x, int y);
-        void setTileAsSuggested(int x, int y);
+        Tile getTileAt(int x, int y);
+        void setSelectedTile(int x, int y);
+        void setSuggestedTile(int x, int y);
+        Tile getSelectedTile()
+        Tile getSuggestedTile()
+        TileCoords getSelectedCoords();
+        TileCoords getSuggestedCoords();
         void deselectTile();
         void desuggestTile();
+        bool isSelected();
+        bool isSuggested();
 
         bool withinGrid(int x, int y);
         bool surroundingSelectedTile(int x, int y);
-        bool isSuggested();
 
     private:
         void modifyTileGhost(int x, int y, GhostState ghost);
@@ -34,10 +46,7 @@ class TileGrid
             {{NONE, NEITHER}, {GOOD, ONE}, {GOOD, ONE}, {GOOD, ONE}, {GOOD, ONE}, {NONE, NEITHER}}};
 
         bool selected = false;
-        int selectedX = -1;
-        int selectedY = -1;
-
+        TileCoords selectCoords = {-1, -1};
         bool suggested = false;
-        int suggestedX = -1;
-        int suggestedY = -1;
+        TileCoords suggestCoords = {-1, -1};
 };

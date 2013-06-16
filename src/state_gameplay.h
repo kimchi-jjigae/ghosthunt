@@ -31,19 +31,15 @@ class GameplayState : public windstorm::GameState
         windbreeze::ActionHandler<std::string>& actionHandler;
         Networker& networker;
         Renderer& renderer;
-
-        std::string nextState;
-
         TileGrid grid;
+        std::string nextState;
 
         int enemyGoodCaptured = 0;
         int enemyBadCaptured = 0;
-
         bool turn;
 
         bool takeMove(); // or return MOVE information
         bool waitForMove(); // or return MOVE information
-
         void processMoveInfo();
         void mouseClickLeft(int xPos, int yPos);
 

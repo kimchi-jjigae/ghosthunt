@@ -86,8 +86,8 @@ bool GameplayState::takeMove()
             if (event.mouseButton.button == windbreeze::Mouse::LEFT)
             {
                 mouseClickLeft(event.mouseButton.x, event.mouseButton.y);
-                std::cout << "selected ghost at " << selectedX << " and " << selectedY << "\n";
-                std::cout << "suggested ghost at " << suggestedX << " and " << suggestedY << "\n";
+                std::cout << "selected ghost at " << grid.getSelectedCoords().x << " and " << grid.getSelectedCoords().y << "\n";
+                std::cout << "suggested ghost at " << grid.getSuggestedCoords().x << " and " << grid.getSuggestedCoords().y << "\n";
             }
         }
     }
@@ -103,24 +103,21 @@ bool GameplayState::waitForMove()
 
 void GameplayState::processMoveInfo()
 {
-    if (suggested)
+    if (grid.isSuggested())
     {
-        if (tileGrid.at(suggestedY).at(suggestedX).ghostState == GOOD)
+        if (grid.getSuggestedTile().ghostState == GOOD) 
         {
             enemyGoodCaptured++;
             std::cout << "yay you captured a good enemy! good antal: " << enemyGoodCaptured << "\n";
         }
-        else if (tileGrid.at(suggestedY).at(suggestedX).ghostState == BAD)
+        else if (grid.getSuggestedTile().ghostState == BAD) 
         {
             enemyBadCaptured++;
             std::cout << "NEEEEEEEEJ you captured a bad enemy! bad antal: " << enemyBadCaptured << "\n";
         }
-        tileGrid.at(suggestedY).at(suggestedX) = tileGrid.at(selectedY).at(selectedX);
-        tileGrid.at(selectedY).at(selectedX).playerState = NEITHER;
-        tileGrid.at(selectedY).at(selectedX).ghostState = NONE;
-        grid.desuggestTile();
+
+        grid.moveSelectToSuggest();
         renderer.setSuggestedTile(-1, -1);
-        grid.deselectTile();
         renderer.setSelectedTile(-1, -1);
     }
     else
@@ -133,21 +130,21 @@ void GameplayState::mouseClickLeft(int xPos, int yPos)
     int xTile = xPos/tileSize;
     int yTile = yPos/tileSize;
 
-    if (withinGrid(xTile, yTile))
+    if (grid.withinGrid(xTile, yTile))
     {
-        Tile& clickedTile = tileGrid.at(yTile).at(xTile);
-        if (selected)
+        Tile& clickedTile = grid.getTileAt(xTile, yTile);
+        if (grid.isSelected)
         {
             if (clickedTile.playerState == ONE)
             {
-                grid.setTileAsSelected(xTile, yTile);
+                grid.setSelectedTile(xTile, yTile);
                 renderer.setSelectedTile(x, y);
                 grid.desuggestTile();
                 renderer.setSuggestedTile(-1, -1);
             }
-            else if (surroundingSelectedTile(xTile, yTile))
+            else if (grid.surroundingSelectedTile(xTile, yTile))
             {
-                grid.setTileAsSuggested(xTile, yTile);
+                grid.setSuggestedTile(xTile, yTile);
                 renderer.setSuggestedTile(x, y);
             }
         }
@@ -155,7 +152,7 @@ void GameplayState::mouseClickLeft(int xPos, int yPos)
         {
             if (clickedTile.playerState == ONE)
             {
-                grid.setTileAsSelected(xTile, yTile);
+                grid.setSelectedTile(xTile, yTile);
                 renderer.setSelectedTile(x, y);
                 grid.desuggestTile();
                 renderer.setSuggestedTile(-1, -1);

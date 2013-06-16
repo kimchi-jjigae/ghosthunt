@@ -1,32 +1,51 @@
 #include "tile.h"
 
 //public
-void TileGrid::setTileAsSelected(int x, int y)
+Tile TileGrid::getTileAt(int x, int y)
 {
-    selected = true;
-    selectedX = x;
-    selectedY = y;
+    return grid.at(y).at(x);
 }
 
-void TileGrid::setTileAsSuggested(int x, int y)
+void TileGrid::moveSelectToSuggest()
+{
+    grid.at(suggestCoords.y).at(suggestCoords.x) = grid.at(selectCoords.y).at(selectCoords.x);
+    grid.at(selectCoords.y).at(selectCoords.y) = {NEITHER, NONE};
+    desuggestTile();
+    deselectTile();
+}
+
+void TileGrid::setSelectedTile(int x, int y)
+{
+    selected = true;
+    selectCoords = {x, y};
+}
+
+void TileGrid::setSuggestedTile(int x, int y)
 {
     suggested = true;
-    suggestedX = x;
-    suggestedY = y;
+    suggestCoords = {x, y};
+}
+
+Tile TileGrid::getSelectedTile()
+{
+    return grid.at(selectCoords.y).at(selectCoords.x);
+}
+
+Tile TileGrid::getSuggestedTile()
+{
+    return grid.at(suggestCoords.y).at(suggestCoords.x);
 }
 
 void TileGrid::deselectTile()
 {
     selected = false;
-    selectedX = -1;
-    selectedY = -1;
+    selectCoords = {-1, -1};
 }
 
 void TileGrid::desuggestTile()
 {
     suggested = false;
-    suggestedX = -1;
-    suggestedY = -1;
+    suggestCoords = {-1, -1};
 }
 
 bool TileGrid::withinGrid(int x, int y)
@@ -43,6 +62,21 @@ bool TileGrid::surroundingSelectedTile(int x, int y)
 bool TileGrid::isSuggested()
 {
     return suggested;
+}
+
+bool TileGrid::isSelected()
+{
+    return selected;
+}
+
+TileCoords TileGrid::getSelectedCoords()
+{
+    return selectCoords;
+}
+
+TileCoords TileGrid::getSuggestedCoords()
+{
+    return suggestCoords;
 }
 
 //private
