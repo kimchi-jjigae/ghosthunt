@@ -117,8 +117,6 @@ void GameplayState::processMoveInfo()
         }
 
         grid.moveSelectToSuggest();
-        renderer.setSuggestedTile(-1, -1);
-        renderer.setSelectedTile(-1, -1);
     }
     else
         std::cout << "No move suggested.\n";
@@ -138,14 +136,11 @@ void GameplayState::mouseClickLeft(int xPos, int yPos)
             if (clickedTile.playerState == ONE)
             {
                 grid.setSelectedTile(xTile, yTile);
-                renderer.setSelectedTile(xTile, yTile);
                 grid.desuggestTile();
-                renderer.setSuggestedTile(-1, -1);
             }
             else if (grid.surroundingSelectedTile(xTile, yTile))
             {
                 grid.setSuggestedTile(xTile, yTile);
-                renderer.setSuggestedTile(xTile, yTile);
             }
         }
         else
@@ -153,9 +148,7 @@ void GameplayState::mouseClickLeft(int xPos, int yPos)
             if (clickedTile.playerState == ONE)
             {
                 grid.setSelectedTile(xTile, yTile);
-                renderer.setSelectedTile(xTile, yTile);
                 grid.desuggestTile();
-                renderer.setSuggestedTile(-1, -1);
             }
         }
     }

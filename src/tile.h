@@ -23,10 +23,10 @@ class TileGrid
 
         void setSelectedTile(int x, int y);
         void setSuggestedTile(int x, int y);
-        Tile getSelectedTile();
-        Tile getSuggestedTile();
-        TileCoords getSelectedCoords();
-        TileCoords getSuggestedCoords();
+        Tile getSelectedTile() const;
+        Tile getSuggestedTile() const;
+        TileCoords getSelectedCoords() const;
+        TileCoords getSuggestedCoords() const;
         void deselectTile();
         void desuggestTile();
         bool isSelected();
@@ -36,6 +36,7 @@ class TileGrid
         bool surroundingSelectedTile(int x, int y);
 
     private:
+    // lol do i even use these ever?
         void modifyTileGhost(int x, int y, GhostState ghost);
         void modifyTilePlayer(int x, int y, PlayerState player);
 

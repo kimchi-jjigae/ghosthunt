@@ -27,22 +27,22 @@ void TileGrid::setSuggestedTile(int x, int y)
     suggestedCoords = {x, y};
 }
 
-Tile TileGrid::getSelectedTile()
+Tile TileGrid::getSelectedTile() const
 {
     return grid.at(selectedCoords.y).at(selectedCoords.x);
 }
 
-Tile TileGrid::getSuggestedTile()
+Tile TileGrid::getSuggestedTile() const
 {
     return grid.at(suggestedCoords.y).at(suggestedCoords.x);
 }
 
-TileCoords TileGrid::getSelectedCoords()
+TileCoords TileGrid::getSelectedCoords() const
 {
     return selectedCoords;
 }
 
-TileCoords TileGrid::getSuggestedCoords()
+TileCoords TileGrid::getSuggestedCoords() const
 {
     return suggestedCoords;
 }
@@ -81,6 +81,7 @@ bool TileGrid::isSelected()
 }
 
 //private
+// lol do i even use these ever?
 void TileGrid::modifyTileGhost(int x, int y, GhostState ghost)
 {
     grid.at(y).at(x).ghostState = ghost;

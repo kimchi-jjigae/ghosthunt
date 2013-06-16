@@ -11,18 +11,9 @@ class Renderer
         void renderText(sf::RenderWindow& window, std::string& string);
         int getTileSize();
 
-        // just get these from the tileGrid?:
-        void setSelectedTile(int x, int y);
-        void setSuggestedTile(int x, int y);
     private:
         int tileSize;
         
-        // just get these from the tileGrid?:
-        int selectedX;
-        int selectedY;
-        int suggestedX;
-        int suggestedY;
-
         sf::Texture dungeonTexture;
         sf::Sprite dungeonSprite;
         sf::Sprite dungeonSelectedSprite;

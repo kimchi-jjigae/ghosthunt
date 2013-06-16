@@ -2,10 +2,6 @@
 
 Renderer::Renderer()
 {
-    selectedX = -1;
-    selectedY = -1;
-    suggestedX = -1;
-    suggestedY = -1;
     tileSize = 100;
     dungeonTexture.loadFromFile("data/dungeon.png");
     dungeonSprite.setTexture(dungeonTexture);
@@ -30,22 +26,15 @@ int Renderer::getTileSize()
     return tileSize;
 }
 
-void Renderer::setSelectedTile(int x, int y)
-{
-    selectedX = x;
-    selectedY = y;
-}
-
-void Renderer::setSuggestedTile(int x, int y)
-{
-    suggestedX = x;
-    suggestedY = y;
-}
-
 void Renderer::render(sf::RenderWindow& window, const TileGrid& grid)
 {
     window.clear();
     
+    int selectedX = grid.getSelectedCoords().x;
+    int selectedY = grid.getSelectedCoords().y;
+    int suggestedX = grid.getSuggestedCoords().x;
+    int suggestedY = grid.getSuggestedCoords().y;
+
     //iterate through the grid
     for (int i = 0; i < 6; i++)
     {
