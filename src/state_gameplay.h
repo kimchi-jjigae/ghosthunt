@@ -44,22 +44,7 @@ class GameplayState : public windstorm::GameState
         bool takeMove(); // or return MOVE information
         bool waitForMove(); // or return MOVE information
 
-        bool selected = false;
-        int selectedX = -1;
-        int selectedY = -1;
-
-        bool suggested = false;
-        int suggestedX = -1;
-        int suggestedY = -1;
-
-        void setTileAsSelected(int x, int y);
-        void setTileAsSuggested(int x, int y);
-        void deselectTile();
-        void desuggestTile();
-        bool surroundingSelectedTile(int x, int y);
-        bool checkIfValidMove();
         void processMoveInfo();
-        bool withinGrid(int x, int y);
         void mouseClickLeft(int xPos, int yPos);
 
         //temporary

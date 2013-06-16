@@ -94,54 +94,11 @@ bool GameplayState::takeMove()
     return true;
 }
 
-bool GameplayState::checkIfValidMove()
-{
-    return suggested;
-}
-
 bool GameplayState::waitForMove()
 {
     std::cout << "HAHA YOU CAN'T DO ANYTHING\n";
     sleep(2);
     return !turn;
-}
-
-void GameplayState::setTileAsSelected(int x, int y)
-{
-    selected = true;
-    selectedX = x;
-    selectedY = y;
-    renderer.setSelectedTile(x, y);
-}
-
-void GameplayState::setTileAsSuggested(int x, int y)
-{
-    suggested = true;
-    suggestedX = x;
-    suggestedY = y;
-    renderer.setSuggestedTile(x, y);
-}
-
-void GameplayState::deselectTile()
-{
-    selected = false;
-    selectedX = -1;
-    selectedY = -1;
-    renderer.setSelectedTile(-1, -1);
-}
-
-void GameplayState::desuggestTile()
-{
-    suggested = false;
-    suggestedX = -1;
-    suggestedY = -1;
-    renderer.setSuggestedTile(-1, -1);
-}
-
-bool GameplayState::surroundingSelectedTile(int x, int y)
-{
-    return (((x == selectedX + 1 || x == selectedX - 1) && y == selectedY)
-        || ((y == selectedY + 1 || y == selectedY - 1) && x == selectedX));
 }
 
 void GameplayState::processMoveInfo()
@@ -161,16 +118,13 @@ void GameplayState::processMoveInfo()
         tileGrid.at(suggestedY).at(suggestedX) = tileGrid.at(selectedY).at(selectedX);
         tileGrid.at(selectedY).at(selectedX).playerState = NEITHER;
         tileGrid.at(selectedY).at(selectedX).ghostState = NONE;
-        desuggestTile();
-        deselectTile();
+        grid.desuggestTile();
+        renderer.setSuggestedTile(-1, -1);
+        grid.deselectTile();
+        renderer.setSelectedTile(-1, -1);
     }
     else
         std::cout << "No move suggested.\n";
-}
-
-bool GameplayState::withinGrid(int x, int y)
-{
-    return ((x <= 5 && x >= 0) && (y <= 5 && y >= 0));
 }
 
 void GameplayState::mouseClickLeft(int xPos, int yPos)
@@ -186,20 +140,25 @@ void GameplayState::mouseClickLeft(int xPos, int yPos)
         {
             if (clickedTile.playerState == ONE)
             {
-                setTileAsSelected(xTile, yTile);
-                desuggestTile();
+                grid.setTileAsSelected(xTile, yTile);
+                renderer.setSelectedTile(x, y);
+                grid.desuggestTile();
+                renderer.setSuggestedTile(-1, -1);
             }
             else if (surroundingSelectedTile(xTile, yTile))
             {
-                setTileAsSuggested(xTile, yTile);
+                grid.setTileAsSuggested(xTile, yTile);
+                renderer.setSuggestedTile(x, y);
             }
         }
         else
         {
             if (clickedTile.playerState == ONE)
             {
-                setTileAsSelected(xTile, yTile);
-                desuggestTile();
+                grid.setTileAsSelected(xTile, yTile);
+                renderer.setSelectedTile(x, y);
+                grid.desuggestTile();
+                renderer.setSuggestedTile(-1, -1);
             }
         }
     }
