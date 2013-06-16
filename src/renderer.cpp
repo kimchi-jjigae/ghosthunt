@@ -51,7 +51,7 @@ void Renderer::render(sf::RenderWindow& window, const TileGrid& grid)
     {
         for (int j = 0; j < 6; j++)
         {
-            Tile currentTile = grid.getTileAt(i, j);
+            const Tile& currentTile = grid.getTileAt(i, j);
             int x = i * tileSize;
             int y = j * tileSize;
 

@@ -1,15 +1,16 @@
 #include "tile.h"
 
 //public
-Tile TileGrid::getTileAt(int x, int y)
+Tile TileGrid::getTileAt(int x, int y) const
 {
     return grid.at(y).at(x);
 }
 
 void TileGrid::moveSelectToSuggest()
 {
-    grid.at(suggestCoords.y).at(suggestCoords.x) = grid.at(selectCoords.y).at(selectCoords.x);
-    grid.at(selectCoords.y).at(selectCoords.y) = {NEITHER, NONE};
+    grid.at(suggestedCoords.y).at(suggestedCoords.x) = grid.at(selectedCoords.y).at(selectedCoords.x);
+    grid.at(selectedCoords.y).at(selectedCoords.y).playerState = NEITHER;
+    grid.at(selectedCoords.y).at(selectedCoords.y).ghostState = NONE;
     desuggestTile();
     deselectTile();
 }
@@ -17,35 +18,45 @@ void TileGrid::moveSelectToSuggest()
 void TileGrid::setSelectedTile(int x, int y)
 {
     selected = true;
-    selectCoords = {x, y};
+    selectedCoords = {x, y};
 }
 
 void TileGrid::setSuggestedTile(int x, int y)
 {
     suggested = true;
-    suggestCoords = {x, y};
+    suggestedCoords = {x, y};
 }
 
 Tile TileGrid::getSelectedTile()
 {
-    return grid.at(selectCoords.y).at(selectCoords.x);
+    return grid.at(selectedCoords.y).at(selectedCoords.x);
 }
 
 Tile TileGrid::getSuggestedTile()
 {
-    return grid.at(suggestCoords.y).at(suggestCoords.x);
+    return grid.at(suggestedCoords.y).at(suggestedCoords.x);
+}
+
+TileCoords TileGrid::getSelectedCoords()
+{
+    return selectedCoords;
+}
+
+TileCoords TileGrid::getSuggestedCoords()
+{
+    return suggestedCoords;
 }
 
 void TileGrid::deselectTile()
 {
     selected = false;
-    selectCoords = {-1, -1};
+    selectedCoords = {-1, -1};
 }
 
 void TileGrid::desuggestTile()
 {
     suggested = false;
-    suggestCoords = {-1, -1};
+    suggestedCoords = {-1, -1};
 }
 
 bool TileGrid::withinGrid(int x, int y)
@@ -55,8 +66,8 @@ bool TileGrid::withinGrid(int x, int y)
 
 bool TileGrid::surroundingSelectedTile(int x, int y)
 {
-    return (((x == selectedX + 1 || x == selectedX - 1) && y == selectedY)
-        || ((y == selectedY + 1 || y == selectedY - 1) && x == selectedX));
+    return (((x == selectedCoords.x + 1 || x == selectedCoords.x - 1) && y == selectedCoords.y)
+        || ((y == selectedCoords.y + 1 || y == selectedCoords.y - 1) && x == selectedCoords.x));
 }
 
 bool TileGrid::isSuggested()
@@ -67,16 +78,6 @@ bool TileGrid::isSuggested()
 bool TileGrid::isSelected()
 {
     return selected;
-}
-
-TileCoords TileGrid::getSelectedCoords()
-{
-    return selectCoords;
-}
-
-TileCoords TileGrid::getSuggestedCoords()
-{
-    return suggestCoords;
 }
 
 //private

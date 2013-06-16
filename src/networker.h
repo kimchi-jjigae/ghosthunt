@@ -21,5 +21,5 @@ class Networker
         sf::TcpListener listener; 
         sf::TcpSocket socket;
 
-        bool host = true;
+        bool host = false;
 };

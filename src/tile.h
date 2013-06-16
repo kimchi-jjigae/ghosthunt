@@ -1,5 +1,5 @@
 #pragma once
-#include <iostream>
+#include <vector>
 enum GhostState { NONE, GOOD, BAD };
 enum PlayerState { NEITHER, ONE, TWO };
 
@@ -18,7 +18,7 @@ struct TileCoords
 class TileGrid
 {
     public:
-        Tile getTileAt(int x, int y);
+        Tile getTileAt(int x, int y) const;
         void moveSelectToSuggest();
 
         void setSelectedTile(int x, int y);
@@ -48,7 +48,7 @@ class TileGrid
             {{NONE, NEITHER}, {GOOD, ONE}, {GOOD, ONE}, {GOOD, ONE}, {GOOD, ONE}, {NONE, NEITHER}}};
 
         bool selected = false;
-        TileCoords selectCoords = {-1, -1};
+        TileCoords selectedCoords = {-1, -1};
         bool suggested = false;
-        TileCoords suggestCoords = {-1, -1};
+        TileCoords suggestedCoords = {-1, -1};
 };
