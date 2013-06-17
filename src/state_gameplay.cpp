@@ -14,6 +14,7 @@ void GameplayState::setup()
 {
     winString = "YOU WIN!!! :D";
     loseString = "NEEEEEJ YOU LOST";
+    host = networker.isHost();
 }
 
 std::string GameplayState::run()
@@ -34,7 +35,7 @@ std::string GameplayState::run()
         }
         else
         {
-            renderer.render(sfWindow, grid);
+            renderer.render(sfWindow, grid, host);
         }
     }
     else if (!turn)
@@ -51,7 +52,7 @@ std::string GameplayState::run()
         }
         else
         {
-            renderer.render(sfWindow, grid);
+            renderer.render(sfWindow, grid, host);
         }
     }
     return nextState;

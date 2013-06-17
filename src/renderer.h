@@ -7,7 +7,7 @@ class Renderer
 {
     public:
         Renderer();
-        void render(sf::RenderWindow& window, const TileGrid& grid);
+        void render(sf::RenderWindow& window, const TileGrid& grid, bool host);
         void renderText(sf::RenderWindow& window, std::string& string);
         int getTileSize();
 

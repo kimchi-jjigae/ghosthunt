@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <iostream>
 enum GhostState { NONE, GOOD, BAD };
 enum PlayerState { NEITHER, ONE, TWO };
 
@@ -34,12 +35,9 @@ class TileGrid
 
         bool withinGrid(int x, int y);
         bool surroundingSelectedTile(int x, int y);
+        void placeEnemyGhosts(std::string enemyState);
 
     private:
-    // lol do i even use these ever?
-        void modifyTileGhost(int x, int y, GhostState ghost);
-        void modifyTilePlayer(int x, int y, PlayerState player);
-
         std::vector<std::vector<Tile> > grid = 
             {{{NONE, NEITHER}, {GOOD, TWO}, {GOOD, TWO}, {GOOD, TWO}, {GOOD, TWO}, {NONE, NEITHER}},
             {{NONE, NEITHER}, {BAD, TWO}, {BAD, TWO}, {BAD, TWO}, {BAD, TWO}, {NONE, NEITHER}},

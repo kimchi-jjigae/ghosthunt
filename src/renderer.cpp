@@ -26,7 +26,7 @@ int Renderer::getTileSize()
     return tileSize;
 }
 
-void Renderer::render(sf::RenderWindow& window, const TileGrid& grid)
+void Renderer::render(sf::RenderWindow& window, const TileGrid& grid, bool host)
 {
     window.clear();
     

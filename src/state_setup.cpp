@@ -30,22 +30,27 @@ void SetupState::activate(std::string previousState)
 
 std::string SetupState::run()
 {
+    sleep(1);
+    std::cout << "first string is: " << enemyState << "\n";
     std::thread listenThread(&SetupState::listenForSignal, this);
     std::thread setupGhostsThread(&SetupState::setupGhosts, this);
     listenThread.join();
     setupGhostsThread.join();
+    std::cout << "second string is: " << enemyState << "\n";
+    grid.placeEnemyGhosts(enemyState);
     nextState = "gameplay";
     return nextState;
 }
 
 void SetupState::listenForSignal()
 {
-    std::cout << "listening for a signal!";
+    std::cout << "listening for a signal!\n";
+    enemyState = "GBGBBBGG";
 }
 
 void SetupState::setupGhosts()
 {
-    std::cout << "setting up ghosts!";
+    std::cout << "setting up ghosts!\n";
 }
 
 bool SetupState::randomiseFirstMove()

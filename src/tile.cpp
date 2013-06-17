@@ -80,14 +80,30 @@ bool TileGrid::isSelected()
     return selected;
 }
 
-//private
-// lol do i even use these ever?
-void TileGrid::modifyTileGhost(int x, int y, GhostState ghost)
+void TileGrid::placeEnemyGhosts(std::string enemyState)
 {
-    grid.at(y).at(x).ghostState = ghost;
-}
-
-void TileGrid::modifyTilePlayer(int x, int y, PlayerState player)
-{
-    grid.at(y).at(x).playerState = player;
+    int k = 7;
+    for (int i = 0; i < 2; i++)
+    {
+        for (int j = 1; j < 5; j++)
+        {
+            while (k > 0)
+            {
+                grid.at(j).at(i).playerState = TWO;
+                if (enemyState[k] == 'G')
+                {
+                    grid.at(j).at(i).ghostState = GOOD;
+                }
+                else if (enemyState[k] == 'B')
+                {
+                    grid.at(j).at(i).ghostState = BAD;
+                }
+                else
+                {
+                    std::cout << "somethings wrong with the string lol\n";
+                }
+                k--;
+            }
+        }
+    }
 }

@@ -8,6 +8,7 @@
 #include <SFML/Graphics.hpp>
 #include "renderer.h"
 #include "networker.h"
+#include "tile.h"
 #include <iostream>
 
 class GhostHunt : public windstorm::Application
@@ -20,6 +21,7 @@ class GhostHunt : public windstorm::Application
         windstorm::GameStateMachine stateMachine;
         Networker networker;
         Renderer renderer;
+        TileGrid grid;
 
         sf::RenderWindow sfWindow;
         windbreeze::SFMLWindowBackend sfmlWindowBackend = sfWindow;

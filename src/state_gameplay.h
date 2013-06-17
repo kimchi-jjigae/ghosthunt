@@ -19,7 +19,7 @@ class GameplayState : public windstorm::GameState
         //virtual void activate(std::string previousState) {}
         //virtual void deactivate(std::string nextState) {}
         void handOver(std::weak_ptr<GameState> previousState, std::string previousStateName) override;
-        GameplayState(sf::RenderWindow& sfw, windbreeze::InputHandler& ih, windbreeze::ActionHandler<std::string>& ah, Networker& nw, Renderer& r) : sfWindow(sfw), inputHandler(ih), actionHandler(ah), networker(nw), renderer(r){}
+        GameplayState(sf::RenderWindow& sfw, windbreeze::InputHandler& ih, windbreeze::ActionHandler<std::string>& ah, Networker& nw, Renderer& r, TileGrid& tg) : sfWindow(sfw), inputHandler(ih), actionHandler(ah), networker(nw), renderer(r), grid(tg){}
         void setup() override;
         std::string run() override;
         //virtual void destroy() {}
@@ -31,12 +31,13 @@ class GameplayState : public windstorm::GameState
         windbreeze::ActionHandler<std::string>& actionHandler;
         Networker& networker;
         Renderer& renderer;
-        TileGrid grid;
+        TileGrid& grid;
         std::string nextState;
 
         int enemyGoodCaptured = 0;
         int enemyBadCaptured = 0;
         bool turn;
+        bool host;
 
         bool takeMove(); // or return MOVE information
         bool waitForMove(); // or return MOVE information
