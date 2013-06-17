@@ -2,42 +2,19 @@
 
 void SetupState::activate(std::string previousState)
 {
-    sf::Packet packet;
-
-    if (networker.isHost())
-    {
-
-        turn = randomiseFirstMove();
-        // on sending side
-        uint16_t x = 10;
-        std::string s = "hello";
-        double d = 0.6;
-
-        packet << x << s << d;
-        networker.sendData(packet);
-    }
-    else
-    {
-        networker.receiveData(packet);
-        // on receiving side
-        uint16_t y;
-        std::string t;
-        double e;
-        packet >> y >> t >> e;
-        std::cout << "it is " << y << " and " << t << " and " << e << "\n";
-    }
+    turn = randomiseFirstMove();
 }
 
 std::string SetupState::run()
 {
-    sleep(1);
-    std::cout << "first string is: " << enemyState << "\n";
     std::thread listenThread(&SetupState::listenForSignal, this);
     std::thread setupGhostsThread(&SetupState::setupGhosts, this);
     listenThread.join();
     setupGhostsThread.join();
-    std::cout << "second string is: " << enemyState << "\n";
-    grid.placeEnemyGhosts(enemyState);
+    if (networker.isHost())
+    {
+        grid.placeEnemyGhosts(enemyState);
+    }
     nextState = "gameplay";
     return nextState;
 }
@@ -45,12 +22,23 @@ std::string SetupState::run()
 void SetupState::listenForSignal()
 {
     std::cout << "listening for a signal!\n";
-    enemyState = "GBGBBBGG";
+    if (networker.isHost())
+    {
+        networker.receiveData(packet);
+        packet >> enemyState;
+    }
 }
 
 void SetupState::setupGhosts()
 {
-    std::cout << "setting up ghosts!\n";
+    if (!(networker.isHost()))
+    {
+        std::cout << "setting up ghosts!\n";
+        sleep(1);
+        std::string s = "GBGBBBGG";
+        packet << s;
+        networker.sendData(packet);
+    }
 }
 
 bool SetupState::randomiseFirstMove()
