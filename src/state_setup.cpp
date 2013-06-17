@@ -13,7 +13,11 @@ std::string SetupState::run()
     setupGhostsThread.join();
     if (networker.isHost())
     {
-        grid.placeEnemyGhosts(enemyState);
+        grid.placeEnemyGhosts(clientGhosts);
+    }
+    else
+    {
+        grid.placeEnemyGhosts(hostGhosts);
     }
     nextState = "gameplay";
     return nextState;
@@ -24,21 +28,31 @@ void SetupState::listenForSignal()
     std::cout << "listening for a signal!\n";
     if (networker.isHost())
     {
-        networker.receiveData(packet);
-        packet >> enemyState;
+        networker.receiveData(listenPacket);
+        listenPacket >> clientGhosts;
     }
+    else
+    {
+        networker.receiveData(listenPacket);
+        listenPacket >> hostGhosts;
+    }
+
 }
 
 void SetupState::setupGhosts()
 {
-    if (!(networker.isHost()))
+    std::cout << "setting up ghosts!\n";
+    std::string s;
+    if (networker.isHost())
     {
-        std::cout << "setting up ghosts!\n";
-        sleep(1);
-        std::string s = "GBGBBBGG";
-        packet << s;
-        networker.sendData(packet);
+        s = "GGBBBBGG";
     }
+    else
+    {
+        s = "GBGBBBGG";
+    }
+    setupPacket << s;
+    networker.sendData(setupPacket);
 }
 
 bool SetupState::randomiseFirstMove()

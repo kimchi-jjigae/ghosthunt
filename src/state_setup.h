@@ -34,12 +34,14 @@ class SetupState : public windstorm::GameState
         Renderer& renderer;
         TileGrid& grid;
 
-        sf::Packet packet;
         bool randomiseFirstMove();
         void listenForSignal();
         void setupGhosts();
         void placeEnemyGhosts();
-        std::string enemyState;
+        sf::Packet listenPacket;
+        sf::Packet setupPacket;
+        std::string clientGhosts;
+        std::string hostGhosts;
         std::string nextState;
         bool turn;
 };
