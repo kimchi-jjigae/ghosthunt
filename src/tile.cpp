@@ -87,16 +87,16 @@ void TileGrid::placeEnemyGhosts(std::string enemyState)
     {
         for (int j = 1; j < 5; j++)
         {
-            while (k > 0)
+            if (k >= 0)
             {
-                grid.at(j).at(i).playerState = TWO;
+                grid.at(i).at(j).playerState = TWO;
                 if (enemyState[k] == 'G')
                 {
-                    grid.at(j).at(i).ghostState = GOOD;
+                    grid.at(i).at(j).ghostState = GOOD;
                 }
                 else if (enemyState[k] == 'B')
                 {
-                    grid.at(j).at(i).ghostState = BAD;
+                    grid.at(i).at(j).ghostState = BAD;
                 }
                 else
                 {

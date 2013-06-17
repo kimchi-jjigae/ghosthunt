@@ -62,8 +62,10 @@ void Renderer::render(sf::RenderWindow& window, const TileGrid& grid, bool host)
             }
 
             //draw ghosts
-            if (currentTile.playerState == ONE)
+            /*
+            if (currentTile.playerState == TWO)
             {
+                */
                 if (currentTile.ghostState == GOOD)
                 {
                     ghostSpriteGood.setPosition(x, y);
@@ -74,12 +76,14 @@ void Renderer::render(sf::RenderWindow& window, const TileGrid& grid, bool host)
                     ghostSpriteBad.setPosition(x, y);
                     window.draw(ghostSpriteBad);
                 }
+                /*
             }
-            else if (currentTile.playerState == TWO)
+            else if (currentTile.playerState == ONE)
             {
                 ghostSpriteUnknown.setPosition(x, y);
                 window.draw(ghostSpriteUnknown);
             }
+            */
         }
     }
 
