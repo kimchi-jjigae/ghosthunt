@@ -34,6 +34,10 @@ class SetupState : public windstorm::GameState
         Renderer& renderer;
         TileGrid& grid;
 
+        std::thread listenThread;
+        std::thread setupGhostsThread;
+
+        bool host;
         bool randomiseFirstMove();
         void listenForSignal();
         void setupGhosts();
@@ -44,4 +48,5 @@ class SetupState : public windstorm::GameState
         std::string hostGhosts;
         std::string nextState;
         bool turn;
+        void mouseClickLeft(int xPos, int yPos);
 };

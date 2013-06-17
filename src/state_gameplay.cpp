@@ -116,7 +116,6 @@ void GameplayState::processMoveInfo()
             enemyBadCaptured++;
             std::cout << "NEEEEEEEEJ you captured a bad enemy! bad antal: " << enemyBadCaptured << "\n";
         }
-
         grid.moveSelectToSuggest();
     }
     else

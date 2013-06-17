@@ -17,6 +17,7 @@ class Renderer
         sf::Texture dungeonTexture;
         sf::Sprite dungeonSprite;
         sf::Sprite dungeonSelectedSprite;
+        sf::Sprite dungeonReadySprite;
         sf::Texture ghostTexture;
         sf::Sprite ghostSpriteUnknown;
         sf::Sprite ghostSpriteGood;

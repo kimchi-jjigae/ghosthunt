@@ -8,6 +8,8 @@ Renderer::Renderer()
     dungeonSelectedSprite.setTexture(dungeonTexture);
     dungeonSprite.setTextureRect(sf::IntRect(0, 0, 100, 100));
     dungeonSelectedSprite.setTextureRect(sf::IntRect(100, 0, 100, 100));
+    dungeonReadySprite.setTexture(dungeonTexture);
+    dungeonReadySprite.setTextureRect(sf::IntRect(200, 0, 100, 100));
     
     ghostTexture.loadFromFile("data/ghost.png");
     ghostSpriteUnknown.setTexture(ghostTexture);
@@ -49,6 +51,11 @@ void Renderer::render(sf::RenderWindow& window, const TileGrid& grid, bool host)
             {
                 dungeonSelectedSprite.setPosition(selectedX * tileSize, selectedY * tileSize);
                 window.draw(dungeonSelectedSprite);
+            }
+            else if ((currentTile.playerState == ONE) && ((i > 0 && i < 5) && (j > 3 && j < 6)))        // should only happen in setup_state
+            {
+                dungeonReadySprite.setPosition(x, y);
+                window.draw(dungeonReadySprite);
             }
             else if (i == suggestedX && j == suggestedY)
             {

@@ -15,6 +15,15 @@ void TileGrid::moveSelectToSuggest()
     deselectTile();
 }
 
+void TileGrid::swapSelectAndSuggest()
+{
+    Tile tmp = grid.at(suggestedCoords.y).at(suggestedCoords.x);
+    grid.at(suggestedCoords.y).at(suggestedCoords.x) = grid.at(selectedCoords.y).at(selectedCoords.x);
+    grid.at(selectedCoords.y).at(selectedCoords.x) = tmp;
+    desuggestTile();
+    deselectTile();
+}
+
 void TileGrid::setSelectedTile(int x, int y)
 {
     selected = true;

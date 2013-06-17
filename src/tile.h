@@ -21,6 +21,7 @@ class TileGrid
     public:
         Tile getTileAt(int x, int y) const;
         void moveSelectToSuggest();
+        void swapSelectAndSuggest();
 
         void setSelectedTile(int x, int y);
         void setSuggestedTile(int x, int y);
