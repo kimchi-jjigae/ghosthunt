@@ -6,10 +6,12 @@ Renderer::Renderer()
     dungeonTexture.loadFromFile("data/dungeon.png");
     dungeonSprite.setTexture(dungeonTexture);
     dungeonSelectedSprite.setTexture(dungeonTexture);
+    dungeonReadySprite.setTexture(dungeonTexture);
+    dungeonMouseSprite.setTexture(dungeonTexture);
     dungeonSprite.setTextureRect(sf::IntRect(0, 0, 100, 100));
     dungeonSelectedSprite.setTextureRect(sf::IntRect(100, 0, 100, 100));
-    dungeonReadySprite.setTexture(dungeonTexture);
     dungeonReadySprite.setTextureRect(sf::IntRect(200, 0, 100, 100));
+    dungeonMouseSprite.setTextureRect(sf::IntRect(300, 0, 100, 100));
     
     ghostTexture.loadFromFile("data/ghost.png");
     ghostSpriteUnknown.setTexture(ghostTexture);
@@ -52,7 +54,79 @@ void Renderer::render(sf::RenderWindow& window, const TileGrid& grid, bool host)
                 dungeonSelectedSprite.setPosition(selectedX * tileSize, selectedY * tileSize);
                 window.draw(dungeonSelectedSprite);
             }
-            else if ((currentTile.playerState == ONE) && ((i > 0 && i < 5) && (j > 3 && j < 6)))        // should only happen in setup_state
+            else if (i == suggestedX && j == suggestedY)
+            {
+                dungeonSelectedSprite.setPosition(suggestedX * tileSize, suggestedY * tileSize);
+                window.draw(dungeonSelectedSprite);
+            }
+            else
+            {
+                dungeonSprite.setPosition(x, y);
+                window.draw(dungeonSprite);
+            }
+
+            //draw ghosts
+            /*
+            if (currentTile.playerState == TWO)
+            {
+                */
+                if (currentTile.ghostState == GOOD)
+                {
+                    ghostSpriteGood.setPosition(x, y);
+                    window.draw(ghostSpriteGood);
+                }
+                else if (currentTile.ghostState == BAD)
+                {
+                    ghostSpriteBad.setPosition(x, y);
+                    window.draw(ghostSpriteBad);
+                }
+                /*
+            }
+            else if (currentTile.playerState == ONE)
+            {
+                ghostSpriteUnknown.setPosition(x, y);
+                window.draw(ghostSpriteUnknown);
+            }
+            */
+        }
+    }
+
+    window.display();
+}
+
+void Renderer::renderSetup(sf::RenderWindow& window, const TileGrid& grid, bool host, int mouseX, int mouseY)
+{
+    window.clear();
+    
+    int selectedX = grid.getSelectedCoords().x;
+    int selectedY = grid.getSelectedCoords().y;
+    int suggestedX = grid.getSuggestedCoords().x;
+    int suggestedY = grid.getSuggestedCoords().y;
+
+    //iterate through the grid
+    for (int i = 0; i < 6; i++)
+    {
+        for (int j = 0; j < 6; j++)
+        {
+            const Tile& currentTile = grid.getTileAt(i, j);
+            int x = i * tileSize;
+            int y = j * tileSize;
+
+            int mouseTileX = mouseX / tileSize;
+            int mouseTileY = mouseY / tileSize;
+
+            //draw dungeon grid
+            if (i == mouseTileX && j == mouseTileY)
+            {
+                dungeonSelectedSprite.setPosition(mouseTileX, mouseTileY);
+                window.draw(dungeonMouseSprite);
+            }
+            else if (i == selectedX && j == selectedY)
+            {
+                dungeonSelectedSprite.setPosition(selectedX * tileSize, selectedY * tileSize);
+                window.draw(dungeonSelectedSprite);
+            }
+            else if ((currentTile.playerState == ONE) && ((i > 0 && i < 5) && (j > 3 && j < 6)))
             {
                 dungeonReadySprite.setPosition(x, y);
                 window.draw(dungeonReadySprite);

@@ -65,9 +65,8 @@ void SetupState::setupGhosts()
                 if (event.key.code == windbreeze::Keyboard::K)
                 {
                     std::cout << "Klart!\n";
-                    // checkIfPiecesValid();
+                    notSetUp = grid.checkIfSetupValid();
                     // convertPositionsToString();
-                    notSetUp = false;
                 }
             }
             else if (event.type == windbreeze::Event::MOUSEBUTTONPRESSED)
@@ -78,6 +77,7 @@ void SetupState::setupGhosts()
                 }
             }
         }
+        //renderer.renderSetup(sfWindow, grid, host, int mousePosX, int mousePosY);
         renderer.render(sfWindow, grid, host);
     }
 

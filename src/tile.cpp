@@ -116,3 +116,21 @@ void TileGrid::placeEnemyGhosts(std::string enemyState)
         }
     }
 }
+
+bool TileGrid::checkIfSetupValid()
+{
+    for (int i = 4; i < 6; i++)
+    {
+        for (int j = 1; j < 5; j++)
+        {
+            if (!(grid.at(i).at(j).playerState == ONE))
+            {
+                std::cout << "setup was NOOOOT valid! 90321480329840239840923482039\n";
+                return false;
+            }
+        }
+    }
+    std::cout << "setup was valid! 90321480329840239840923482039\n";
+    return true;
+}
+

@@ -37,6 +37,7 @@ class TileGrid
         bool withinGrid(int x, int y);
         bool surroundingSelectedTile(int x, int y);
         void placeEnemyGhosts(std::string enemyState);
+        bool checkIfSetupValid();
 
     private:
         std::vector<std::vector<Tile> > grid = 

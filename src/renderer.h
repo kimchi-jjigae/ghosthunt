@@ -8,6 +8,7 @@ class Renderer
     public:
         Renderer();
         void render(sf::RenderWindow& window, const TileGrid& grid, bool host);
+        void renderSetup(sf::RenderWindow& window, const TileGrid& grid, bool host, int mouseX, int mouseY);
         void renderText(sf::RenderWindow& window, std::string& string);
         int getTileSize();
 
@@ -18,6 +19,7 @@ class Renderer
         sf::Sprite dungeonSprite;
         sf::Sprite dungeonSelectedSprite;
         sf::Sprite dungeonReadySprite;
+        sf::Sprite dungeonMouseSprite;
         sf::Texture ghostTexture;
         sf::Sprite ghostSpriteUnknown;
         sf::Sprite ghostSpriteGood;
