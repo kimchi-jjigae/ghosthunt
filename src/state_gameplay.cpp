@@ -16,12 +16,14 @@ void GameplayState::activate(std::string previousState)
     if (host)
     {
         turn = randomiseFirstMove();
+        std::cout << "I AM HOST AND SENDING TURN DATA. Turn is: " << turn << "\n";
         packet << turn;
         networker.sendData(packet);
     }
     else
     {
         turn = networker.receiveData(packet);
+        std::cout << "I am not host but i received the turn data. Turn is: " << turn << "\n";
     }
     winString = "YOU WIN!!! :D";
     loseString = "NEEEEEJ YOU LOST";
@@ -33,7 +35,6 @@ std::string GameplayState::run()
 
     if (turn)
     {
-        std::cout << "YOUR TURN";
         turn = takeMove();
 
         if (enemyGoodCaptured == 4)
@@ -51,7 +52,6 @@ std::string GameplayState::run()
     }
     else if (!turn)
     {
-        std::cout << "NOT YOUR TURN";
         turn = waitForMove();
 
         if (enemyGoodCaptured == 4)
