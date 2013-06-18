@@ -64,9 +64,16 @@ void SetupState::setupGhosts()
                 */
                 if (event.key.code == windbreeze::Keyboard::K)
                 {
-                    std::cout << "Klart!\n";
-                    notSetUp = grid.checkIfSetupValid();
-                    // convertPositionsToString();
+                    if (grid.checkIfSetupValid())
+                    {
+                        notSetUp = false;
+                        std::cout << "Klart!\n";
+                        grid.convertPositionsToString();
+                    }
+                    else
+                    {
+                        std::cout << "setup wasn't valid\n";
+                    }
                 }
             }
             else if (event.type == windbreeze::Event::MOUSEBUTTONPRESSED)

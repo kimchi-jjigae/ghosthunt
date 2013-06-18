@@ -125,12 +125,30 @@ bool TileGrid::checkIfSetupValid()
         {
             if (!(grid.at(i).at(j).playerState == ONE))
             {
-                std::cout << "setup was NOOOOT valid! 90321480329840239840923482039\n";
                 return false;
             }
         }
     }
-    std::cout << "setup was valid! 90321480329840239840923482039\n";
     return true;
 }
 
+std::string TileGrid::convertPositionsToString()
+{
+    std::string s = "";
+    for (int i = 4; i < 6; i++)
+    {
+        for (int j = 1; j < 5; j++)
+        {
+            if (grid.at(i).at(j).ghostState == GOOD)
+            {
+                s += 'G';
+            }
+            else if (grid.at(i).at(j).ghostState == BAD)
+            {
+                s += 'B';
+            }
+        }
+    }
+    std::cout << "the string is: " << s << "\n";
+    return s;
+}
