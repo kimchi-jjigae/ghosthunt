@@ -35,11 +35,13 @@ class SetupState : public windstorm::GameState
         TileGrid& grid;
 
         std::thread listenThread;
-        std::thread setupGhostsThread;
 
         bool host;
+        bool waiting = false;
+        bool received = false;
+        bool sentSetup = false;
         void listenForSignal();
-        void setupGhosts();
+        void eventLoop();
         void placeEnemyGhosts();
         sf::Packet listenPacket; // move to networker? :)
         sf::Packet setupPacket;

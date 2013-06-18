@@ -7,12 +7,23 @@ void SetupState::activate(std::string previousState)
 
 std::string SetupState::run()
 {
-    std::thread listenThread(&SetupState::listenForSignal, this);
-    std::thread setupGhostsThread(&SetupState::setupGhosts, this);
-    listenThread.join();
-    setupGhostsThread.join();
-    grid.placeEnemyGhosts(enemyGhosts);
-    nextState = "gameplay";
+    if (!waiting)
+    {
+        listenThread = std::thread(&SetupState::listenForSignal, this);
+        waiting = true;
+    }
+    eventLoop();
+    //renderer.renderSetup(sfWindow, grid, host, int mousePosX, int mousePosY);
+    renderer.render(sfWindow, grid, host);
+
+    if (received)
+    {
+        nextState = "gameplay";
+    }
+    else
+    {
+        nextState = "";
+    }
     return nextState;
 }
 
@@ -21,57 +32,52 @@ void SetupState::listenForSignal()
     std::cout << "listening for a signal!\n";
     networker.receiveData(listenPacket);
     listenPacket >> enemyGhosts;
+    grid.placeEnemyGhosts(enemyGhosts);
+    received = true;
 }
 
-void SetupState::setupGhosts()
+void SetupState::eventLoop()
 {
-    bool notSetUp = true;
-    while (notSetUp)
+    windbreeze::Event event;
+    inputHandler.processEvents();
+    while (inputHandler.pollEvent(event))
     {
-        windbreeze::Event event;
-        inputHandler.processEvents();
-        while (inputHandler.pollEvent(event))
+        if (event.type == windbreeze::Event::CLOSED)
         {
-            /*
-            if (event.type == windbreeze::Event::CLOSED)
+            nextState = "exit";
+        }
+        if (event.type == windbreeze::Event::KEYPRESSED)
+        {
+            if (event.key.code == windbreeze::Keyboard::Q || event.key.code == windbreeze::Keyboard::ESCAPE)
             {
                 nextState = "exit";
             }
-            */
-            if (event.type == windbreeze::Event::KEYPRESSED)
+            if (event.key.code == windbreeze::Keyboard::K)
             {
-                /*
-                if (event.key.code == windbreeze::Keyboard::Q || event.key.code == windbreeze::Keyboard::ESCAPE)
-                {
-                    nextState = "exit";
-                }
-                */
-                if (event.key.code == windbreeze::Keyboard::K)
+                if (!sentSetup)
                 {
                     if (grid.checkIfSetupValid())
                     {
-                        notSetUp = false;
+                        std::cout << "Klart! Sending ghosts!\n";
                         setupPacket = grid.convertPositionsToPacket();
-                        std::cout << "Klart! Ghosts set up!\n";
+                        networker.sendData(setupPacket);
+                        sentSetup = true;
                     }
                     else
                     {
-                        std::cout << "setup wasn't valid\n";
+                        std::cout << "Setup wasn't valid\n";
                     }
                 }
             }
-            else if (event.type == windbreeze::Event::MOUSEBUTTONPRESSED)
+        }
+        else if (event.type == windbreeze::Event::MOUSEBUTTONPRESSED)
+        {
+            if (event.mouseButton.button == windbreeze::Mouse::LEFT)
             {
-                if (event.mouseButton.button == windbreeze::Mouse::LEFT)
-                {
-                    mouseClickLeft(event.mouseButton.x, event.mouseButton.y);
-                }
+                mouseClickLeft(event.mouseButton.x, event.mouseButton.y);
             }
         }
-        //renderer.renderSetup(sfWindow, grid, host, int mousePosX, int mousePosY);
-        renderer.render(sfWindow, grid, host);
     }
-    networker.sendData(setupPacket);
 }
 
 void SetupState::mouseClickLeft(int xPos, int yPos)
