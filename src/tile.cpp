@@ -146,7 +146,7 @@ sf::Packet TileGrid::convertPositionsToPacket()
             }
             else if (grid.at(i).at(j).ghostState == BAD)
             {
-                s += 'B';
+                s += "B";
             }
         }
     }
@@ -161,11 +161,11 @@ sf::Packet TileGrid::convertMoveToPacket()
     std::string s;
     if (grid.at(selectedCoords.y).at(selectedCoords.x).ghostState == GOOD)
     {
-        s = 'G';
+        s = "G";
     }
     else if (grid.at(selectedCoords.y).at(selectedCoords.x).ghostState == BAD)
     {
-        s = 'B';
+        s = "B";
     }
     paketti << suggestedCoords.x << suggestedCoords.y << selectedCoords.x << selectedCoords.y << s;
     return paketti;
