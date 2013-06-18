@@ -2,7 +2,6 @@
 
 void SetupState::activate(std::string previousState)
 {
-    turn = randomiseFirstMove();
     host = networker.isHost();
 }
 
@@ -111,14 +110,6 @@ void SetupState::mouseClickLeft(int xPos, int yPos)
             }
         }
     }
-}
-
-bool SetupState::randomiseFirstMove()
-{
-    if ((rand() % 100) < 50)
-        return true;
-    else
-        return false;
 }
 
 bool SetupState::isTurn()

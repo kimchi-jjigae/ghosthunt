@@ -38,7 +38,6 @@ class SetupState : public windstorm::GameState
         std::thread setupGhostsThread;
 
         bool host;
-        bool randomiseFirstMove();
         void listenForSignal();
         void setupGhosts();
         void placeEnemyGhosts();

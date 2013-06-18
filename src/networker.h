@@ -15,7 +15,7 @@ class Networker
         bool isHost();
 
     private:
-        std::string hostAddress = "127.0.0.1";
+        std::string hostAddress = "192.168.1.60";
         int portNumber = 21212;
 
         sf::TcpListener listener; 

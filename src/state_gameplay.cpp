@@ -10,11 +10,21 @@ void GameplayState::handOver(std::weak_ptr<GameState> previousState, std::string
     }
 }
 
-void GameplayState::setup()
+void GameplayState::activate(std::string previousState)
 {
+    host = networker.isHost();
+    if (host)
+    {
+        turn = randomiseFirstMove();
+        packet << turn;
+        networker.sendData(packet);
+    }
+    else
+    {
+        turn = networker.receiveData(packet);
+    }
     winString = "YOU WIN!!! :D";
     loseString = "NEEEEEJ YOU LOST";
-    host = networker.isHost();
 }
 
 std::string GameplayState::run()
@@ -23,6 +33,7 @@ std::string GameplayState::run()
 
     if (turn)
     {
+        std::cout << "YOUR TURN";
         turn = takeMove();
 
         if (enemyGoodCaptured == 4)
@@ -40,6 +51,7 @@ std::string GameplayState::run()
     }
     else if (!turn)
     {
+        std::cout << "NOT YOUR TURN";
         turn = waitForMove();
 
         if (enemyGoodCaptured == 4)
@@ -158,5 +170,13 @@ void GameplayState::mouseClickLeft(int xPos, int yPos)
             }
         }
     }
+}
+
+bool GameplayState::randomiseFirstMove()
+{
+    if ((rand() % 100) < 50)
+        return true;
+    else
+        return false;
 }
 
