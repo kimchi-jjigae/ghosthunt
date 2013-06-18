@@ -16,7 +16,7 @@ std::string SetupState::run()
     //renderer.renderSetup(sfWindow, grid, host, int mousePosX, int mousePosY);
     renderer.render(sfWindow, grid, host);
 
-    if (received)
+    if (received && sentSetup)
     {
         nextState = "gameplay";
     }
@@ -67,6 +67,10 @@ void SetupState::eventLoop()
                     {
                         std::cout << "Setup wasn't valid\n";
                     }
+                }
+                else
+                {
+                    std::cout << "You've already set stuff up.\n";
                 }
             }
         }
