@@ -13,8 +13,6 @@ std::string SetupState::run()
         waiting = true;
     }
     eventLoop();
-    //renderer.renderSetup(sfWindow, grid, host, int mousePosX, int mousePosY);
-    renderer.render(sfWindow, grid, host);
 
     if (received && sentSetup)
     {
@@ -24,6 +22,10 @@ std::string SetupState::run()
     {
         nextState = "";
     }
+
+    //renderer.renderSetup(sfWindow, grid, host, int mousePosX, int mousePosY);
+    renderer.render(sfWindow, grid, host);
+
     return nextState;
 }
 
