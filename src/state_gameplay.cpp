@@ -97,6 +97,10 @@ bool GameplayState::takeMove()
 
 bool GameplayState::waitForMove()
 {
+    networker.receiveData(packet);
+    grid.placeMove(packet);
+
+    //check asldfkjO
     std::cout << "HAHA YOU CAN'T DO ANYTHING\n";
     sleep(1);
     return !turn;
@@ -106,8 +110,8 @@ void GameplayState::processMoveInfo()
 {
     if (grid.isSuggested())
     {
-        sendPacket = grid.convertMoveToPacket();
-        networker.sendData(sendPacket);
+        packet = grid.convertMoveToPacket();
+        networker.sendData(packet);
         if (grid.getSuggestedTile().ghostState == GOOD) 
         {
             enemyGoodCaptured++;

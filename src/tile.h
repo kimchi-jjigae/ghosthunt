@@ -42,6 +42,7 @@ class TileGrid
         bool checkIfSetupValid();
         sf::Packet convertPositionsToPacket();
         sf::Packet convertMoveToPacket();
+        void placeMove(sf::Packet packet);
 
     private:
         std::vector<std::vector<Tile> > grid = 

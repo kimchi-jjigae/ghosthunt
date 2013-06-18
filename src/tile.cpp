@@ -161,12 +161,40 @@ sf::Packet TileGrid::convertMoveToPacket()
     std::string s;
     if (grid.at(selectedCoords.y).at(selectedCoords.x).ghostState == GOOD)
     {
-        s = "G";
+        s = 'G';
     }
     else if (grid.at(selectedCoords.y).at(selectedCoords.x).ghostState == BAD)
     {
-        s = "B";
+        s = 'B';
     }
     paketti << suggestedCoords.x << suggestedCoords.y << selectedCoords.x << selectedCoords.y << s;
     return paketti;
+}
+
+void TileGrid::placeMove(sf::Packet packet)
+{
+    sf::Packet paketti;
+    int x1, y1, x2, y2;
+    std::string s;
+    paketti >> x1 >> y1 >> x2 >> y2 >> s;
+    x1 = 5 - x1;
+    y1 = 5 - y1;
+    x2 = 5 - x2;
+    y2 = 5 - y2;
+
+    if (s == "G")
+    {
+        grid.at(y2).at(x2).ghostState = GOOD;
+    }
+    else if (s == "B")
+    {
+        grid.at(y2).at(x2).ghostState = BAD;
+    }
+    else
+    {
+        std::cout << "soemthings wrong with the packet\n";
+    }
+    grid.at(y2).at(x2).playerState = TWO;
+    grid.at(y1).at(x1).playerState = NEITHER;
+    grid.at(y1).at(x1).ghostState = NONE;
 }

@@ -45,8 +45,7 @@ class GameplayState : public windstorm::GameState
         void mouseClickLeft(int xPos, int yPos);
         sf::Packet convertMoveToString();
 
-        sf::Packet listenPacket; // move to networker? :)
-        sf::Packet sendPacket;
+        sf::Packet packet;
 
         //temporary
         std::string winString;
