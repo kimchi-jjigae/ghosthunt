@@ -98,7 +98,7 @@ bool GameplayState::takeMove()
 bool GameplayState::waitForMove()
 {
     std::cout << "HAHA YOU CAN'T DO ANYTHING\n";
-    sleep(2);
+    sleep(1);
     return !turn;
 }
 
@@ -106,6 +106,8 @@ void GameplayState::processMoveInfo()
 {
     if (grid.isSuggested())
     {
+        sendPacket = grid.convertMoveToPacket();
+        networker.sendData(sendPacket);
         if (grid.getSuggestedTile().ghostState == GOOD) 
         {
             enemyGoodCaptured++;
@@ -153,3 +155,4 @@ void GameplayState::mouseClickLeft(int xPos, int yPos)
         }
     }
 }
+

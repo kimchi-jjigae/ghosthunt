@@ -1,6 +1,8 @@
 #pragma once
 #include <vector>
 #include <iostream>
+#include <SFML/Network.hpp>
+
 enum GhostState { NONE, GOOD, BAD };
 enum PlayerState { NEITHER, ONE, TWO };
 
@@ -38,7 +40,8 @@ class TileGrid
         bool surroundingSelectedTile(int x, int y);
         void placeEnemyGhosts(std::string enemyState);
         bool checkIfSetupValid();
-        std::string convertPositionsToString();
+        sf::Packet convertPositionsToPacket();
+        sf::Packet convertMoveToPacket();
 
     private:
         std::vector<std::vector<Tile> > grid = 

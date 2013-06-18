@@ -132,8 +132,9 @@ bool TileGrid::checkIfSetupValid()
     return true;
 }
 
-std::string TileGrid::convertPositionsToString()
+sf::Packet TileGrid::convertPositionsToPacket()
 {
+    sf::Packet paketti;
     std::string s = "";
     for (int i = 4; i < 6; i++)
     {
@@ -150,5 +151,22 @@ std::string TileGrid::convertPositionsToString()
         }
     }
     std::cout << "the string is: " << s << "\n";
-    return s;
+    paketti << s;
+    return paketti;
+}
+
+sf::Packet TileGrid::convertMoveToPacket()
+{
+    sf::Packet paketti;
+    std::string s;
+    if (grid.at(selectedCoords.y).at(selectedCoords.x).ghostState == GOOD)
+    {
+        s = "G";
+    }
+    else if (grid.at(selectedCoords.y).at(selectedCoords.x).ghostState == BAD)
+    {
+        s = "B";
+    }
+    paketti << suggestedCoords.x << suggestedCoords.y << selectedCoords.x << selectedCoords.y << s;
+    return paketti;
 }

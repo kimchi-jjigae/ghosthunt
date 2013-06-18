@@ -42,10 +42,9 @@ class SetupState : public windstorm::GameState
         void listenForSignal();
         void setupGhosts();
         void placeEnemyGhosts();
-        sf::Packet listenPacket;
+        sf::Packet listenPacket; // move to networker? :)
         sf::Packet setupPacket;
-        std::string clientGhosts;
-        std::string hostGhosts;
+        std::string enemyGhosts;
         std::string nextState;
         bool turn;
         void mouseClickLeft(int xPos, int yPos);

@@ -43,6 +43,10 @@ class GameplayState : public windstorm::GameState
         bool waitForMove(); // or return MOVE information
         void processMoveInfo();
         void mouseClickLeft(int xPos, int yPos);
+        sf::Packet convertMoveToString();
+
+        sf::Packet listenPacket; // move to networker? :)
+        sf::Packet sendPacket;
 
         //temporary
         std::string winString;

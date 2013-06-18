@@ -12,14 +12,7 @@ std::string SetupState::run()
     std::thread setupGhostsThread(&SetupState::setupGhosts, this);
     listenThread.join();
     setupGhostsThread.join();
-    if (host)
-    {
-        grid.placeEnemyGhosts(clientGhosts);
-    }
-    else
-    {
-        grid.placeEnemyGhosts(hostGhosts);
-    }
+    grid.placeEnemyGhosts(enemyGhosts);
     nextState = "gameplay";
     return nextState;
 }
@@ -27,22 +20,13 @@ std::string SetupState::run()
 void SetupState::listenForSignal()
 {
     std::cout << "listening for a signal!\n";
-    if (host)
-    {
-        networker.receiveData(listenPacket);
-        listenPacket >> clientGhosts;
-    }
-    else
-    {
-        networker.receiveData(listenPacket);
-        listenPacket >> hostGhosts;
-    }
+    networker.receiveData(listenPacket);
+    listenPacket >> enemyGhosts;
 }
 
 void SetupState::setupGhosts()
 {
     bool notSetUp = true;
-    std::string s;
     while (notSetUp)
     {
         windbreeze::Event event;
@@ -68,7 +52,7 @@ void SetupState::setupGhosts()
                     if (grid.checkIfSetupValid())
                     {
                         notSetUp = false;
-                        s = grid.convertPositionsToString();
+                        setupPacket = grid.convertPositionsToPacket();
                         std::cout << "Klart! Ghosts set up!\n";
                     }
                     else
@@ -88,7 +72,6 @@ void SetupState::setupGhosts()
         //renderer.renderSetup(sfWindow, grid, host, int mousePosX, int mousePosY);
         renderer.render(sfWindow, grid, host);
     }
-    setupPacket << s;
     networker.sendData(setupPacket);
 }
 
