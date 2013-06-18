@@ -23,6 +23,7 @@ void GameplayState::activate(std::string previousState)
     else
     {
         turn = networker.receiveData(packet);
+        turn = !turn;
         std::cout << "I am not host but i received the turn data. Turn is: " << turn << "\n";
     }
     winString = "YOU WIN!!! :D";
