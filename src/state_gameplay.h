@@ -37,8 +37,8 @@ class GameplayState : public windstorm::GameState
         bool turn;
         bool host;
 
-        bool takeMove(); // or return MOVE information
-        bool waitForMove(); // or return MOVE information
+        bool takeMove();
+        bool waitForMove();
         void processMoveInfo();
         void mouseClickLeft(int xPos, int yPos);
         sf::Packet convertMoveToString();
