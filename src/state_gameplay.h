@@ -18,7 +18,6 @@ class GameplayState : public windstorm::GameState
     public:
         void activate(std::string previousState) override;
         //virtual void deactivate(std::string nextState) {}
-        void handOver(std::weak_ptr<GameState> previousState, std::string previousStateName) override;
         GameplayState(sf::RenderWindow& sfw, windbreeze::InputHandler& ih, windbreeze::ActionHandler<std::string>& ah, Networker& nw, Renderer& r, TileGrid& tg) : sfWindow(sfw), inputHandler(ih), actionHandler(ah), networker(nw), renderer(r), grid(tg){}
         std::string run() override;
         //virtual void destroy() {}

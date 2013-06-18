@@ -1,17 +1,9 @@
 #include "state_gameplay.h"
 #include "state_setup.h"
 
-void GameplayState::handOver(std::weak_ptr<GameState> previousState, std::string previousStateName)
-{
-    if (previousStateName == "setup")
-    {
-        std::weak_ptr<SetupState> setupState = std::static_pointer_cast<SetupState, GameState> (previousState.lock());
-        turn = setupState.lock()->isTurn();
-    }
-}
-
 void GameplayState::activate(std::string previousState)
 {
+    std::cout << "\n\n ---GAMEPLAY BEGINS NOW--- \n\n";
     host = networker.isHost();
     if (host)
     {
@@ -114,7 +106,7 @@ bool GameplayState::waitForMove()
     int a, b, c, d;
     networker.receiveData(packet);
     packet >> a >> b >> c >> d >> s;
-    std::cout << "taking a packet that has " << a << b << c << d << s << "\n";
+    std::cout << "taking a packet that has " << a << " and " << b << " and " << c << " and " << d << " and " << s << "\n";
     grid.placeMove(packet);
 
     //check asldfkjO

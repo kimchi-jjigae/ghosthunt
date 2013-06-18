@@ -111,8 +111,3 @@ void SetupState::mouseClickLeft(int xPos, int yPos)
         }
     }
 }
-
-bool SetupState::isTurn()
-{
-    return turn;
-}

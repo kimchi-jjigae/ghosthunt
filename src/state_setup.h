@@ -45,6 +45,5 @@ class SetupState : public windstorm::GameState
         sf::Packet setupPacket;
         std::string enemyGhosts;
         std::string nextState;
-        bool turn;
         void mouseClickLeft(int xPos, int yPos);
 };

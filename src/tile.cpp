@@ -91,6 +91,7 @@ bool TileGrid::isSelected()
 
 void TileGrid::placeEnemyGhosts(std::string enemyState)
 {
+    std::cout << "the string i'm _receiving_ is: " << enemyState << "\n";
     int k = 7;
     for (int i = 0; i < 2; i++)
     {
@@ -150,7 +151,7 @@ sf::Packet TileGrid::convertPositionsToPacket()
             }
         }
     }
-    std::cout << "the string is: " << s << "\n";
+    std::cout << "the string i'm sending is: " << s << "\n";
     paketti << s;
     return paketti;
 }
@@ -168,7 +169,7 @@ sf::Packet TileGrid::convertMoveToPacket()
         s = "B";
     }
     paketti << suggestedCoords.x << suggestedCoords.y << selectedCoords.x << selectedCoords.y << s;
-    std::cout << "filling the paketti with: " << suggestedCoords.x << suggestedCoords.y << selectedCoords.x << selectedCoords.y << s << "\n";
+    std::cout << "filling the paketti with: " << suggestedCoords.x << " and " << suggestedCoords.y << " and " << selectedCoords.x << " and " << selectedCoords.y << " and " << s << "\n";
     return paketti;
 }
 
