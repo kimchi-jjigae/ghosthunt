@@ -42,6 +42,7 @@ void SetupState::listenForSignal()
 void SetupState::setupGhosts()
 {
     bool notSetUp = true;
+    std::string s;
     while (notSetUp)
     {
         windbreeze::Event event;
@@ -67,8 +68,8 @@ void SetupState::setupGhosts()
                     if (grid.checkIfSetupValid())
                     {
                         notSetUp = false;
-                        std::cout << "Klart!\n";
-                        grid.convertPositionsToString();
+                        s = grid.convertPositionsToString();
+                        std::cout << "Klart! Ghosts set up!\n";
                     }
                     else
                     {
@@ -86,17 +87,6 @@ void SetupState::setupGhosts()
         }
         //renderer.renderSetup(sfWindow, grid, host, int mousePosX, int mousePosY);
         renderer.render(sfWindow, grid, host);
-    }
-
-    std::cout << "setting up ghosts!\n";
-    std::string s;
-    if (host)
-    {
-        s = "GGBBBBGG";
-    }
-    else
-    {
-        s = "GBGBBBGG";
     }
     setupPacket << s;
     networker.sendData(setupPacket);
