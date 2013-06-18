@@ -110,7 +110,11 @@ bool GameplayState::takeMove()
 
 bool GameplayState::waitForMove()
 {
+    std::string s;
+    int a, b, c, d;
     networker.receiveData(packet);
+    packet >> a >> b >> c >> d >> s;
+    std::cout << "taking a packet that has " << a << b << c << d << s << "\n";
     grid.placeMove(packet);
 
     //check asldfkjO

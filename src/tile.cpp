@@ -168,6 +168,7 @@ sf::Packet TileGrid::convertMoveToPacket()
         s = "B";
     }
     paketti << suggestedCoords.x << suggestedCoords.y << selectedCoords.x << selectedCoords.y << s;
+    std::cout << "filling the paketti with: " << suggestedCoords.x << suggestedCoords.y << selectedCoords.x << selectedCoords.y << s << "\n";
     return paketti;
 }
 
