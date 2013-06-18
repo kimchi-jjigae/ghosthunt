@@ -3,7 +3,7 @@
 
 void GameplayState::activate(std::string previousState)
 {
-    turn = 1;
+    nextState = "";
     std::cout << "\n\n ---GAMEPLAY BEGINS NOW--- \n\n";
     host = networker.isHost();
     if (host)
@@ -27,48 +27,34 @@ void GameplayState::activate(std::string previousState)
 
 std::string GameplayState::run()
 {
-    nextState = "";
-
-    if (turn)
+    if (!turn && !waiting)
     {
-        turn = takeMove();
-
-        if (enemyGoodCaptured == 4)
-        {
-            renderer.renderText(sfWindow, winString);
-        }
-        else if (enemyBadCaptured == 4)
-        {
-            renderer.renderText(sfWindow, loseString);
-        }
-        else
-        {
-            renderer.render(sfWindow, grid, host);
-        }
+        //display: "Waiting for the other player"
+        std::cout << "Waiting for the other player\n";
+        waitThread = std::thread(&GameplayState::waitForTurn, this);
+        waiting = true;
     }
-    else if (!turn)
+    else if (turn && !setupDone)
     {
-        turn = waitForMove();
-
-        if (enemyGoodCaptured == 4)
-        {
-            renderer.renderText(sfWindow, winString);
-        }
-        else if (enemyBadCaptured == 4)
-        {
-            renderer.renderText(sfWindow, loseString);
-        }
-        else
-        {
-            renderer.render(sfWindow, grid, host);
-        }
+        //display: "Your turn. Move a ghost."
+        std::cout << "Your turn. Move a ghost.\n";
+        turnThread = std::thread(&GameplayState::takeTurn, this);
     }
+    eventLoop();
+    renderer.render();
     return nextState;
 }
 
-bool GameplayState::takeMove()
+void GameplayState::waitForTurn()
 {
-    //display: "Your turn. Move a ghost."
+    waiting = true;
+    networker.receiveData(packet);
+    packet >> data;
+    YOU'RE UP TO HERE
+}
+
+void GameplayState::eventLoop()
+{
     windbreeze::Event event;
     inputHandler.processEvents();
     while (inputHandler.pollEvent(event))
@@ -85,9 +71,11 @@ bool GameplayState::takeMove()
             }
             if (event.key.code == windbreeze::Keyboard::M)
             {
-                std::cout << "YEAH\n";
-                processMoveInfo();
-                return false;
+                if (turn)
+                {
+                    std::cout << "YEAH\n";
+                    processMoveInfo();
+                }
             }
         }
         else if (event.type == windbreeze::Event::MOUSEBUTTONPRESSED)
@@ -100,7 +88,6 @@ bool GameplayState::takeMove()
             }
         }
     }
-    return true;
 }
 
 bool GameplayState::waitForMove()

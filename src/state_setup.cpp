@@ -3,6 +3,7 @@
 void SetupState::activate(std::string previousState)
 {
     host = networker.isHost();
+    nextState = "";
 }
 
 std::string SetupState::run()

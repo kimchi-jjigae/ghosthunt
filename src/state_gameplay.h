@@ -37,8 +37,14 @@ class GameplayState : public windstorm::GameState
         bool turn;
         bool host;
 
+        bool waiting = false;
+        bool setupDone = false;
+        //int gameOver;
+
+        std::thread waitThread;
+
         bool takeMove();
-        bool waitForMove();
+        void eventLoop();
         void processMoveInfo();
         void mouseClickLeft(int xPos, int yPos);
         sf::Packet convertMoveToString();
