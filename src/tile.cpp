@@ -202,6 +202,7 @@ void TileGrid::placeMove(sf::Packet paketti)
     {
         std::cout << "soemthings wrong with the packet\n";
     }
+    std::cout << "just before setting the player and ghost states from inside the paketti, reading it as: " << x1 << " and " << y1 << " and " << x2 << " and " << y2 << " and " << s << "\n";
     grid.at(y2).at(x2).playerState = TWO;
     grid.at(y1).at(x1).playerState = NEITHER;
     grid.at(y1).at(x1).ghostState = NONE;
