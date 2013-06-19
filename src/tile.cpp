@@ -173,9 +173,8 @@ sf::Packet TileGrid::convertMoveToPacket()
     return paketti;
 }
 
-void TileGrid::placeMove(sf::Packet packet)
+void TileGrid::placeMove(sf::Packet paketti)
 {
-    sf::Packet paketti;
     int x1, y1, x2, y2;
     std::string s;
     paketti >> x1 >> y1 >> x2 >> y2 >> s;
