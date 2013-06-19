@@ -36,9 +36,8 @@ class GameplayState : public windstorm::GameState
         int enemyBadCaptured = 0;
         bool turn;
         bool host;
-
         bool waiting = false;
-        //int gameOver;
+        int gameOver = 0;
 
         std::thread waitThread;
 
@@ -48,6 +47,8 @@ class GameplayState : public windstorm::GameState
         void mouseClickLeft(int xPos, int yPos);
         sf::Packet convertMoveToString();
         bool randomiseFirstMove();
+        void checkForGameOver();
+        void bregott();
 
         sf::Packet packet;
 

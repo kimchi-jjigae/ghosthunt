@@ -40,23 +40,20 @@ std::string GameplayState::run()
         std::cout << "Your turn. Move a ghost.\n";
     }
     eventLoop();
-    renderer.render(sfWindow, grid, host);
-    std::cout << "turn: " << turn << " || waiting: " << waiting << "\n";
+    bregott();
     return nextState;
 }
 
+//
 void GameplayState::waitForTurn()
 {
     int a, b, c, d;
     std::string s;
     networker.receiveData(packet);
-    /*
-    packet >> a >> b >> c >> d >> s;
-    std::cout << "taking a packet that has " << a << " and " << b << " and " << c << " and " << d << " and " << s << "\n";
-    */
     grid.placeMove(packet);
     turn = true;
     waiting = false;
+    checkForGameOver();
     waitThread.detach();
 }
 
@@ -113,6 +110,7 @@ void GameplayState::processMoveInfo()
             std::cout << "NEEEEEEEEJ you captured a bad enemy! bad antal: " << enemyBadCaptured << "\n";
         }
         grid.moveSelectToSuggest();
+        checkForGameOver();
         turn = false;
     }
     else
@@ -159,3 +157,33 @@ bool GameplayState::randomiseFirstMove()
         return false;
 }
 
+void GameplayState::checkForGameOver()
+{
+    if (enemyBadCaptured == 4)
+    {
+        gameOver = 1;
+    }
+    else if (enemyGoodCaptured == 4)
+    {
+        gameOver = 2;
+    }
+    else
+    {
+        gameOver = 0;
+    }
+}
+
+void GameplayState::bregott()
+{
+    switch (gameOver) {
+    case 0: 
+        renderer.render(sfWindow, grid, host);
+        break;
+    case 1: 
+        renderer.renderText(sfWindow, loseString);
+        break;
+    case 2: 
+        renderer.renderText(sfWindow, winString);
+        break;
+    }
+}
