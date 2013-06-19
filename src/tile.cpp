@@ -191,10 +191,12 @@ void TileGrid::placeMove(sf::Packet paketti)
     if (s == "G")
     {
         grid.at(y2).at(x2).ghostState = GOOD;
+        std::cout << "\n\ngood good good\n\n\n";
     }
     else if (s == "B")
     {
         grid.at(y2).at(x2).ghostState = BAD;
+        std::cout << "\n\nbääääääääääääääääd\n\n\n";
     }
     else
     {
