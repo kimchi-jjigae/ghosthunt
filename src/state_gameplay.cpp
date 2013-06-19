@@ -48,7 +48,6 @@ void GameplayState::waitForTurn()
 {
     int a, b, c, d;
     std::string s;
-    waiting = true;
     networker.receiveData(packet);
     /*
     packet >> a >> b >> c >> d >> s;
@@ -57,6 +56,7 @@ void GameplayState::waitForTurn()
     grid.placeMove(packet);
     turn = true;
     waiting = false;
+    waitThread.detach();
 }
 
 void GameplayState::eventLoop()
