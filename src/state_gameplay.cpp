@@ -41,6 +41,7 @@ std::string GameplayState::run()
     }
     eventLoop();
     renderer.render(sfWindow, grid, host);
+    std::cout << "turn: " << turn << " || moveDone: " << moveDone << " || waiting: " << waiting << "\n";
     return nextState;
 }
 
@@ -79,7 +80,6 @@ void GameplayState::eventLoop()
             {
                 if (turn && !moveDone)
                 {
-                    std::cout << "YEAH\n";
                     processMoveInfo();
                 }
             }
