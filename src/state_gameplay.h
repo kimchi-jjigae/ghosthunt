@@ -9,9 +9,9 @@
 #include "renderer.h"
 #include "networker.h"
 #include "tile.h"
+#include <thread>
 #include <iostream>
 #include <stdlib.h> // for rand
-#include <unistd.h> // for sleep
 
 class GameplayState : public windstorm::GameState
 {
@@ -38,12 +38,12 @@ class GameplayState : public windstorm::GameState
         bool host;
 
         bool waiting = false;
-        bool setupDone = false;
+        bool moveDone = false;
         //int gameOver;
 
         std::thread waitThread;
 
-        bool takeMove();
+        void waitForTurn();
         void eventLoop();
         void processMoveInfo();
         void mouseClickLeft(int xPos, int yPos);

@@ -34,23 +34,27 @@ std::string GameplayState::run()
         waitThread = std::thread(&GameplayState::waitForTurn, this);
         waiting = true;
     }
-    else if (turn && !setupDone)
+    else if (turn && !moveDone)
     {
         //display: "Your turn. Move a ghost."
         std::cout << "Your turn. Move a ghost.\n";
-        turnThread = std::thread(&GameplayState::takeTurn, this);
     }
     eventLoop();
-    renderer.render();
+    renderer.render(sfWindow, grid, host);
     return nextState;
 }
 
 void GameplayState::waitForTurn()
 {
+    int a, b, c, d;
+    std::string s;
     waiting = true;
     networker.receiveData(packet);
-    packet >> data;
-    YOU'RE UP TO HERE
+    grid.placeMove(packet);
+    turn = true;
+    waiting = false;
+    packet >> a >> b >> c >> d >> s;
+    std::cout << "taking a packet that has " << a << " and " << b << " and " << c << " and " << d << " and " << s << "\n";
 }
 
 void GameplayState::eventLoop()
@@ -71,7 +75,7 @@ void GameplayState::eventLoop()
             }
             if (event.key.code == windbreeze::Keyboard::M)
             {
-                if (turn)
+                if (turn && !moveDone)
                 {
                     std::cout << "YEAH\n";
                     processMoveInfo();
@@ -88,21 +92,6 @@ void GameplayState::eventLoop()
             }
         }
     }
-}
-
-bool GameplayState::waitForMove()
-{
-    std::string s;
-    int a, b, c, d;
-    networker.receiveData(packet);
-    packet >> a >> b >> c >> d >> s;
-    std::cout << "taking a packet that has " << a << " and " << b << " and " << c << " and " << d << " and " << s << "\n";
-    grid.placeMove(packet);
-
-    //check asldfkjO
-    std::cout << "HAHA YOU CAN'T DO ANYTHING\n";
-    sleep(1);
-    return !turn;
 }
 
 void GameplayState::processMoveInfo()
@@ -122,6 +111,8 @@ void GameplayState::processMoveInfo()
             std::cout << "NEEEEEEEEJ you captured a bad enemy! bad antal: " << enemyBadCaptured << "\n";
         }
         grid.moveSelectToSuggest();
+        moveDone = true;
+        turn = false;
     }
     else
         std::cout << "No move suggested.\n";
