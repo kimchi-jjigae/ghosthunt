@@ -9,7 +9,6 @@ void GameplayState::activate(std::string previousState)
     if (host)
     {
         turn = randomiseFirstMove();
-        std::cout << "I AM HOST AND SENDING TURN DATA. Turn is: " << turn << "\n";
         packet << turn;
         networker.sendData(packet);
     }
@@ -17,9 +16,7 @@ void GameplayState::activate(std::string previousState)
     {
         networker.receiveData(packet);
         packet >> turn;
-        std::cout << "I am not host. I received turn as: " << turn << " which I will now invert. \n";
         turn = !turn;
-        std::cout << "I am not host but i received the turn data. Turn is: " << turn << "\n";
     }
     winString = "YOU WIN!!! :D";
     loseString = "NEEEEEJ YOU LOST";
