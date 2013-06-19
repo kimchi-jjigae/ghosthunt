@@ -44,6 +44,10 @@ class TileGrid
         sf::Packet convertMoveToPacket();
         void placeMove(sf::Packet packet);
 
+        int p1GoodGhostAmount = 4;
+        int p2GoodGhostAmount = 4;
+        int p1BadGhostAmount = 4;
+        int p2BadGhostAmount = 4;
     private:
         std::vector<std::vector<Tile> > grid = 
             {{{NONE, NEITHER}, {GOOD, TWO}, {GOOD, TWO}, {GOOD, TWO}, {GOOD, TWO}, {NONE, NEITHER}},

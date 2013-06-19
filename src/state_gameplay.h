@@ -32,8 +32,6 @@ class GameplayState : public windstorm::GameState
         TileGrid& grid;
         std::string nextState;
 
-        int enemyGoodCaptured = 0;
-        int enemyBadCaptured = 0;
         bool turn;
         bool host;
         bool waiting = false;

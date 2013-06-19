@@ -188,6 +188,15 @@ void TileGrid::placeMove(sf::Packet paketti)
 
     std::cout << "after transforming from inside the paketti, reading it as: " << x1 << " and " << y1 << " and " << x2 << " and " << y2 << " and " << s << "\n";
 
+    if (grid.at(y2).at(x2).ghostState == GOOD)
+    {
+        p1GoodGhostAmount--;
+    }
+    else if (grid.at(y2).at(x2).ghostState == BAD)
+    {
+        p1BadGhostAmount--;
+    }
+
     if (s == "G")
     {
         grid.at(y2).at(x2).ghostState = GOOD;

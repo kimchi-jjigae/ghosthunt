@@ -101,13 +101,13 @@ void GameplayState::processMoveInfo()
         networker.sendData(packet);
         if (grid.getSuggestedTile().ghostState == GOOD) 
         {
-            enemyGoodCaptured++;
-            std::cout << "yay you captured a good enemy! good antal: " << enemyGoodCaptured << "\n";
+            grid.p2GoodGhostAmount--;
+            std::cout << "yay you captured a good enemy! good antal kvar: " << grid.p2GoodGhostAmount << "\n";
         }
         else if (grid.getSuggestedTile().ghostState == BAD) 
         {
-            enemyBadCaptured++;
-            std::cout << "NEEEEEEEEJ you captured a bad enemy! bad antal: " << enemyBadCaptured << "\n";
+            grid.p2BadGhostAmount--;
+            std::cout << "NEEEEEEEEJ you captured a bad enemy! bad antal kvar: " << grid.p2BadGhostAmount << "\n";
         }
         grid.moveSelectToSuggest();
         checkForGameOver();
@@ -159,11 +159,19 @@ bool GameplayState::randomiseFirstMove()
 
 void GameplayState::checkForGameOver()
 {
-    if (enemyBadCaptured == 4)
+    if (grid.p1GoodGhostAmount == 0)
+    {
+        gameOver = 2;
+    }
+    else if (grid.p1BadGhostAmount == 0)
     {
         gameOver = 1;
     }
-    else if (enemyGoodCaptured == 4)
+    else if (grid.p2GoodGhostAmount == 0)
+    {
+        gameOver = 1;
+    }
+    else if (grid.p2BadGhostAmount == 0)
     {
         gameOver = 2;
     }
@@ -180,10 +188,10 @@ void GameplayState::bregott()
         renderer.render(sfWindow, grid, host);
         break;
     case 1: 
-        renderer.renderText(sfWindow, loseString);
+        renderer.renderText(sfWindow, winString);
         break;
     case 2: 
-        renderer.renderText(sfWindow, winString);
+        renderer.renderText(sfWindow, loseString);
         break;
     }
 }
