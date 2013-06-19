@@ -177,7 +177,7 @@ void TileGrid::placeMove(sf::Packet paketti)
 {
     int x1, y1, x2, y2;
     std::string s;
-    paketti >> x1 >> y1 >> x2 >> y2 >> s;
+    paketti >> x2 >> y2 >> x1 >> y1 >> s;
 
     std::cout << "from inside the paketti, reading it as: " << x1 << " and " << y1 << " and " << x2 << " and " << y2 << " and " << s << "\n";
 
