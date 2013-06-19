@@ -38,7 +38,6 @@ class GameplayState : public windstorm::GameState
         bool host;
 
         bool waiting = false;
-        bool moveDone = false;
         //int gameOver;
 
         std::thread waitThread;

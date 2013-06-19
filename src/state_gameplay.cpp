@@ -34,14 +34,14 @@ std::string GameplayState::run()
         waitThread = std::thread(&GameplayState::waitForTurn, this);
         waiting = true;
     }
-    else if (turn && !moveDone)
+    else if (turn)
     {
         //display: "Your turn. Move a ghost."
         std::cout << "Your turn. Move a ghost.\n";
     }
     eventLoop();
     renderer.render(sfWindow, grid, host);
-    std::cout << "turn: " << turn << " || moveDone: " << moveDone << " || waiting: " << waiting << "\n";
+    std::cout << "turn: " << turn << " || waiting: " << waiting << "\n";
     return nextState;
 }
 
@@ -78,7 +78,7 @@ void GameplayState::eventLoop()
             }
             if (event.key.code == windbreeze::Keyboard::M)
             {
-                if (turn && !moveDone)
+                if (turn)
                 {
                     processMoveInfo();
                 }
@@ -113,7 +113,6 @@ void GameplayState::processMoveInfo()
             std::cout << "NEEEEEEEEJ you captured a bad enemy! bad antal: " << enemyBadCaptured << "\n";
         }
         grid.moveSelectToSuggest();
-        moveDone = true;
         turn = false;
     }
     else
