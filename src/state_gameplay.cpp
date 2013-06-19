@@ -37,7 +37,7 @@ std::string GameplayState::run()
     else if (turn)
     {
         //display: "Your turn. Move a ghost."
-        std::cout << "Your turn. Move a ghost.\n";
+        //std::cout << "Your turn. Move a ghost.\n";
     }
     eventLoop();
     bregott();
