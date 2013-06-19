@@ -50,11 +50,11 @@ void GameplayState::waitForTurn()
     std::string s;
     waiting = true;
     networker.receiveData(packet);
+    packet >> a >> b >> c >> d >> s;
+    std::cout << "taking a packet that has " << a << " and " << b << " and " << c << " and " << d << " and " << s << "\n";
     grid.placeMove(packet);
     turn = true;
     waiting = false;
-    packet >> a >> b >> c >> d >> s;
-    std::cout << "taking a packet that has " << a << " and " << b << " and " << c << " and " << d << " and " << s << "\n";
 }
 
 void GameplayState::eventLoop()

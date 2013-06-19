@@ -179,10 +179,15 @@ void TileGrid::placeMove(sf::Packet packet)
     int x1, y1, x2, y2;
     std::string s;
     paketti >> x1 >> y1 >> x2 >> y2 >> s;
+
+    std::cout << "from inside the paketti, reading it as: " << x1 << " and " << y1 << " and " << x2 << " and " << y2 << " and " << s << "\n";
+
     x1 = 5 - x1;
     y1 = 5 - y1;
     x2 = 5 - x2;
     y2 = 5 - y2;
+
+    std::cout << "after transforming from inside the paketti, reading it as: " << x1 << " and " << y1 << " and " << x2 << " and " << y2 << " and " << s << "\n";
 
     if (s == "G")
     {
