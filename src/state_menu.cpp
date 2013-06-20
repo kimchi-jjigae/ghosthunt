@@ -11,12 +11,36 @@ void MenuState::setup()
         connected = networker.connectToHost();
     }
 
+    sfWindow.resetGLStates();
 
 }
 
 std::string MenuState::run()
 {
-    //std::cout << "again connected is: " << connected << "\n";
+    inputHandler.processEvents();
+    while (inputHandler.pollEvent(event))
+    {
+        desktop.HandleEvent((sf::Event)event);
+        if (event.type == windbreeze::Event::CLOSED)
+        {
+            nextState = "exit";
+        }
+        if (event.type == windbreeze::Event::KEYPRESSED)
+        {
+            if (event.key.code == windbreeze::Keyboard::Q || event.key.code == windbreeze::Keyboard::ESCAPE)
+            {
+                nextState = "exit";
+            }
+        }
+    }
+
+    desktop.Update(clock.restart().asSeconds());
+
+    //render
+    sfWindow.clear();
+    sfgui.Display(sfWindow);
+    sfWindow.display();
+    
     if (connected)
     {
         std::cout << "Switching from menu to setup\n";

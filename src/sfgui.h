@@ -1,6 +1,6 @@
+#pragma once
 #include <SFGUI/SFGUI.hpp>
 #include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
 #include <iostream>
 
 class Clicky
@@ -25,13 +25,10 @@ class Clicky
 
     private:
         sfg::SFGUI sfgui;
-        sf::RenderWindow renwin(sf::VideoMode(800, 600), "Hejsan!")
         sfg::Box::Ptr menuBox(sfg::Box::Create(sfg::Box::VERTICAL, 26.0f));
         sfg::Box::Ptr joinBox(sfg::Box::Create(sfg::Box::VERTICAL, 26.0f));
         sfg::Box::Ptr hostBox(sfg::Box::Create(sfg::Box::VERTICAL, 26.0f));
         sfg::Desktop desktop;
-        sf::Event event;
-        sf::Clock clock;
         std::string state = "menu";
 
         //menu

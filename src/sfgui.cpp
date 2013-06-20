@@ -2,30 +2,10 @@
 
 void Clicky::run()
 {
-
     if (state == "menu")
         menu();
     else if (state == "join")
         join();
-
-    renwin.resetGLStates();
-    while (renwin.isOpen())
-    {
-        while (renwin.pollEvent(event))
-        {
-            desktop.HandleEvent(event);
-            if (event.type == sf::Event::Closed)
-            {   
-                renwin.close();
-            }   
-        }
-
-        desktop.Update(clock.restart().asSeconds());
-
-        renwin.clear();
-        sfgui.Display(renwin);
-        renwin.display();
-    } 
 }
     
 void Clicky::menu()

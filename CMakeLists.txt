@@ -49,11 +49,11 @@ else()
     endif()
 endif()
 
-include_directories(${FRAMEWORK_PATH}/include)
+include_directories(${FRAMEWORK_PATH}/include /usr/local/include/)
 link_directories("${FRAMEWORK_PATH}/lib")
 
 file(GLOB_RECURSE ghosthunt_source_files "src/*.cpp")
 file(GLOB_RECURSE ghosthunt_header_files "src/*.h")
 
 add_executable(${project_name} ${ghosthunt_header_files} ${ghosthunt_source_files})
-target_link_libraries(${project_name} windlab-entity windlab-ui windlab-app libsfml-graphics.so libsfml-window.so libsfml-network.so libsfml-system.so)
+target_link_libraries(${project_name} windlab-entity windlab-ui windlab-app libsfml-graphics.so libsfml-window.so libsfml-network.so libsfml-system.so libsfgui.so)
