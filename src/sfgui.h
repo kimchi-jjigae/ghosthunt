@@ -4,18 +4,30 @@
 class Clicky
 {
     public:
+        void menu();
+        void join();
+        void host();
 
     private:
-        //menu
-        sfg::Button::Ptr joinButt(sfg::Button::Create("Click me! :D"));
-        sfg::Button::Ptr hostButt(sfg::Button::Create("Click me! :D"));
-        sfg::Button::Ptr instructButt(sfg::Button::Create("Click me! :D"));
-        sfg::Button::Ptr optionsButt(sfg::Button::Create("Click me! :D"));
-
         sfg::SFGUI sfgui;
-        sfg::Label::Ptr label;
+        sfg::Box::Ptr box(sfg::Box::Create(sfg::Box::VERTICAL, 26.0f));
 
-        sfg::Button::Ptr button(sfg::Button::Create("Click me! :D"));
+        //menu
+        sfg::Button::Ptr joinButt(sfg::Button::Create("JOIN GAME"));
+        sfg::Button::Ptr hostButt(sfg::Button::Create("HOST GAME"));
+        //sfg::Button::Ptr instructButt(sfg::Button::Create("Instructions"));
+        //sfg::Button::Ptr optionsButt(sfg::Button::Create("Options"));
+
+        //join
+        sfg::Label::Ptr joinLabel = sfg::Label::Create("Join a game");
+        sfg::Label::Ptr joinIPLabel = sfg::Label::Create("IP:");
+        sfg::Button::Ptr joinConnectButt(sfg::Button::Create("JOIN GAME"));
+        sfg::Button::Ptr joinBackButt(sfg::Button::Create("Back"));
+
+        //host
+        sfg::Label::Ptr hostWaitLabel = sfg::Label::Create("Waiting for the other player to connect");
+        sfg::Label::Ptr hostIPLabel = sfg::Label::Create("Your IP:");
+        sfg::Button::Ptr hostBackButt(sfg::Button::Create("Back"));
 };
 
 
