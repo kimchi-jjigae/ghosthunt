@@ -49,7 +49,7 @@ else()
     endif()
 endif()
 
-include_directories(${FRAMEWORK_PATH}/include /usr/local/include/)
+include_directories(${FRAMEWORK_PATH}/include /usr/local/SFML/include)
 link_directories("${FRAMEWORK_PATH}/lib")
 
 file(GLOB_RECURSE ghosthunt_source_files "src/*.cpp")
