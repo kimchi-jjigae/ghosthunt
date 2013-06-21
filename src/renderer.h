@@ -1,4 +1,3 @@
-// create draw ghosts, dungeon, etc. functions - private
 // merge render functions
 #pragma once
 #include <iostream>

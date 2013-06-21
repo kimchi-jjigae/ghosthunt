@@ -52,6 +52,16 @@ void Renderer::render(bool host, int mouseX, int mouseY)
             drawGhosts(i, j);
         }
     }
+    if (iter < 360 + 180)
+    {
+        drawTextInCentre("The game begins now!");
+        iter++;
+    }
+    else if (iter < 360 + 360)
+    {
+        drawTextInCentre("Your move.");
+        iter++;
+    }
 
     window.display();
 }
@@ -65,8 +75,8 @@ void Renderer::renderSetup(bool host, int mouseX, int mouseY)
         for (int j = 0; j < 6; j++)
         {
             currentTile = grid.getTileAt(i, j);
-            int mouseTileX = mouseX / tileSize;
-            int mouseTileY = mouseY / tileSize;
+            int mouseTileX = (mouseX - window.getPosition().x) / tileSize;  // need to truncate, not round these up
+            int mouseTileY = (mouseY - window.getPosition().y) / tileSize;
 
             drawSetupDungeons(i, j, mouseTileX, mouseTileY);
             drawGhosts(i, j);
@@ -118,15 +128,15 @@ void Renderer::drawGameplayDungeons(int i, int j, int mouseTileX, int mouseTileY
         dungeonSelectedSprite.setPosition(selectedX * tileSize, selectedY * tileSize);
         window.draw(dungeonSelectedSprite);
     }
-    else if (i == mouseTileX && j == mouseTileY)
-    {
-        dungeonMouseSprite.setPosition(mouseTileX * tileSize, mouseTileY * tileSize);
-        window.draw(dungeonMouseSprite);
-    }
     else if (i == suggestedX && j == suggestedY)
     {
         dungeonSelectedSprite.setPosition(suggestedX * tileSize, suggestedY * tileSize);
         window.draw(dungeonSelectedSprite);
+    }
+    else if (i == mouseTileX && j == mouseTileY)
+    {
+        dungeonMouseSprite.setPosition(mouseTileX * tileSize, mouseTileY * tileSize);
+        window.draw(dungeonMouseSprite);
     }
     else
     {
