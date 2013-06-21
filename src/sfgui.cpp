@@ -10,10 +10,10 @@ void Clicky::run()
     
 void Clicky::menu()
 {
-    joinButt(sfg::Widget::OnLeftClick).Connect(&Clicky::onJoinButtClick, this);
-    hostButt(sfg::Widget::OnLeftClick).Connect(&Clicky::onHostButtClick, this);
-    instructButt(sfg::Widget::OnLeftClick).Connect(&Clicky::onInstructButtClick, this);
-    optionsButt(sfg::Widget::OnLeftClick).Connect(&Clicky::onOptionsButtClick, this);
+    joinButt->GetSignal(sfg::Widget::OnLeftClick).Connect(&Clicky::onJoinButtClick, this);
+    hostButt->GetSignal(sfg::Widget::OnLeftClick).Connect(&Clicky::onHostButtClick, this);
+    /*instructButt->GetSignal(sfg::Widget::OnLeftClick).Connect(&Clicky::onInstructButtClick, this);
+    optionsButt->GetSignal(sfg::Widget::OnLeftClick).Connect(&Clicky::onOptionsButtClick, this);*/
 
     menuBox->Pack(joinButt, false);
     menuBox->Pack(hostButt, false);

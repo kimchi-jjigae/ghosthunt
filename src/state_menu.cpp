@@ -21,7 +21,8 @@ std::string MenuState::run()
     inputHandler.processEvents();
     while (inputHandler.pollEvent(event))
     {
-        clicky.desktop.HandleEvent((sf::Event)event);   // gotta convert this! :) 
+        //sf::Event bajs = haxEventConversion(event);                      // <-- here
+        //clicky.desktop.HandleEvent(bajs);   // gotta convert this! :) 
         if (event.type == windbreeze::Event::CLOSED)
         {
             nextState = "exit";
@@ -35,11 +36,11 @@ std::string MenuState::run()
         }
     }
 
-    clicky.desktop.Update(clock.restart().asSeconds());
+    //clicky.desktop.Update(clock.restart().asSeconds());
 
     //render
     sfWindow.clear();
-    clicky.sfgui.Display(sfWindow);
+    //clicky.sfgui.Display(sfWindow);
     sfWindow.display();
     
     if (connected)
@@ -54,4 +55,13 @@ std::string MenuState::run()
     return nextState;
 }
 
-void MenuState::haxEventConversion();
+/*
+sf::Event MenuState::haxEventConversion(windbreeze::Event event)
+{
+    sf::Event newEvent;
+    
+    newEvent.type = event.type;
+
+    return newEvent;
+}
+*/

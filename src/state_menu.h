@@ -6,7 +6,7 @@
 #include <framework/util/sfml/sfmlwindowbackend.h>
 #include <framework/application/gamestatemachine.h>
 #include <SFML/Graphics.hpp>
-#include "sfgui.h"
+//#include "sfgui.h"
 #include "renderer.h"
 #include "networker.h"
 #include <iostream>
@@ -17,7 +17,8 @@ class MenuState : public windstorm::GameState
         //virtual void activate(std::string previousState) {}
         //virtual void deactivate(std::string nextState) {}
         //virtual void handOver(std::weak_ptr<GameState> previousState, std::string previousStateName) {}
-        MenuState(sf::RenderWindow& sfw, windbreeze::InputHandler& ih, windbreeze::ActionHandler<std::string>& ah, Networker& nw, Renderer& r, Clicky& c) : sfWindow(sfw), inputHandler(ih), actionHandler(ah), networker(nw), renderer(r), clicky(c) {}
+        MenuState(sf::RenderWindow& sfw, windbreeze::InputHandler& ih, windbreeze::ActionHandler<std::string>& ah, Networker& nw, Renderer& r) : sfWindow(sfw), inputHandler(ih), actionHandler(ah), networker(nw), renderer(r) {}
+        //MenuState(sf::RenderWindow& sfw, windbreeze::InputHandler& ih, windbreeze::ActionHandler<std::string>& ah, Networker& nw, Renderer& r, Clicky& c) : sfWindow(sfw), inputHandler(ih), actionHandler(ah), networker(nw), renderer(r), clicky(c) {}
         void setup() override;
         std::string run() override;
         //virtual void destroy() {}
@@ -29,11 +30,11 @@ class MenuState : public windstorm::GameState
         windbreeze::ActionHandler<std::string>& actionHandler;
         Networker& networker;
         Renderer& renderer;
-        Clicky& clicky;
-        sf::Clock clock;
+        //Clicky& clicky;
+        //sf::Clock clock;
 
         std::string nextState;
         bool connected;
 
-        void haxEventConversion();
+        //sf::Event haxEventConversion(windbreeze::Event event);
 };
