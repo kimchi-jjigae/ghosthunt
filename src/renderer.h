@@ -10,6 +10,7 @@ class Renderer
         void render(sf::RenderWindow& window, const TileGrid& grid, bool host);
         void renderSetup(sf::RenderWindow& window, const TileGrid& grid, bool host, int mouseX, int mouseY);
         void renderText(sf::RenderWindow& window, std::string& string);
+        void drawPlaceGhostText(sf::RenderWindow& window);
         int getTileSize();
 
     private:

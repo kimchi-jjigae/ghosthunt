@@ -160,6 +160,8 @@ void Renderer::renderSetup(sf::RenderWindow& window, const TileGrid& grid, bool 
         }
     }
 
+    drawPlaceGhostText(window);
+
     window.display();
 }
 
@@ -175,10 +177,18 @@ void Renderer::renderText(sf::RenderWindow& window, std::string& string)
             int x = j * 5 * tileSize;
             int y = i * tileSize;
 
-            text.setPosition(x,y);
+            text.setPosition(x, y);
             window.draw(text);
         }
     }
 
     window.display();
+}
+
+void Renderer::drawPlaceGhostText(sf::RenderWindow& window)
+{
+    std::string string = "Position your ghosts!";
+    text.setString(string);
+    text.setPosition(50, 300);
+    window.draw(text);
 }
