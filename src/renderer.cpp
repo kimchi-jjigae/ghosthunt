@@ -112,15 +112,15 @@ void Renderer::renderSetup(sf::RenderWindow& window, const TileGrid& grid, bool 
             int mouseTileY = mouseY / tileSize;
 
             //draw dungeon grid
-            if (i == mouseTileX && j == mouseTileY)
-            {
-                dungeonSelectedSprite.setPosition(mouseTileX, mouseTileY);
-                window.draw(dungeonMouseSprite);
-            }
-            else if (i == selectedX && j == selectedY)
+            if (i == selectedX && j == selectedY)
             {
                 dungeonSelectedSprite.setPosition(selectedX * tileSize, selectedY * tileSize);
                 window.draw(dungeonSelectedSprite);
+            }
+            else if (i == mouseTileX && j == mouseTileY)
+            {
+                dungeonMouseSprite.setPosition(mouseTileX * tileSize, mouseTileY * tileSize);
+                window.draw(dungeonMouseSprite);
             }
             else if ((currentTile.playerState == ONE) && ((i > 0 && i < 5) && (j > 3 && j < 6)))
             {
