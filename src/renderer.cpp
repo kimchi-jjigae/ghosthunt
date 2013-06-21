@@ -33,13 +33,11 @@ int Renderer::getTileSize()
 void Renderer::render(const TileGrid& grid, bool host, int mouseX, int mouseY)
 {
     window.clear();
-    
     int selectedX = grid.getSelectedCoords().x;
     int selectedY = grid.getSelectedCoords().y;
     int suggestedX = grid.getSuggestedCoords().x;
     int suggestedY = grid.getSuggestedCoords().y;
 
-    //iterate through the grid
     for (int i = 0; i < 6; i++)
     {
         for (int j = 0; j < 6; j++)
@@ -47,51 +45,11 @@ void Renderer::render(const TileGrid& grid, bool host, int mouseX, int mouseY)
             const Tile& currentTile = grid.getTileAt(i, j);
             int x = i * tileSize;
             int y = j * tileSize;
-
             int mouseTileX = mouseX / tileSize;
             int mouseTileY = mouseY / tileSize;
 
-            //draw dungeon grid
-            if (i == selectedX && j == selectedY)
-            {
-                dungeonSelectedSprite.setPosition(selectedX * tileSize, selectedY * tileSize);
-                window.draw(dungeonSelectedSprite);
-            }
-            else if (i == mouseTileX && j == mouseTileY)
-            {
-                dungeonMouseSprite.setPosition(mouseTileX * tileSize, mouseTileY * tileSize);
-                window.draw(dungeonMouseSprite);
-            }
-            else if (i == suggestedX && j == suggestedY)
-            {
-                dungeonSelectedSprite.setPosition(suggestedX * tileSize, suggestedY * tileSize);
-                window.draw(dungeonSelectedSprite);
-            }
-            else
-            {
-                dungeonSprite.setPosition(x, y);
-                window.draw(dungeonSprite);
-            }
-
-            //draw ghosts
-            if (currentTile.playerState == ONE)
-            {
-                if (currentTile.ghostState == GOOD)
-                {
-                    ghostSpriteGood.setPosition(x, y);
-                    window.draw(ghostSpriteGood);
-                }
-                else if (currentTile.ghostState == BAD)
-                {
-                    ghostSpriteBad.setPosition(x, y);
-                    window.draw(ghostSpriteBad);
-                }
-            }
-            else if (currentTile.playerState == TWO)
-            {
-                ghostSpriteUnknown.setPosition(x, y);
-                window.draw(ghostSpriteUnknown);
-            }
+            drawGameplayDungeons(i, j, x, y, mouseTileX, mouseTileY);
+            drawGhosts(x, y);
         }
     }
 
@@ -101,13 +59,7 @@ void Renderer::render(const TileGrid& grid, bool host, int mouseX, int mouseY)
 void Renderer::renderSetup(const TileGrid& grid, bool host, int mouseX, int mouseY)
 {
     window.clear();
-    
-    int selectedX = grid.getSelectedCoords().x;
-    int selectedY = grid.getSelectedCoords().y;
-    int suggestedX = grid.getSuggestedCoords().x;
-    int suggestedY = grid.getSuggestedCoords().y;
 
-    //iterate through the grid
     for (int i = 0; i < 6; i++)
     {
         for (int j = 0; j < 6; j++)
@@ -115,59 +67,13 @@ void Renderer::renderSetup(const TileGrid& grid, bool host, int mouseX, int mous
             const Tile& currentTile = grid.getTileAt(i, j);
             int x = i * tileSize;
             int y = j * tileSize;
-
             int mouseTileX = mouseX / tileSize;
             int mouseTileY = mouseY / tileSize;
 
-            //draw dungeon grid
-            if (i == selectedX && j == selectedY)
-            {
-                dungeonSelectedSprite.setPosition(selectedX * tileSize, selectedY * tileSize);
-                window.draw(dungeonSelectedSprite);
-            }
-            else if (i == mouseTileX && j == mouseTileY)
-            {
-                dungeonMouseSprite.setPosition(mouseTileX * tileSize, mouseTileY * tileSize);
-                window.draw(dungeonMouseSprite);
-            }
-            else if ((currentTile.playerState == ONE) && ((i > 0 && i < 5) && (j > 3 && j < 6)))
-            {
-                dungeonReadySprite.setPosition(x, y);
-                window.draw(dungeonReadySprite);
-            }
-            else if (i == suggestedX && j == suggestedY)
-            {
-                dungeonSelectedSprite.setPosition(suggestedX * tileSize, suggestedY * tileSize);
-                window.draw(dungeonSelectedSprite);
-            }
-            else
-            {
-                dungeonSprite.setPosition(x, y);
-                window.draw(dungeonSprite);
-            }
-
-            //draw ghosts
-            if (currentTile.playerState == ONE)
-            {
-                if (currentTile.ghostState == GOOD)
-                {
-                    ghostSpriteGood.setPosition(x, y);
-                    window.draw(ghostSpriteGood);
-                }
-                else if (currentTile.ghostState == BAD)
-                {
-                    ghostSpriteBad.setPosition(x, y);
-                    window.draw(ghostSpriteBad);
-                }
-            }
-            else if (currentTile.playerState == TWO)
-            {
-                ghostSpriteUnknown.setPosition(x, y);
-                window.draw(ghostSpriteUnknown);
-            }
+            drawSetupDungeons(i, j, x, y, mouseTileX, mouseTileY);
+            drawGhosts(x, y);
         }
     }
-
     drawPlaceGhostText();
 
     window.display();
@@ -191,6 +97,91 @@ void Renderer::renderText(std::string& string)
     }
 
     window.display();
+}
+
+void Renderer::drawGameplayDungeons(int i, int j, int x, int y, int mouseTileX, int mouseTileY)
+{
+    int selectedX = grid.getSelectedCoords().x;
+    int selectedY = grid.getSelectedCoords().y;
+    int suggestedX = grid.getSuggestedCoords().x;
+    int suggestedY = grid.getSuggestedCoords().y;
+
+    if (i == selectedX && j == selectedY)
+    {
+        dungeonSelectedSprite.setPosition(selectedX * tileSize, selectedY * tileSize);
+        window.draw(dungeonSelectedSprite);
+    }
+    else if (i == mouseTileX && j == mouseTileY)
+    {
+        dungeonMouseSprite.setPosition(mouseTileX * tileSize, mouseTileY * tileSize);
+        window.draw(dungeonMouseSprite);
+    }
+    else if (i == suggestedX && j == suggestedY)
+    {
+        dungeonSelectedSprite.setPosition(suggestedX * tileSize, suggestedY * tileSize);
+        window.draw(dungeonSelectedSprite);
+    }
+    else
+    {
+        dungeonSprite.setPosition(x, y);
+        window.draw(dungeonSprite);
+    }
+}
+
+void Renderer::drawSetupDungeons(int i, int j, int x, int y, int mouseTileX, int mouseTileY)
+{
+    int selectedX = grid.getSelectedCoords().x;
+    int selectedY = grid.getSelectedCoords().y;
+    int suggestedX = grid.getSuggestedCoords().x;
+    int suggestedY = grid.getSuggestedCoords().y;
+
+    if (i == selectedX && j == selectedY)
+    {
+        dungeonSelectedSprite.setPosition(selectedX * tileSize, selectedY * tileSize);
+        window.draw(dungeonSelectedSprite);
+    }
+    else if (i == mouseTileX && j == mouseTileY)
+    {
+        dungeonMouseSprite.setPosition(mouseTileX * tileSize, mouseTileY * tileSize);
+        window.draw(dungeonMouseSprite);
+    }
+    else if ((currentTile.playerState == ONE) && ((i > 0 && i < 5) && (j > 3 && j < 6)))
+    {
+        dungeonReadySprite.setPosition(x, y);
+        window.draw(dungeonReadySprite);
+    }
+    else if (i == suggestedX && j == suggestedY)
+    {
+        dungeonSelectedSprite.setPosition(suggestedX * tileSize, suggestedY * tileSize);
+        window.draw(dungeonSelectedSprite);
+    }
+    else
+    {
+        dungeonSprite.setPosition(x, y);
+        window.draw(dungeonSprite);
+    }
+}
+
+void drawGhosts(int x, int y)
+{
+    if (currentTile.playerState == ONE)
+    {
+        if (currentTile.ghostState == GOOD)
+        {
+            ghostSpriteGood.setPosition(x, y);
+            window.draw(ghostSpriteGood);
+        }
+        else if (currentTile.ghostState == BAD)
+        {
+            ghostSpriteBad.setPosition(x, y);
+            window.draw(ghostSpriteBad);
+        }
+    }
+    else if (currentTile.playerState == TWO)
+    {
+        ghostSpriteUnknown.setPosition(x, y);
+        window.draw(ghostSpriteUnknown);
+    }
 }
 
 void Renderer::drawPlaceGhostText()

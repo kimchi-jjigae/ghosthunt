@@ -1,4 +1,3 @@
-// pass window reference to renderer
 // create draw ghosts, dungeon, etc. functions - private
 // merge render functions
 #pragma once
@@ -13,12 +12,15 @@ class Renderer
         void render(const TileGrid& grid, bool host, int mouseX, int mouseY);
         void renderSetup(const TileGrid& grid, bool host, int mouseX, int mouseY);
         void renderText(std::string& string);
-        void drawPlaceGhostText();
         int getTileSize();
 
     private:
-        int tileSize;
+        void drawPlaceGhostText();
+        void drawGameplayDungeons(int i, int j, int x, int y, int mouseTileX, int mouseTileY);
+        void drawSetupDungeons(int i, int j, int x, int y, int mouseTileX, int mouseTileY);
+        void drawGhosts(int x, int y);
 
+        int tileSize;
         sf::RenderWindow& window;
         
         sf::Texture dungeonTexture;
