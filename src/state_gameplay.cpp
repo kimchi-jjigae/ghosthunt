@@ -189,7 +189,7 @@ void GameplayState::bregott()
 {
     switch (gameOver) {
     case 0: 
-        renderer.render(grid, host, mouseX, mouseY);
+        renderer.render(host, mouseX, mouseY);
         break;
     case 1: 
         renderer.renderText(winString);

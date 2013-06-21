@@ -1,6 +1,6 @@
 #include "renderer.h"
 
-Renderer::Renderer(sf::RenderWindow& w) : window(w)
+Renderer::Renderer(sf::RenderWindow& w, TileGrid& g) : window(w), grid(g)
 {
     tileSize = 100;
     dungeonTexture.loadFromFile("data/dungeon.png");
@@ -30,7 +30,7 @@ int Renderer::getTileSize()
     return tileSize;
 }
 
-void Renderer::render(const TileGrid& grid, bool host, int mouseX, int mouseY)
+void Renderer::render(bool host, int mouseX, int mouseY)
 {
     window.clear();
     int selectedX = grid.getSelectedCoords().x;
@@ -56,7 +56,7 @@ void Renderer::render(const TileGrid& grid, bool host, int mouseX, int mouseY)
     window.display();
 }
 
-void Renderer::renderSetup(const TileGrid& grid, bool host, int mouseX, int mouseY)
+void Renderer::renderSetup(bool host, int mouseX, int mouseY)
 {
     window.clear();
 
@@ -99,7 +99,7 @@ void Renderer::renderText(std::string& string)
     window.display();
 }
 
-void Renderer::drawGameplayDungeons(int i, int j, int x, int y, int mouseTileX, int mouseTileY)
+void Renderer::drawGameplayDungeons()
 {
     int selectedX = grid.getSelectedCoords().x;
     int selectedY = grid.getSelectedCoords().y;
@@ -128,7 +128,7 @@ void Renderer::drawGameplayDungeons(int i, int j, int x, int y, int mouseTileX, 
     }
 }
 
-void Renderer::drawSetupDungeons(int i, int j, int x, int y, int mouseTileX, int mouseTileY)
+void Renderer::drawSetupDungeons()
 {
     int selectedX = grid.getSelectedCoords().x;
     int selectedY = grid.getSelectedCoords().y;

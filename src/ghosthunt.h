@@ -20,8 +20,8 @@ class GhostHunt : public windstorm::Application
         void loop() override;
     private:
         windstorm::GameStateMachine stateMachine;
+        Renderer renderer = Renderer(sfWindow, grid);
         Networker networker;
-        Renderer renderer = Renderer(sfWindow);
         TileGrid grid;
         Clicky clicky;
 

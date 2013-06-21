@@ -8,20 +8,21 @@
 class Renderer
 {
     public:
-        Renderer(sf::RenderWindow& window);
-        void render(const TileGrid& grid, bool host, int mouseX, int mouseY);
-        void renderSetup(const TileGrid& grid, bool host, int mouseX, int mouseY);
+        Renderer(sf::RenderWindow& w, TileGrid& g);
+        void render(bool host, int mouseX, int mouseY);
+        void renderSetup(bool host, int mouseX, int mouseY);
         void renderText(std::string& string);
         int getTileSize();
 
     private:
         void drawPlaceGhostText();
-        void drawGameplayDungeons(int i, int j, int x, int y, int mouseTileX, int mouseTileY);
-        void drawSetupDungeons(int i, int j, int x, int y, int mouseTileX, int mouseTileY);
-        void drawGhosts(int x, int y);
+        void drawGameplayDungeons();
+        void drawSetupDungeons();
+        void drawGhosts();
 
         int tileSize;
         sf::RenderWindow& window;
+        TileGrid& grid;
         
         sf::Texture dungeonTexture;
         sf::Sprite dungeonSprite;
