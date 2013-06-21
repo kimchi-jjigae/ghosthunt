@@ -1,6 +1,6 @@
 #include "renderer.h"
 
-Renderer::Renderer()
+Renderer::Renderer(sf::RenderWindow& w) : window(w)
 {
     tileSize = 100;
     dungeonTexture.loadFromFile("data/dungeon.png");
@@ -30,7 +30,7 @@ int Renderer::getTileSize()
     return tileSize;
 }
 
-void Renderer::render(sf::RenderWindow& window, const TileGrid& grid, bool host, int mouseX, int mouseY)
+void Renderer::render(const TileGrid& grid, bool host, int mouseX, int mouseY)
 {
     window.clear();
     
@@ -98,7 +98,7 @@ void Renderer::render(sf::RenderWindow& window, const TileGrid& grid, bool host,
     window.display();
 }
 
-void Renderer::renderSetup(sf::RenderWindow& window, const TileGrid& grid, bool host, int mouseX, int mouseY)
+void Renderer::renderSetup(const TileGrid& grid, bool host, int mouseX, int mouseY)
 {
     window.clear();
     
@@ -168,12 +168,12 @@ void Renderer::renderSetup(sf::RenderWindow& window, const TileGrid& grid, bool 
         }
     }
 
-    drawPlaceGhostText(window);
+    drawPlaceGhostText();
 
     window.display();
 }
 
-void Renderer::renderText(sf::RenderWindow& window, std::string& string)
+void Renderer::renderText(std::string& string)
 {
     window.clear();
     text.setString(string);
@@ -193,7 +193,7 @@ void Renderer::renderText(sf::RenderWindow& window, std::string& string)
     window.display();
 }
 
-void Renderer::drawPlaceGhostText(sf::RenderWindow& window)
+void Renderer::drawPlaceGhostText()
 {
     std::string string = "Position your ghosts!";
     text.setString(string);

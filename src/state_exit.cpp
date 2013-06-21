@@ -25,6 +25,6 @@ std::string ExitState::run()
             }
         }
     }
-    renderer.renderText(sfWindow, textString);
+    renderer.renderText(textString);
     return nextState;
 }

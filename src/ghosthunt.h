@@ -21,7 +21,7 @@ class GhostHunt : public windstorm::Application
     private:
         windstorm::GameStateMachine stateMachine;
         Networker networker;
-        Renderer renderer;
+        Renderer renderer = Renderer(sfWindow);
         TileGrid grid;
         Clicky clicky;
 
@@ -32,5 +32,4 @@ class GhostHunt : public windstorm::Application
         windbreeze::SFMLInputBackend sfmlInputBackend = sfWindow;
         windbreeze::InputHandler inputHandler = sfmlInputBackend;
         windbreeze::ActionHandler<std::string> actionHandler;
-
 };

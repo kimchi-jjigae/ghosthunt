@@ -24,10 +24,9 @@ std::string SetupState::run()
         nextState = "";
     }
 
-    //renderer.renderSetup(sfWindow, grid, host, int mousePosX, int mousePosY);
     int mouseX = sf::Mouse::getPosition().x;
     int mouseY = sf::Mouse::getPosition().y;
-    renderer.renderSetup(sfWindow, grid, host, mouseX, mouseY);
+    renderer.renderSetup(grid, host, mouseX, mouseY);
 
     return nextState;
 }

@@ -189,13 +189,13 @@ void GameplayState::bregott()
 {
     switch (gameOver) {
     case 0: 
-        renderer.render(sfWindow, grid, host, mouseX, mouseY);
+        renderer.render(grid, host, mouseX, mouseY);
         break;
     case 1: 
-        renderer.renderText(sfWindow, winString);
+        renderer.renderText(winString);
         break;
     case 2: 
-        renderer.renderText(sfWindow, loseString);
+        renderer.renderText(loseString);
         break;
     }
 }

@@ -1,3 +1,6 @@
+// pass window reference to renderer
+// create draw ghosts, dungeon, etc. functions - private
+// merge render functions
 #pragma once
 #include <iostream>
 #include <SFML/Graphics.hpp>
@@ -6,15 +9,17 @@
 class Renderer
 {
     public:
-        Renderer();
-        void render(sf::RenderWindow& window, const TileGrid& grid, bool host, int mouseX, int mouseY);
-        void renderSetup(sf::RenderWindow& window, const TileGrid& grid, bool host, int mouseX, int mouseY);
-        void renderText(sf::RenderWindow& window, std::string& string);
-        void drawPlaceGhostText(sf::RenderWindow& window);
+        Renderer(sf::RenderWindow& window);
+        void render(const TileGrid& grid, bool host, int mouseX, int mouseY);
+        void renderSetup(const TileGrid& grid, bool host, int mouseX, int mouseY);
+        void renderText(std::string& string);
+        void drawPlaceGhostText();
         int getTileSize();
 
     private:
         int tileSize;
+
+        sf::RenderWindow& window;
         
         sf::Texture dungeonTexture;
         sf::Sprite dungeonSprite;
