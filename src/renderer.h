@@ -15,14 +15,16 @@ class Renderer
         int getTileSize();
 
     private:
-        void drawPlaceGhostText();
-        void drawGameplayDungeons();
-        void drawSetupDungeons();
-        void drawGhosts();
+        void drawTextInCentre(std::string s);
+        void drawGameplayDungeons(int i, int j, int mouseTileX, int mouseTileY);
+        void drawSetupDungeons(int i, int j, int mouseTileX, int mouseTileY);
+        void drawGhosts(int i, int j);
 
         int tileSize;
+        int iter = 0;
         sf::RenderWindow& window;
         TileGrid& grid;
+        Tile currentTile;
         
         sf::Texture dungeonTexture;
         sf::Sprite dungeonSprite;

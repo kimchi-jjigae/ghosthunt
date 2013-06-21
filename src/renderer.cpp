@@ -20,9 +20,9 @@ Renderer::Renderer(sf::RenderWindow& w, TileGrid& g) : window(w), grid(g)
     ghostSpriteUnknown.setTextureRect(sf::IntRect(0, 0, 100, 100));
     ghostSpriteGood.setTextureRect(sf::IntRect(100, 0, 100, 100));
     ghostSpriteBad.setTextureRect(sf::IntRect(200, 0, 100, 100));
-    font.loadFromFile("data/acmesa.TTF");
+    font.loadFromFile("data/acmesab.TTF");
     text.setFont(font);
-    text.setColor(sf::Color(255,0,0));
+    text.setColor(sf::Color(100,100,255));
 }
 
 int Renderer::getTileSize()
@@ -42,14 +42,14 @@ void Renderer::render(bool host, int mouseX, int mouseY)
     {
         for (int j = 0; j < 6; j++)
         {
-            const Tile& currentTile = grid.getTileAt(i, j);
+            currentTile = grid.getTileAt(i, j);
             int x = i * tileSize;
             int y = j * tileSize;
-            int mouseTileX = mouseX / tileSize;
-            int mouseTileY = mouseY / tileSize;
+            int mouseTileX = (mouseX - window.getPosition().x) / tileSize;  // need to truncate, not round these up
+            int mouseTileY = (mouseY - window.getPosition().y) / tileSize;
 
-            drawGameplayDungeons(i, j, x, y, mouseTileX, mouseTileY);
-            drawGhosts(x, y);
+            drawGameplayDungeons(i, j, mouseTileX, mouseTileY);
+            drawGhosts(i, j);
         }
     }
 
@@ -64,17 +64,24 @@ void Renderer::renderSetup(bool host, int mouseX, int mouseY)
     {
         for (int j = 0; j < 6; j++)
         {
-            const Tile& currentTile = grid.getTileAt(i, j);
-            int x = i * tileSize;
-            int y = j * tileSize;
+            currentTile = grid.getTileAt(i, j);
             int mouseTileX = mouseX / tileSize;
             int mouseTileY = mouseY / tileSize;
 
-            drawSetupDungeons(i, j, x, y, mouseTileX, mouseTileY);
-            drawGhosts(x, y);
+            drawSetupDungeons(i, j, mouseTileX, mouseTileY);
+            drawGhosts(i, j);
         }
     }
-    drawPlaceGhostText();
+    if (iter < 180)
+    {
+        drawTextInCentre("Position your ghosts...");
+        iter++;
+    }
+    else if (iter < 360)
+    {
+        drawTextInCentre("...press K when you are ready!");
+        iter++;
+    }
 
     window.display();
 }
@@ -99,7 +106,7 @@ void Renderer::renderText(std::string& string)
     window.display();
 }
 
-void Renderer::drawGameplayDungeons()
+void Renderer::drawGameplayDungeons(int i, int j, int mouseTileX, int mouseTileY)
 {
     int selectedX = grid.getSelectedCoords().x;
     int selectedY = grid.getSelectedCoords().y;
@@ -123,12 +130,12 @@ void Renderer::drawGameplayDungeons()
     }
     else
     {
-        dungeonSprite.setPosition(x, y);
+        dungeonSprite.setPosition(i * tileSize, j * tileSize);
         window.draw(dungeonSprite);
     }
 }
 
-void Renderer::drawSetupDungeons()
+void Renderer::drawSetupDungeons(int i, int j, int mouseTileX, int mouseTileY)
 {
     int selectedX = grid.getSelectedCoords().x;
     int selectedY = grid.getSelectedCoords().y;
@@ -147,7 +154,7 @@ void Renderer::drawSetupDungeons()
     }
     else if ((currentTile.playerState == ONE) && ((i > 0 && i < 5) && (j > 3 && j < 6)))
     {
-        dungeonReadySprite.setPosition(x, y);
+        dungeonReadySprite.setPosition(i * tileSize, j * tileSize);
         window.draw(dungeonReadySprite);
     }
     else if (i == suggestedX && j == suggestedY)
@@ -157,13 +164,15 @@ void Renderer::drawSetupDungeons()
     }
     else
     {
-        dungeonSprite.setPosition(x, y);
+        dungeonSprite.setPosition(i * tileSize, j * tileSize);
         window.draw(dungeonSprite);
     }
 }
 
-void drawGhosts(int x, int y)
+void Renderer::drawGhosts(int i, int j)
 {
+    int x = i * tileSize;
+    int y = j * tileSize;
     if (currentTile.playerState == ONE)
     {
         if (currentTile.ghostState == GOOD)
@@ -184,10 +193,12 @@ void drawGhosts(int x, int y)
     }
 }
 
-void Renderer::drawPlaceGhostText()
+void Renderer::drawTextInCentre(std::string s)
 {
-    std::string string = "Position your ghosts!";
-    text.setString(string);
-    text.setPosition(1 * tileSize, 3 * tileSize);
+    text.setString(s);
+    text.setCharacterSize(25);
+    int centre = (text.getGlobalBounds().width)/2;
+    int height = (text.getGlobalBounds().height);
+    text.setPosition(3 * tileSize - centre, 3 * tileSize - 50);
     window.draw(text);
 }

@@ -24,9 +24,10 @@ std::string SetupState::run()
         nextState = "";
     }
 
+    
     int mouseX = sf::Mouse::getPosition().x;
     int mouseY = sf::Mouse::getPosition().y;
-    renderer.renderSetup(mouseX, mouseY);
+    renderer.renderSetup(host, mouseX, mouseY);
 
     return nextState;
 }
