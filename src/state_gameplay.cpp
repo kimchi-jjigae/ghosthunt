@@ -48,11 +48,19 @@ void GameplayState::waitForTurn()
 {
     int a, b, c, d;
     std::string s;
-    networker.receiveData(packet);
-    grid.placeMove(packet);
-    turn = true;
-    waiting = false;
-    checkForGameOver();
+    if (networker.receiveData(packet))
+    {
+        grid.placeMove(packet);
+        turn = true;
+        waiting = false;
+        checkForGameOver();
+    }
+    else
+    {
+        std::string bajs = "The other player has disconnected! :(";
+        std::cout << bajs;
+    }
+        
     waitThread.detach();
 }
 

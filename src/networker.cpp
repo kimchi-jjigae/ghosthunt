@@ -9,22 +9,22 @@ bool Networker::acceptConnection()
     std::cout << "Listening on port " << portNumber << "... " << std::flush;
     if (listener.listen(portNumber) != sf::Socket::Done)
     {
-        std::cout << "it dint listn\n";
+        std::cout << "Port cannot be opened.\n";
         return false;
     }
     else
-        std::cout << "it  listn :O\n";
+        std::cout << "Port successfully opened!\n";
 
     // accept a new connection
     std::cout << "Waiting for the other player to connect... " << std::flush;
     if (listener.accept(socket) != sf::Socket::Done)
     {
-        std::cout << "it dint accept client\n";
+        std::cout << "The other play could not connect.\n";
         return false;
     }
     else
     {
-        std::cout << "accepted!\n";
+        std::cout << "The other player is connected!\n";
         return true;
     }
 }
@@ -35,12 +35,12 @@ bool Networker::connectToHost()
     std::cout << "Connecting to port " << portNumber << " on " << hostAddress << "... " << std::flush;
     if (status != sf::Socket::Done)
     {
-        std::cout << "Could not connect :(\n";
+        std::cout << "Could not connect to the host.\n";
         return false;
     }
     else
     {
-        std::cout << "YEA CONNECTED MAYBE\n";
+        std::cout << "Connection successfully established!\n";
         return true;
     }
 }
@@ -50,12 +50,12 @@ bool Networker::receiveData(sf::Packet& packet)
     std::cout << "Waiting to receive data... " << std::flush;
     if (socket.receive(packet) != sf::Socket::Done)
     {
-        std::cout << "Received nothin\n";
+        std::cout << "Failed to receive anything.\n";   // make it disconnect? :O
         return false;
     }
     else
     {
-        std::cout << "Possibly received somethin\n";
+        std::cout << "Received!\n";
         return true;
     }
 }
@@ -65,12 +65,12 @@ bool Networker::sendData(sf::Packet& packet)
     std::cout << "Sending data... " << std::flush;
     if (socket.send(packet) != sf::Socket::Done)
     {
-        std::cout << "coulnt send\n";
+        std::cout << "Data could not be sent.\n";
         return false;
     }
     else
     {
-        std::cout << "mebbe sent\n";
+        std::cout << "Sent!\n";
         return true;
     }
 }
