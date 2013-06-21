@@ -7,6 +7,9 @@
 class Clicky
 {
     public:
+        sfg::Desktop desktop;
+        sfg::SFGUI sfgui;
+
         void run();
         void menu();
         void join();
@@ -25,18 +28,16 @@ class Clicky
         //host
 
     private:
-        sfg::SFGUI sfgui;
         sfg::Box::Ptr menuBox = sfg::Box::Create(sfg::Box::VERTICAL, 26.0f);
         sfg::Box::Ptr joinBox = sfg::Box::Create(sfg::Box::VERTICAL, 26.0f);
         sfg::Box::Ptr hostBox = sfg::Box::Create(sfg::Box::VERTICAL, 26.0f);
-        sfg::Desktop desktop;
         std::string state = "menu";
 
         //menu
         sfg::Button::Ptr joinButt = sfg::Button::Create("JOIN GAME");
         sfg::Button::Ptr hostButt = sfg::Button::Create("HOST GAME");
-        //sfg::Button::Ptr instructButt(sfg::Button::Create("Instructions"));
-        //sfg::Button::Ptr optionsButt(sfg::Button::Create("Options"));
+        sfg::Button::Ptr instructButt = sfg::Button::Create("Instructions");
+        sfg::Button::Ptr optionsButt = sfg::Button::Create("Options");
 
         //join
         sfg::Label::Ptr joinLabel = sfg::Label::Create("Join a game");

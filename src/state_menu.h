@@ -34,4 +34,6 @@ class MenuState : public windstorm::GameState
 
         std::string nextState;
         bool connected;
+
+        void haxEventConversion();
 };
