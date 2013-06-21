@@ -30,7 +30,7 @@ int Renderer::getTileSize()
     return tileSize;
 }
 
-void Renderer::render(sf::RenderWindow& window, const TileGrid& grid, bool host)
+void Renderer::render(sf::RenderWindow& window, const TileGrid& grid, bool host, int mouseX, int mouseY)
 {
     window.clear();
     
@@ -48,11 +48,19 @@ void Renderer::render(sf::RenderWindow& window, const TileGrid& grid, bool host)
             int x = i * tileSize;
             int y = j * tileSize;
 
+            int mouseTileX = mouseX / tileSize;
+            int mouseTileY = mouseY / tileSize;
+
             //draw dungeon grid
             if (i == selectedX && j == selectedY)
             {
                 dungeonSelectedSprite.setPosition(selectedX * tileSize, selectedY * tileSize);
                 window.draw(dungeonSelectedSprite);
+            }
+            else if (i == mouseTileX && j == mouseTileY)
+            {
+                dungeonMouseSprite.setPosition(mouseTileX * tileSize, mouseTileY * tileSize);
+                window.draw(dungeonMouseSprite);
             }
             else if (i == suggestedX && j == suggestedY)
             {

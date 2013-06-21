@@ -55,4 +55,7 @@ class GameplayState : public windstorm::GameState
         //temporary
         std::string winString;
         std::string loseString;
+
+        int mouseX;
+        int mouseY;
 };

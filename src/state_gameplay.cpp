@@ -37,6 +37,8 @@ std::string GameplayState::run()
         //std::cout << "Your turn. Move a ghost.\n";
     }
     eventLoop();
+    mouseX = sf::Mouse::getPosition().x;
+    mouseY = sf::Mouse::getPosition().y;
     bregott();
     return nextState;
 }
@@ -134,6 +136,11 @@ void GameplayState::mouseClickLeft(int xPos, int yPos)
             {
                 grid.setSuggestedTile(xTile, yTile);
             }
+            else
+            {
+                grid.deselectTile();
+                grid.desuggestTile();
+            }
         }
         else
         {
@@ -182,7 +189,7 @@ void GameplayState::bregott()
 {
     switch (gameOver) {
     case 0: 
-        renderer.render(sfWindow, grid, host);
+        renderer.render(sfWindow, grid, host, mouseX, mouseY);
         break;
     case 1: 
         renderer.renderText(sfWindow, winString);
