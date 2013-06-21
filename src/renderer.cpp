@@ -189,6 +189,6 @@ void Renderer::drawPlaceGhostText(sf::RenderWindow& window)
 {
     std::string string = "Position your ghosts!";
     text.setString(string);
-    text.setPosition(50, 300);
+    text.setPosition(1 * tileSize, 3 * tileSize);
     window.draw(text);
 }
