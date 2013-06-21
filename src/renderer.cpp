@@ -30,7 +30,7 @@ int Renderer::getTileSize()
     return tileSize;
 }
 
-void Renderer::render(bool host, int mouseX, int mouseY)
+void Renderer::render(bool host, bool turn, int mouseX, int mouseY)
 {
     window.clear();
     int selectedX = grid.getSelectedCoords().x;
@@ -52,15 +52,18 @@ void Renderer::render(bool host, int mouseX, int mouseY)
             drawGhosts(i, j);
         }
     }
-    if (iter < 360 + 180)
+    if (iter < 360 + 180)       // make this independent of the other renderer :O maybe when you mix them
     {
         drawTextInCentre("The game begins now!");
         iter++;
     }
-    else if (iter < 360 + 360)
+    else if (turn)
     {
         drawTextInCentre("Your move.");
-        iter++;
+    }
+    else if (!turn)
+    {
+        drawTextInCentre("Waiting for the other player.");
     }
 
     window.display();

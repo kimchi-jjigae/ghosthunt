@@ -24,8 +24,6 @@ class SetupState : public windstorm::GameState
         //virtual void destroy() {}
         //virtual ~GameState() {}
 
-        bool isTurn();
-
     private:
         sf::RenderWindow& sfWindow;
         windbreeze::InputHandler& inputHandler;

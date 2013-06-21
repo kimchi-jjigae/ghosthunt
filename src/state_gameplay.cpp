@@ -189,7 +189,7 @@ void GameplayState::bregott()
 {
     switch (gameOver) {
     case 0: 
-        renderer.render(host, mouseX, mouseY);
+        renderer.render(host, turn, mouseX, mouseY);
         break;
     case 1: 
         renderer.renderText(winString);
@@ -198,4 +198,9 @@ void GameplayState::bregott()
         renderer.renderText(loseString);
         break;
     }
+}
+
+bool GameplayState::isTurn()
+{
+    return turn;
 }

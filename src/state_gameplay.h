@@ -22,6 +22,7 @@ class GameplayState : public windstorm::GameState
         std::string run() override;
         //virtual void destroy() {}
         //virtual ~GameState() {}
+        bool isTurn();
 
     private:
         sf::RenderWindow& sfWindow;
