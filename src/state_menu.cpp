@@ -48,7 +48,7 @@ std::string MenuState::run()
         std::cout << "Switching from menu to setup\n";
         nextState = "setup";
     }
-    else
+    else 
     {
         nextState = "setup"; // change this to ""
     }

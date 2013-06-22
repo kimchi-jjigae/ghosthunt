@@ -41,7 +41,7 @@ class SetupState : public windstorm::GameState
         void listenForSignal();
         void eventLoop();
         void placeEnemyGhosts();
-        sf::Packet listenPacket; // move to networker? :)
+        sf::Packet listenPacket; 
         sf::Packet setupPacket;
         std::string enemyGhosts;
         std::string nextState;
