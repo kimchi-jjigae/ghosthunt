@@ -126,6 +126,8 @@ void GameplayState::processMoveInfo()
 
 void GameplayState::mouseClickLeft(int xPos, int yPos)
 {
+    xPos = xPos - renderer.getBorderSizeX();
+    yPos = yPos - renderer.getBorderSizeY();
     int tileSize = renderer.getTileSize();
     int xTile = xPos/tileSize;
     int yTile = yPos/tileSize;

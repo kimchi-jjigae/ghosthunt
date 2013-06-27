@@ -2,7 +2,6 @@
 
 Renderer::Renderer(sf::RenderWindow& w, TileGrid& g) : window(w), grid(g)
 {
-    tileSize = 100;
     dungeonTexture.loadFromFile("data/dungeon.png");
     dungeonSprite.setTexture(dungeonTexture);
     dungeonSelectedSprite.setTexture(dungeonTexture);
@@ -30,6 +29,16 @@ int Renderer::getTileSize()
     return tileSize;
 }
 
+int Renderer::getBorderSizeX()
+{
+    return borderSizeX;
+}
+
+int Renderer::getBorderSizeY()
+{
+    return borderSizeY;
+}
+
 void Renderer::render(bool host, bool turn, int mouseX, int mouseY)
 {
     window.clear();
@@ -45,14 +54,14 @@ void Renderer::render(bool host, bool turn, int mouseX, int mouseY)
             currentTile = grid.getTileAt(i, j);
             int x = i * tileSize;
             int y = j * tileSize;
-            int mouseTileX = (mouseX - window.getPosition().x) / tileSize;  // need to truncate, not round these up
-            int mouseTileY = (mouseY - window.getPosition().y) / tileSize;
+            int mouseTileX = (mouseX - window.getPosition().x - borderSizeX) / tileSize;  // need to truncate, not round these up
+            int mouseTileY = (mouseY - window.getPosition().y - borderSizeX) / tileSize;
 
             drawGameplayDungeons(i, j, mouseTileX, mouseTileY);
             drawGhosts(i, j);
         }
     }
-    if (iter < 360 + 180)       // make this independent of the other renderer :O maybe when you mix them
+    if (iter < 360 + 180)       // make this independent of the other render function :O maybe when you mix them
     {
         drawTextInCentre("The game begins now!");
         iter++;
@@ -78,8 +87,8 @@ void Renderer::renderSetup(bool host, int mouseX, int mouseY)
         for (int j = 0; j < 6; j++)
         {
             currentTile = grid.getTileAt(i, j);
-            int mouseTileX = (mouseX - window.getPosition().x) / tileSize;  // need to truncate, not round these up
-            int mouseTileY = (mouseY - window.getPosition().y) / tileSize;
+            int mouseTileX = (mouseX - window.getPosition().x - borderSizeX) / tileSize;  // need to truncate, not round these up
+            int mouseTileY = (mouseY - window.getPosition().y - borderSizeY) / tileSize;
 
             drawSetupDungeons(i, j, mouseTileX, mouseTileY);
             drawGhosts(i, j);
@@ -111,7 +120,7 @@ void Renderer::renderText(std::string& string)
             int x = j * 5 * tileSize;
             int y = i * tileSize;
 
-            text.setPosition(x, y);
+            text.setPosition(x + borderSizeX, y + borderSizeY);
             window.draw(text);
         }
     }
@@ -128,22 +137,22 @@ void Renderer::drawGameplayDungeons(int i, int j, int mouseTileX, int mouseTileY
 
     if (i == selectedX && j == selectedY)
     {
-        dungeonSelectedSprite.setPosition(selectedX * tileSize, selectedY * tileSize);
+        dungeonSelectedSprite.setPosition(selectedX * tileSize + borderSizeX, selectedY * tileSize + borderSizeY);
         window.draw(dungeonSelectedSprite);
     }
     else if (i == suggestedX && j == suggestedY)
     {
-        dungeonSelectedSprite.setPosition(suggestedX * tileSize, suggestedY * tileSize);
+        dungeonSelectedSprite.setPosition(suggestedX * tileSize + borderSizeX, suggestedY * tileSize + borderSizeY);
         window.draw(dungeonSelectedSprite);
     }
     else if (i == mouseTileX && j == mouseTileY)
     {
-        dungeonMouseSprite.setPosition(mouseTileX * tileSize, mouseTileY * tileSize);
+        dungeonMouseSprite.setPosition(mouseTileX * tileSize + borderSizeX, mouseTileY * tileSize + borderSizeY);
         window.draw(dungeonMouseSprite);
     }
     else
     {
-        dungeonSprite.setPosition(i * tileSize, j * tileSize);
+        dungeonSprite.setPosition(i * tileSize + borderSizeX, j * tileSize + borderSizeY);
         window.draw(dungeonSprite);
     }
 }
@@ -157,27 +166,27 @@ void Renderer::drawSetupDungeons(int i, int j, int mouseTileX, int mouseTileY)
 
     if (i == selectedX && j == selectedY)
     {
-        dungeonSelectedSprite.setPosition(selectedX * tileSize, selectedY * tileSize);
+        dungeonSelectedSprite.setPosition(selectedX * tileSize + borderSizeX, selectedY * tileSize + borderSizeY);
         window.draw(dungeonSelectedSprite);
     }
     else if (i == mouseTileX && j == mouseTileY)
     {
-        dungeonMouseSprite.setPosition(mouseTileX * tileSize, mouseTileY * tileSize);
+        dungeonMouseSprite.setPosition(mouseTileX * tileSize + borderSizeX, mouseTileY * tileSize + borderSizeY);
         window.draw(dungeonMouseSprite);
     }
     else if ((currentTile.playerState == ONE) && ((i > 0 && i < 5) && (j > 3 && j < 6)))
     {
-        dungeonReadySprite.setPosition(i * tileSize, j * tileSize);
+        dungeonReadySprite.setPosition(i * tileSize + borderSizeX, j * tileSize + borderSizeY);
         window.draw(dungeonReadySprite);
     }
     else if (i == suggestedX && j == suggestedY)
     {
-        dungeonSelectedSprite.setPosition(suggestedX * tileSize, suggestedY * tileSize);
+        dungeonSelectedSprite.setPosition(suggestedX * tileSize + borderSizeX, suggestedY * tileSize + borderSizeY);
         window.draw(dungeonSelectedSprite);
     }
     else
     {
-        dungeonSprite.setPosition(i * tileSize, j * tileSize);
+        dungeonSprite.setPosition(i * tileSize + borderSizeX, j * tileSize + borderSizeY);
         window.draw(dungeonSprite);
     }
 }
@@ -190,18 +199,18 @@ void Renderer::drawGhosts(int i, int j)
     {
         if (currentTile.ghostState == GOOD)
         {
-            ghostSpriteGood.setPosition(x, y);
+            ghostSpriteGood.setPosition(x + borderSizeX, y + borderSizeY);
             window.draw(ghostSpriteGood);
         }
         else if (currentTile.ghostState == BAD)
         {
-            ghostSpriteBad.setPosition(x, y);
+            ghostSpriteBad.setPosition(x + borderSizeX, y + borderSizeY);
             window.draw(ghostSpriteBad);
         }
     }
     else if (currentTile.playerState == TWO)
     {
-        ghostSpriteUnknown.setPosition(x, y);
+        ghostSpriteUnknown.setPosition(x + borderSizeX, y + borderSizeY);
         window.draw(ghostSpriteUnknown);
     }
 }
@@ -212,6 +221,6 @@ void Renderer::drawTextInCentre(std::string s)
     text.setCharacterSize(25);
     int centre = (text.getGlobalBounds().width)/2;
     int height = (text.getGlobalBounds().height);
-    text.setPosition(3 * tileSize - centre, 3 * tileSize - 50);
+    text.setPosition(3 * tileSize - centre + borderSizeX, 3 * tileSize - 50 + borderSizeY);
     window.draw(text);
 }

@@ -91,6 +91,8 @@ void SetupState::eventLoop()
 
 void SetupState::mouseClickLeft(int xPos, int yPos)
 {
+    xPos = xPos - renderer.getBorderSizeX();
+    yPos = yPos - renderer.getBorderSizeY();
     int tileSize = renderer.getTileSize();
     int xTile = xPos/tileSize;
     int yTile = yPos/tileSize;

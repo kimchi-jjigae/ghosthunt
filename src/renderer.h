@@ -12,6 +12,8 @@ class Renderer
         void renderSetup(bool host, int mouseX, int mouseY);
         void renderText(std::string& string);
         int getTileSize();
+        int getBorderSizeX();
+        int getBorderSizeY();
 
     private:
         void drawTextInCentre(std::string s);
@@ -19,7 +21,9 @@ class Renderer
         void drawSetupDungeons(int i, int j, int mouseTileX, int mouseTileY);
         void drawGhosts(int i, int j);
 
-        int tileSize;
+        int borderSizeX = 50;
+        int borderSizeY = 50;
+        int tileSize = 100;
         int iter = 0;
         sf::RenderWindow& window;
         TileGrid& grid;

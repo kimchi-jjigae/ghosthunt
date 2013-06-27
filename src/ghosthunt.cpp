@@ -6,7 +6,7 @@
 
 void GhostHunt::setup()
 {
-    window.create(windbreeze::VideoMode(600, 600), "GHOST HUNT");
+    window.create(windbreeze::VideoMode(800, 800), "GHOST HUNT");
     window.setFramerateLimit(60);
 
     //stateMachine.addGameState("menu", std::shared_ptr<MenuState>(new MenuState(sfWindow, inputHandler, actionHandler, networker, renderer, clicky)));
