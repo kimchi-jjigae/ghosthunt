@@ -35,6 +35,7 @@ std::string GameplayState::run()
     {
         //display: "Your turn. Move a ghost."
         //std::cout << "Your turn. Move a ghost.\n";
+        renderer.drawLastMove();
     }
     eventLoop();
     mouseX = sf::Mouse::getPosition().x;

@@ -91,7 +91,6 @@ bool TileGrid::isSelected()
 
 void TileGrid::placeEnemyGhosts(std::string enemyState)
 {
-    std::cout << "the string i'm _receiving_ is: " << enemyState << "\n";
     int k = 7;
     for (int i = 0; i < 2; i++)
     {
@@ -151,7 +150,6 @@ sf::Packet TileGrid::convertPositionsToPacket()
             }
         }
     }
-    std::cout << "the string i'm sending is: " << s << "\n";
     paketti << s;
     return paketti;
 }
@@ -169,7 +167,6 @@ sf::Packet TileGrid::convertMoveToPacket()
         s = "B";
     }
     paketti << suggestedCoords.x << suggestedCoords.y << selectedCoords.x << selectedCoords.y << s;
-    std::cout << "filling the paketti with: " << suggestedCoords.x << " and " << suggestedCoords.y << " and " << selectedCoords.x << " and " << selectedCoords.y << " and " << s << "\n";
     return paketti;
 }
 
@@ -178,15 +175,10 @@ void TileGrid::placeMove(sf::Packet paketti)
     int x1, y1, x2, y2;
     std::string s;
     paketti >> x2 >> y2 >> x1 >> y1 >> s;
-
-    std::cout << "from inside the paketti, reading it as: " << x1 << " and " << y1 << " and " << x2 << " and " << y2 << " and " << s << "\n";
-
     x1 = 5 - x1;
     y1 = 5 - y1;
     x2 = 5 - x2;
     y2 = 5 - y2;
-
-    std::cout << "after transforming from inside the paketti, reading it as: " << x1 << " and " << y1 << " and " << x2 << " and " << y2 << " and " << s << "\n";
 
     if (grid.at(y2).at(x2).ghostState == GOOD)
     {
@@ -200,18 +192,15 @@ void TileGrid::placeMove(sf::Packet paketti)
     if (s == "G")
     {
         grid.at(y2).at(x2).ghostState = GOOD;
-        std::cout << "\n\ngood good good\n\n\n";
     }
     else if (s == "B")
     {
         grid.at(y2).at(x2).ghostState = BAD;
-        std::cout << "\n\nbääääääääääääääääd\n\n\n";
     }
     else
     {
         std::cout << "soemthings wrong with the packet\n";
     }
-    std::cout << "just before setting the player and ghost states from inside the paketti, reading it as: " << x1 << " and " << y1 << " and " << x2 << " and " << y2 << " and " << s << "\n";
     grid.at(y2).at(x2).playerState = TWO;
     grid.at(y1).at(x1).playerState = NEITHER;
     grid.at(y1).at(x1).ghostState = NONE;

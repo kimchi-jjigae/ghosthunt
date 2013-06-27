@@ -11,6 +11,7 @@ class Renderer
         void render(bool host, bool turn, int mouseX, int mouseY);
         void renderSetup(bool host, int mouseX, int mouseY);
         void renderText(std::string& string);
+        void drawLastMove();
         int getTileSize();
         int getBorderSizeX();
         int getBorderSizeY();
@@ -21,7 +22,7 @@ class Renderer
         void drawSetupDungeons(int i, int j, int mouseTileX, int mouseTileY);
         void drawGhosts(int i, int j);
 
-        int borderSizeX = 50;
+        int borderSizeX = 150;
         int borderSizeY = 50;
         int tileSize = 100;
         int iter = 0;
@@ -41,4 +42,5 @@ class Renderer
 
         sf::Font font;
         sf::Text text;
+        sf::Text text2;
 };

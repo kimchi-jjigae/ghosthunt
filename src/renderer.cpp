@@ -22,6 +22,8 @@ Renderer::Renderer(sf::RenderWindow& w, TileGrid& g) : window(w), grid(g)
     font.loadFromFile("data/acmesab.TTF");
     text.setFont(font);
     text.setColor(sf::Color(100,100,255));
+    text.setFont(font);
+    text.setColor(sf::Color(100,100,255));
 }
 
 int Renderer::getTileSize()
@@ -55,7 +57,7 @@ void Renderer::render(bool host, bool turn, int mouseX, int mouseY)
             int x = i * tileSize;
             int y = j * tileSize;
             int mouseTileX = (mouseX - window.getPosition().x - borderSizeX) / tileSize;  // need to truncate, not round these up
-            int mouseTileY = (mouseY - window.getPosition().y - borderSizeX) / tileSize;
+            int mouseTileY = (mouseY - window.getPosition().y - borderSizeY) / tileSize;
 
             drawGameplayDungeons(i, j, mouseTileX, mouseTileY);
             drawGhosts(i, j);
@@ -223,4 +225,18 @@ void Renderer::drawTextAtTop(std::string s)
     int height = (text.getGlobalBounds().height);
     text.setPosition(3 * tileSize - centre + borderSizeX, (borderSizeY - height)/2);
     window.draw(text);
+}
+
+void Renderer::drawLastMove()
+{
+    std::string s;
+    s = "bajs";
+    text2.setString(s);
+    text2.setCharacterSize(25);
+    int centre = (text.getGlobalBounds().width)/2;
+    int height = (text.getGlobalBounds().height);
+    //text.setPosition(3 * tileSize - centre + borderSizeX, 6 * tileSize + (borderSizeY - height)/2);
+    text.setPosition(3 * tileSize - centre + borderSizeX, (borderSizeY - height)/2);
+    window.draw(text);
+    std::cout << "hej\n";
 }
