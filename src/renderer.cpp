@@ -221,6 +221,6 @@ void Renderer::drawTextAtTop(std::string s)
     text.setCharacterSize(25);
     int centre = (text.getGlobalBounds().width)/2;
     int height = (text.getGlobalBounds().height);
-    text.setPosition(3 * tileSize - centre + borderSizeX, (height + borderSizeY)/2); //fix this!
+    text.setPosition(3 * tileSize - centre + borderSizeX, (borderSizeY - height)/2);
     window.draw(text);
 }
