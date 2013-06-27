@@ -63,16 +63,16 @@ void Renderer::render(bool host, bool turn, int mouseX, int mouseY)
     }
     if (iter < 360 + 180)       // make this independent of the other render function :O maybe when you mix them
     {
-        drawTextInCentre("The game begins now!");
+        drawTextAtTop("The game begins now!");
         iter++;
     }
     else if (turn)
     {
-        drawTextInCentre("Your move.");
+        drawTextAtTop("Your move.");
     }
     else if (!turn)
     {
-        drawTextInCentre("Waiting for the other player.");
+        drawTextAtTop("Waiting for the other player.");
     }
 
     window.display();
@@ -96,12 +96,12 @@ void Renderer::renderSetup(bool host, int mouseX, int mouseY)
     }
     if (iter < 180)
     {
-        drawTextInCentre("Position your ghosts...");
+        drawTextAtTop("Position your ghosts...");
         iter++;
     }
     else if (iter < 360)
     {
-        drawTextInCentre("...press K when you are ready!");
+        drawTextAtTop("...press K when you are ready!");
         iter++;
     }
 
@@ -215,12 +215,12 @@ void Renderer::drawGhosts(int i, int j)
     }
 }
 
-void Renderer::drawTextInCentre(std::string s)
+void Renderer::drawTextAtTop(std::string s)
 {
     text.setString(s);
     text.setCharacterSize(25);
     int centre = (text.getGlobalBounds().width)/2;
     int height = (text.getGlobalBounds().height);
-    text.setPosition(3 * tileSize - centre + borderSizeX, 3 * tileSize - 50 + borderSizeY);
+    text.setPosition(3 * tileSize - centre + borderSizeX, (height + borderSizeY)/2); //fix this!
     window.draw(text);
 }

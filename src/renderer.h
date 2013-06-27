@@ -16,7 +16,7 @@ class Renderer
         int getBorderSizeY();
 
     private:
-        void drawTextInCentre(std::string s);
+        void drawTextAtTop(std::string s);
         void drawGameplayDungeons(int i, int j, int mouseTileX, int mouseTileY);
         void drawSetupDungeons(int i, int j, int mouseTileX, int mouseTileY);
         void drawGhosts(int i, int j);
