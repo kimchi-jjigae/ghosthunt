@@ -2,7 +2,12 @@
 
 Renderer::Renderer(sf::RenderWindow& w, TileGrid& g) : window(w), grid(g)
 {
+    windbreeze::OpenGLTextureCreator creator;
+    sf::Image dungeonTexture;
     dungeonTexture.loadFromFile("data/dungeon.png");
+
+    textureManager.addTexture("dungeonTexture", creator.createTexture(dungeonTexture.getPixelsPtr(), 100, 100)); // texture ready to be used now! ^_^
+
     dungeonSprite.setTexture(dungeonTexture);
     dungeonSelectedSprite.setTexture(dungeonTexture);
     dungeonReadySprite.setTexture(dungeonTexture);

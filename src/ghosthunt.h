@@ -1,10 +1,7 @@
-#include <framework/application/application.h>
-#include <framework/input/inputhandler.h>
-#include <framework/util/sfml/sfmlinputbackend.h>
-#include <framework/input/actionhandler.h>
-#include <framework/window/window.h>
-#include <framework/util/sfml/sfmlwindowbackend.h>
-#include <framework/application/gamestatemachine.h>
+#include <framework/structure.h>
+#include <framework/userinterface.h>
+#include <framework/util/input/sfmlinputbackend.h>
+#include <framework/util/input/sfmlwindowbackend.h>
 #include <SFML/Graphics.hpp>
 #include "sfgui.h"
 #include "renderer.h"

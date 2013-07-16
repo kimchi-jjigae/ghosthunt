@@ -3,9 +3,13 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "tile.h"
+#include <framework/render2d.h>
+#include <framework/render2dutil.h>
+
 
 class Renderer
 {
+    /*
     public:
         Renderer(sf::RenderWindow& w, TileGrid& g);
         void render(bool host, bool turn, int mouseX, int mouseY);
@@ -15,6 +19,9 @@ class Renderer
         int getTileSize();
         int getBorderSizeX();
         int getBorderSizeY();
+        */
+
+    public:
 
     private:
         void drawTextAtTop(std::string s);
@@ -31,16 +38,24 @@ class Renderer
         Tile currentTile;
         
         sf::Texture dungeonTexture;
-        sf::Sprite dungeonSprite;
-        sf::Sprite dungeonSelectedSprite;
-        sf::Sprite dungeonReadySprite;
-        sf::Sprite dungeonMouseSprite;
+        windbreeze::AnimatedQuad dungeonTile(100, 100);
+        windbreeze::AnimatedQuad dungeonSelectedTile;
+        windbreeze::AnimatedQuad dungeonReadyTile;
+        windbreeze::AnimatedQuad dungeonMouseTile;
         sf::Texture ghostTexture;
-        sf::Sprite ghostSpriteUnknown;
-        sf::Sprite ghostSpriteGood;
-        sf::Sprite ghostSpriteBad;
+        windbreeze::AnimatedQuad ghostSpriteUnknown;
+        windbreeze::AnimatedQuad ghostSpriteGood;
+        windbreeze::AnimatedQuad ghostSpriteBad;
 
         sf::Font font;
         sf::Text text;
         sf::Text text2;
+
+    private:
+        windbreeze::TextureManager<windbreeze::OpenGLTexture> textureManager;
+        windbreeze::OpenGL2DBackend glBackend{textureManager};
+        Renderer2D{glBackend, windbreeze::Viewport(800, 800)};
+
+
+
 };
