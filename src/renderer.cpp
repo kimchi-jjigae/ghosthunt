@@ -1,29 +1,37 @@
 #include "renderer.h"
 
+const int dungeonTextX = 400;
+const int dungeonTextY = 100;
+const int dungeonTextNumber = 4;
+const int ghostTextX = 300;
+const int ghostTextY = 100;
+const int ghostTextNumber = 3;
+
 Renderer::Renderer(sf::RenderWindow& w, TileGrid& g) : window(w), grid(g)
 {
     windbreeze::OpenGLTextureCreator creator;
     sf::Image dungeonTexture;
     dungeonTexture.loadFromFile("data/dungeon.png");
-
-    textureManager.addTexture("dungeonTexture", creator.createTexture(dungeonTexture.getPixelsPtr(), 100, 100)); // texture ready to be used now! ^_^
-
-    dungeonSprite.setTexture(dungeonTexture);
-    dungeonSelectedSprite.setTexture(dungeonTexture);
-    dungeonReadySprite.setTexture(dungeonTexture);
-    dungeonMouseSprite.setTexture(dungeonTexture);
-    dungeonSprite.setTextureRect(sf::IntRect(0, 0, 100, 100));
-    dungeonSelectedSprite.setTextureRect(sf::IntRect(100, 0, 100, 100));
-    dungeonReadySprite.setTextureRect(sf::IntRect(200, 0, 100, 100));
-    dungeonMouseSprite.setTextureRect(sf::IntRect(300, 0, 100, 100));
-    
+    sf::Image ghostTexture;
     ghostTexture.loadFromFile("data/ghost.png");
-    ghostSpriteUnknown.setTexture(ghostTexture);
-    ghostSpriteGood.setTexture(ghostTexture);
-    ghostSpriteBad.setTexture(ghostTexture);
-    ghostSpriteUnknown.setTextureRect(sf::IntRect(0, 0, 100, 100));
-    ghostSpriteGood.setTextureRect(sf::IntRect(100, 0, 100, 100));
-    ghostSpriteBad.setTextureRect(sf::IntRect(200, 0, 100, 100));
+    textureManager.addTexture("dungeonTexture", creator.createTexture(dungeonTexture.getPixelsPtr(), dungeonTextX, dungeonTextY)); // texture ready to be used now! ^_^
+    textureManager.addTexture("ghostTexture", creator.createTexture(dungeonTexture.getPixelsPtr(), ghostTextX, ghostTextY)); // texture ready to be used now! ^_^
+    
+    dungeonSprite.setTexture("dungeonTexture");
+    dungeonSelectedSprite.setTexture("dungeonTexture");
+    dungeonReadySprite.setTexture("dungeonTexture");
+    dungeonMouseSprite.setTexture("dungeonTexture");
+    dungeonSprite.setSubrect(glm::vec2((0*(dungeonTextX/dungeonTextNumber)), 0.0f), glm::vec2((1*(dungeonTextX/dungeonTextNumber)), 1.0f));
+    dungeonSelectedSprite.setSubrect(glm::vec2((1*(dungeonTextX/dungeonTextNumber)), 0.0f), glm::vec2((2*(dungeonTextX/dungeonTextNumber)), 1.0f));
+    dungeonReadySprite.setSubrect(glm::vec2((2*(dungeonTextX/dungeonTextNumber)), 0.0f), glm::vec2((3*(dungeonTextX/dungeonTextNumber)), 1.0f));
+    dungeonMouseSprite.setSubrect(glm::vec2((3*(dungeonTextX/dungeonTextNumber)), 0.0f), glm::vec2((4*(dungeonTextX/dungeonTextNumber)), 1.0f));
+    
+    ghostSpriteUnknown.setTexture("ghostTexture");
+    ghostSpriteGood.setTexture("ghostTexture");
+    ghostSpriteBad.setTexture("ghostTexture");
+    ghostSpriteUnknown.setTextureRect(glm::vec2((0*(ghostTextX/ghostTextNumber)), 0.0f), glm::vec2((1*(dungeonTextX/ghostTextNumber)), 1.0f));
+    ghostSpriteGood.setTextureRect(glm::vec2((1*(ghostTextX/ghostTextNumber)), 0.0f), glm::vec2((2*(dungeonTextX/ghostTextNumber)), 1.0f));
+    ghostSpriteBad.setTextureRect(glm::vec2((2*(ghostTextX/ghostTextNumber)), 0.0f), glm::vec2((3*(dungeonTextX/ghostTextNumber)), 1.0f));
     font.loadFromFile("data/acmesab.TTF");
     text.setFont(font);
     text.setColor(sf::Color(100,100,255));

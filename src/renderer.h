@@ -36,16 +36,6 @@ class Renderer
         sf::RenderWindow& window;
         TileGrid& grid;
         Tile currentTile;
-        
-        sf::Texture dungeonTexture;
-        windbreeze::AnimatedQuad dungeonTile(100, 100);
-        windbreeze::AnimatedQuad dungeonSelectedTile;
-        windbreeze::AnimatedQuad dungeonReadyTile;
-        windbreeze::AnimatedQuad dungeonMouseTile;
-        sf::Texture ghostTexture;
-        windbreeze::AnimatedQuad ghostSpriteUnknown;
-        windbreeze::AnimatedQuad ghostSpriteGood;
-        windbreeze::AnimatedQuad ghostSpriteBad;
 
         sf::Font font;
         sf::Text text;
@@ -56,6 +46,13 @@ class Renderer
         windbreeze::OpenGL2DBackend glBackend{textureManager};
         Renderer2D{glBackend, windbreeze::Viewport(800, 800)};
 
+        windbreeze::SubRectQuad dungeonTile{100, 100};
+        windbreeze::SubRectQuad dungeonSelectedTile{100, 100};
+        windbreeze::SubRectQuad dungeonReadyTile{100, 100};
+        windbreeze::SubRectQuad dungeonMouseTile{100, 100};
+        windbreeze::SubRectQuad ghostSpriteUnknown{100, 100};
+        windbreeze::SubRectQuad ghostSpriteGood{100, 100};
+        windbreeze::SubRectQuad ghostSpriteBad{100, 100};
 
 
 };
