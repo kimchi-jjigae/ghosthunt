@@ -1,7 +1,7 @@
-#include <framework/structure.h>
-#include <framework/userinterface.h>
-#include <framework/util/input/sfmlinputbackend.h>
-#include <framework/util/input/sfmlwindowbackend.h>
+#include <featherkit/structure.h>
+#include <featherkit/userinterface.h>
+#include <featherkit/util/input/sfml/sfmlinputbackend.h>
+#include <featherkit/util/window/sfml/sfmlwindowbackend.h>
 #include <SFML/Graphics.hpp>
 //#include "sfgui.h"
 #include "renderer.h"

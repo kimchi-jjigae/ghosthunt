@@ -1,10 +1,10 @@
 // merge render functions
 #pragma once
 #include <iostream>
-#include <SFML/Graphics.hpp>
+//#include <SFML/Graphics.hpp>
 #include "tile.h"
-#include <framework/render2d.h>
-#include <framework/render2dutil.h>
+#include <featherkit/render2d.h>
+#include <featherkit/render2dutil.h>
 
 
 class Renderer

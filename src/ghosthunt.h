@@ -1,7 +1,7 @@
-#include <framework/structure.h>
-#include <framework/userinterface.h>
-#include <framework/util/input/sfmlinputbackend.h>
-#include <framework/util/input/sfmlwindowbackend.h>
+#include <featherkit/structure.h>
+#include <featherkit/userinterface.h>
+#include <featherkit/render2d.h>
+#include <featherkit/render2dutil.h>
 #include <SFML/Graphics.hpp>
 #include "sfgui.h"
 #include "renderer.h"
@@ -16,17 +16,17 @@ class GhostHunt : public windstorm::Application
         void destroy() override; 
         void loop() override;
     private:
-        windstorm::GameStateMachine stateMachine;
+        fea::GameStateMachine stateMachine;
         Renderer renderer = Renderer(sfWindow, grid);
         Networker networker;
         TileGrid grid;
         Clicky clicky;
 
         sf::RenderWindow sfWindow;
-        windbreeze::SFMLWindowBackend sfmlWindowBackend = sfWindow;
-        windbreeze::Window window = sfmlWindowBackend;
+        fea::SFMLWindowBackend sfmlWindowBackend = sfWindow;
+        wfea::Window window = sfmlWindowBackend;
 
-        windbreeze::SFMLInputBackend sfmlInputBackend = sfWindow;
-        windbreeze::InputHandler inputHandler = sfmlInputBackend;
-        windbreeze::ActionHandler<std::string> actionHandler;
+        fea::SFMLInputBackend sfmlInputBackend = sfWindow;
+        fea::InputHandler inputHandler = sfmlInputBackend;
+        fea::ActionHandler<std::string> actionHandler;
 };
